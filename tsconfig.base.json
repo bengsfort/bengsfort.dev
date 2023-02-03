@@ -1,0 +1,30 @@
+{
+  "exclude": [
+    "**/node_modules",
+    "**/build",
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "baseUrl": "packages/",
+    "outDir": "build/",
+    "moduleResolution": "Node",
+    "typeRoots": [
+      "node_modules/@types",
+      "types"
+    ],
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "build/",
+    "isolatedModules": true,
+    "strict": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+  },
+}

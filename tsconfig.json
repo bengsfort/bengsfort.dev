@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "./packages/server/**/*.ts",
+    "./packages/app/**/*.ts",
+  ],
+  "compilerOptions": {
+    "paths": {
+      "@bengsfort.dev/app": [
+        "./packages/app/src"
+      ],
+      "@bengsfort.dev/server": [
+        "./packages/server",
+      ]
+    }
+  }
+}

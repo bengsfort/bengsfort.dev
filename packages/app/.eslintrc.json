@@ -1,10 +1,10 @@
 {
   "extends": [
-      "../../.eslintrc.js"
+    "../../.eslintrc.js"
   ],
   "settings": {
-      "import/resolver": {
-          "typescript": {}
-      }
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }

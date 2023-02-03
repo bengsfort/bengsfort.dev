@@ -1,0 +1,24 @@
+{
+    "folders": [
+        {
+            "name": "App",
+            "path": "./packages/app"
+        },
+        {
+            "name": "Server",
+            "path": "./packages/server"
+        },
+        {
+            "name": "ESBuild",
+            "path": "./tools/esbuild"
+        },
+        {
+            "name": "Eslint Config",
+            "path": "./tools/eslint-config"
+        },
+        {
+            "name": "Workspace",
+            "path": "."
+        },
+    ]
+}
