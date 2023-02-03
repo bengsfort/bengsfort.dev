@@ -1,0 +1,21 @@
+{
+  "name": "@bengsfort.dev/eslint-config",
+  "packageManager": "yarn@3.2.0",
+  "main": "./.eslintrc.js",
+  "peerDependencies": {
+    "eslint": "^8.33.0"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "@yarnpkg/eslint-config": "^1.0.0-rc.37",
+    "eslint": "^8.33.0",
+    "eslint-import-resolver-typescript": "^3.5.3"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8"
+  },
+  "engines": {
+    "node": ">=16.3.0"
+  }
+}

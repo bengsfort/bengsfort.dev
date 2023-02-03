@@ -5,5 +5,16 @@
   "workspaces": [
     "packages/*",
     "tools/*"
-  ]
+  ],
+  "devDependencies": {
+    "@bengsfort.dev/eslint-config": "workspace:^",
+    "@types/eslint": "^8",
+    "eslint": "^8.33.0"
+  },
+  "scripts": {
+    "lint": "yarn workspaces foreach -pt run lint"
+  },
+  "engines": {
+    "node": ">=16.3.0"
+  }
 }

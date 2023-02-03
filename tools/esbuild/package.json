@@ -1,4 +1,7 @@
 {
-  "name": "esbuild",
-  "packageManager": "yarn@3.2.0"
+  "name": "@bengsfort.dev/esbuild",
+  "packageManager": "yarn@3.2.0",
+  "engines": {
+    "node": ">=16.3.0"
+  }
 }

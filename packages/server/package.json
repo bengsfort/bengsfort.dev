@@ -1,4 +1,10 @@
 {
-  "name": "server",
-  "packageManager": "yarn@3.2.0"
+  "name": "@bengsfort.dev/server",
+  "packageManager": "yarn@3.2.0",
+  "scripts": {
+    "lint": "../../node_modules/.bin/eslint ./src --fix"
+  },
+  "engines": {
+    "node": ">=16.3.0"
+  }
 }
