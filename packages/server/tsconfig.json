@@ -11,6 +11,10 @@
         "../app"
       ]
     },
+    "typeRoots": [
+      "../../node_modules/types",
+      "./src/types",
+    ],
     "rootDir": "src",
     "outDir": "build",
     "baseUrl": "./src",

@@ -11,6 +11,10 @@
       "DOM.Iterable",
       "ESNext",
     ],
+    "typeRoots": [
+      "../../node_modules/types",
+      "./src/types",
+    ],
     // CSS Modules
     "plugins": [
       {
