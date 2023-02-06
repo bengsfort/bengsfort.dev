@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "include": [
     "./packages/server/**/*.ts",
-    "./packages/app/**/*.ts",
+    "./packages/app/**/*.{ts|tsx}",
   ],
   "compilerOptions": {
     "paths": {

@@ -1,1 +1,1 @@
-// placeholder
+export {App} from './App';

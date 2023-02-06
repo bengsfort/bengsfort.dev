@@ -1,8 +1,5 @@
 {
   "extends": "../../tsconfig.base.json",
-  "exclude": [
-    "./jest.config.ts",
-  ],
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
@@ -14,5 +11,20 @@
       "DOM.Iterable",
       "ESNext",
     ],
+    // CSS Modules
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "classnameTransform": "camelCase",
+          "postcssOptions": {
+            "useConfig": true,
+          },
+        },
+      },
+    ],
+    // Preact JSX
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
   },
 }
