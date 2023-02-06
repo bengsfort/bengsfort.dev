@@ -20,5 +20,23 @@
             "name": "Workspace",
             "path": "."
         },
-    ]
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+        },
+        "[typescript]": {
+            "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        },
+        "[typescriptreact]": {
+            "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        },
+        "eslint.workingDirectories": [
+            "./packages/app",
+            "./packages/server",
+            "./tools/eslint-config",
+            "./tools/esbuild"
+        ]
+    }
 }
