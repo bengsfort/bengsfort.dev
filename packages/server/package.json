@@ -2,9 +2,12 @@
   "name": "@bengsfort.dev/server",
   "packageManager": "yarn@3.2.0",
   "scripts": {
-    "lint": "../../node_modules/.bin/eslint ./src --fix"
+    "lint": "eslint ./src --fix"
   },
   "engines": {
     "node": ">=16.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0"
   }
 }

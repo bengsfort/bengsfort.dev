@@ -10,7 +10,8 @@
     "@typescript-eslint/parser": "^5.50.0",
     "@yarnpkg/eslint-config": "^1.0.0-rc.37",
     "eslint": "^8.33.0",
-    "eslint-import-resolver-typescript": "^3.5.3"
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5"
   },
   "devDependencies": {
     "@types/eslint": "^8"
