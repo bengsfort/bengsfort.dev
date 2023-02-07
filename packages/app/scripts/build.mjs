@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import * as esbuild       from '@bengsfort.dev/esbuild';
+import {html}             from '@esbuilder/html';
 
 import {cssModulesPlugin} from './plugins/postcss-modules-plugin.mjs';
 
@@ -9,12 +10,11 @@ import {fileURLToPath}    from 'node:url';
 
 const CURRENT_MODULE_PATH = fileURLToPath(import.meta.url);
 
-export const buildUI = isWatch => {
+export const buildUI = (watchMode, entryPoints, outdir, tsconfigPath = `tsconfig.json`) => {
   return esbuild.build({
-    outdir: `build/`,
-    entryPoints: [
-      `./src/index.ts`,
-    ],
+    outdir,
+    entryPoints,
+    tsconfig: tsconfigPath,
 
     // Browser settings
     format: `iife`,
@@ -44,20 +44,10 @@ export const buildUI = isWatch => {
 
     // Plugins
     plugins: [
+      html({
+        entryNames: `assets/[name]`,
+      }),
       cssModulesPlugin([]),
     ],
-  }, {isWatch, name: `UI`});
+  }, {watchMode, name: `UI`});
 };
-
-/**
- * Usage:
- * Placed in ./scripts/build.mjs
- * node ./scripts/build.mjs [--watch]
- * --watch: Enable watch mode
- */
-
-// Parse args
-const [...args] = process.argv.slice(2);
-const isWatchMode = args.includes(`--watch`);
-
-buildUI(isWatchMode);

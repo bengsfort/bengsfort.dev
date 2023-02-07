@@ -1,7 +1,16 @@
-import styles from './App.module.css';
+import {FunctionComponent} from 'preact';
 
-export function App() {
-  return (
-    <h1 className={styles.header}>Hello, world</h1>
-  );
+import styles              from './App.module.css';
+
+interface Props {
+  target?: string;
 }
+export const App: FunctionComponent<Props> = ({target}) => {
+  return (
+    <h1 className={styles.header}>Hello, {target}</h1>
+  );
+};
+// export function App({target = `world`}: Props): FunctionComponent<Props> {
+//   return (
+//   );
+// }
