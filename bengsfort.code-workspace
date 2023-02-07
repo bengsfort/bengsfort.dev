@@ -37,6 +37,6 @@
             "./packages/server",
             "./tools/eslint-config",
             "./tools/esbuild"
-        ]
+        ],
     }
 }
