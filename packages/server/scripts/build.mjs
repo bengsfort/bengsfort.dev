@@ -21,6 +21,11 @@ export const buildApp = watchMode => {
     external: [],
 
     // Plugins
-    plugins: [],
+    plugins: [
+      // @todo: Custom plugin that will transform any import from @bengsfort.dev/app
+      // into an object containing the component, but also all of the css modules
+      // within the tree so that we can inject them into the DOM before sending SSR'd
+      // markup back to the browser.
+    ],
   }, {watchMode, name: `Server`});
 };
