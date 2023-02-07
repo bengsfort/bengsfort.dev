@@ -1,4 +1,6 @@
-import esbuild from 'esbuild';
+import * as esbuild    from 'esbuild';
+
+import {buildReporter} from './plugins/reporter.mjs';
 
 export const build = async (options, {watchMode = false, name = ``}) => {
   const measureStartId = `${name}-start`;
@@ -7,43 +9,32 @@ export const build = async (options, {watchMode = false, name = ``}) => {
 
   performance.mark(measureStartId);
 
-  const result = await esbuild.build({
+  /** @type {import('esbuild').BuildOptions} */
+  const opts = {
     // General
     outdir: `build/`,
     bundle: true,
     minify: !watchMode,
     sourcemap: true,
     assetNames: `[name]`,
+
     // Package specific
     ...options,
-    ...(watchMode && {
-      watch: {
-        onRebuild(err, result) {
-          if (err) {
-            console.error(`${name} errored:`, err);
-          } else {
-            console.log(`${name} Incremental rebuild complete (${result.warnings.length} warnings)`);
-          }
-        },
-      },
-    }),
+    plugins: [
+      buildReporter(name),
+      ...options.plugins,
+    ],
+  };
+
+  if (!watchMode) {
+    await esbuild.build(opts);
+    return;
+  }
+
+  const ctx = await esbuild.context({
+    ...opts,
   });
-  performance.mark(measureEndId);
-  const measurements = performance.measure(
-    measureTimingId,
-    measureStartId,
-    measureEndId);
 
-  if (result.errors.length > 0)
-    console.error(
-      `There were errors in ${name} during bundling:`,
-      result.errors);
-  else
-    console.log(
-      watchMode
-        ? `Found 0 errors. Watching for ${name} file changes.`
-        : `${name} build complete. (completed after ${measurements.duration.toFixed(2)}ms)`);
-
-
-  return result;
+  await ctx.watch();
+  console.log(`Waiting for ${name} changes...`);
 };
