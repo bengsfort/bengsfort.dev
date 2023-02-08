@@ -1,4 +1,3 @@
-import fs                                              from 'node:fs/promises';
 import express                                         from 'express';
 import {clearSsrCache, getCacheSize, renderPreactPage} from 'ssr/renderPreact';
 import {App}                                           from '@bengsfort.dev/app';

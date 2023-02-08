@@ -13,6 +13,10 @@
             "path": "./tools/esbuild"
         },
         {
+            "name": "ESBuild Plugins",
+            "path": "./tools/esbuild-plugins"
+        },
+        {
             "name": "Eslint Config",
             "path": "./tools/eslint-config"
         },

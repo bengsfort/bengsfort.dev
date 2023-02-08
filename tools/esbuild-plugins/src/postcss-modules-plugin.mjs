@@ -2,8 +2,12 @@
  * Modified from https://github.com/indooorsman/esbuild-css-modules-plugin
  * This adds support to provide other postcss plugins to postcss.
  *
- * Esbuild has plans to add css module support https://github.com/evanw/esbuild/issues/20,
- * once that lands this plugin is not needed anymore.
+ * This is additionally a modification of the modification in the App proj,
+ * where the key difference is we don't inject any auto-injection code into
+ * the content that gets cached within esbuild, which allows us to expose
+ * the underlying CSS.
+ *
+ * This may not be the best solution, but it works for now to limit the underlying issue.
  */
 import crypto     from 'node:crypto';
 import fs         from 'fs-extra';
@@ -19,7 +23,7 @@ const writeFile = util.promisify(fs.writeFile);
 const ensureDir = util.promisify(fs.ensureDir);
 const pluginNamespace = `esbuild-postcss-modules-namespace`;
 
-const buildCssModulesJS = async (cssFullPath, plugins = []) => {
+const buildCssModulesJS = async (cssFullPath, plugins = [], isNode = false) => {
   const css = await readFile(cssFullPath);
 
   let cssModulesJSON = {};
@@ -41,7 +45,7 @@ const buildCssModulesJS = async (cssFullPath, plugins = []) => {
   hash.update(cssFullPath);
   const digest = hash.copy().digest(`hex`);
 
-  const injectedCode =  `
+  const injectedCode = `
     (function() {
       if (!document.getElementById(digest)) {
         var el = document.createElement('style');
@@ -54,7 +58,7 @@ const buildCssModulesJS = async (cssFullPath, plugins = []) => {
   const jsContent = `
     const digest = '${digest}';
     const css = \`${result.css}\`;
-    ${injectedCode}
+    ${!isNode ? injectedCode : ``}
     export default ${classNames};
     export { css, digest };
   `;
@@ -65,8 +69,12 @@ const buildCssModulesJS = async (cssFullPath, plugins = []) => {
   };
 };
 
-const onResolveFactory = (build, plugins) => async args => {
-  const {outdir, bundle} = build.initialOptions;
+const onResolveFactory = (
+  /** @type {import('esbuild').PluginBuild} */
+  build,
+  plugins,
+) => async args => {
+  const {outdir, bundle, target} = build.initialOptions;
   const rootDir = process.cwd();
   const tmpDirPath = tmp.dirSync().name;
   const sourceFullPath = path.resolve(args.resolveDir, args.path);
@@ -78,7 +86,7 @@ const onResolveFactory = (build, plugins) => async args => {
   await ensureDir(tmpDir);
   const tmpFilePath = path.resolve(tmpDir, `${sourceBaseName}.css`);
 
-  const {jsContent} = await buildCssModulesJS(sourceFullPath, plugins);
+  const {jsContent} = await buildCssModulesJS(sourceFullPath, plugins, target === `node`);
 
   await writeFile(`${tmpFilePath}.js`, jsContent, {encoding: `utf-8`});
 
@@ -123,6 +131,7 @@ const onLoadFactory = () => args => {
 };
 
 
+/** @returns {import('esbuild').Plugin} */
 export const cssModulesPlugin = (plugins = []) => ({
   name: `postcss-modules`,
   setup: async build => {

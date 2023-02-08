@@ -2,9 +2,7 @@
 
 import * as esbuild       from '@bengsfort.dev/esbuild';
 import {html}             from '@esbuilder/html';
-
-import {cssModulesPlugin} from './plugins/postcss-modules-plugin.mjs';
-
+import {cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
 import path               from 'node:path';
 import {fileURLToPath}    from 'node:url';
 

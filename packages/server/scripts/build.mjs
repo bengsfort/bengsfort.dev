@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import * as esbuild       from '@bengsfort.dev/esbuild';
-
-import {exposeCssModules} from './plugins/ssr-expose-css-modules.mjs';
-import {cssModulesPlugin} from './plugins/ssr-postcss-modules-plugin.mjs';
+import * as esbuild                         from '@bengsfort.dev/esbuild';
+import {exposeCssModules, cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
 
 export const buildApp = watchMode => {
   return esbuild.build({
