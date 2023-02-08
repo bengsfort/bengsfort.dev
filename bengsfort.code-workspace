@@ -13,12 +13,38 @@
             "path": "./tools/esbuild"
         },
         {
+            "name": "ESBuild Plugins",
+            "path": "./tools/esbuild-plugins"
+        },
+        {
             "name": "Eslint Config",
             "path": "./tools/eslint-config"
+        },
+        {
+            "name": "PostCSS",
+            "path": "./tools/postcss"
         },
         {
             "name": "Workspace",
             "path": "."
         },
-    ]
+    ],
+    "settings": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+        },
+        "[typescript]": {
+            "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        },
+        "[typescriptreact]": {
+            "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+        },
+        "eslint.workingDirectories": [
+            "./packages/app",
+            "./packages/server",
+            "./tools/eslint-config",
+            "./tools/esbuild"
+        ],
+    }
 }

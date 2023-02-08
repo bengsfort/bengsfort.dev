@@ -1,9 +1,8 @@
 {
-  "name": "@bengsfort.dev/esbuild",
+  "name": "@bengsfort.dev/esbuild-plugins",
   "packageManager": "yarn@3.2.0",
   "type": "module",
   "main": "./src/index.mjs",
-  "types": "./src/types.d.ts",
   "engines": {
     "node": ">=16.3.0"
   },
@@ -11,9 +10,15 @@
     "lint": "eslint ./src/** --fix --ext .mjs"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/tmp": "^0.2.3",
     "eslint": "^8.33.0"
   },
   "dependencies": {
-    "esbuild": "^0.17.6"
+    "esbuild": "^0.17.6",
+    "fs-extra": "^11.1.0",
+    "postcss": "^8.4.21",
+    "postcss-modules": "^6.0.0",
+    "tmp": "^0.2.1"
   }
 }

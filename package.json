@@ -8,7 +8,7 @@
   ],
   "devDependencies": {
     "@bengsfort.dev/eslint-config": "workspace:^",
-    "@types/eslint": "^8",
+    "@types/eslint": "^8.21.0",
     "eslint": "^8.33.0",
     "typescript": "^4.9.5"
   },

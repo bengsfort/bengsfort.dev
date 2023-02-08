@@ -1,11 +1,24 @@
 {
   "extends": "../../tsconfig.base.json",
+  "references": [
+    {
+      "path": "../app"
+    }
+  ],
+  "include": [
+    "./src/ui/*",
+  ],
   "compilerOptions": {
+    "paths": {
+      "@bengsfort.dev/app": [
+        "../app"
+      ]
+    },
     "composite": true,
-    "rootDir": "src",
-    "outDir": "build",
-    "baseUrl": "./src",
-    "declarationDir": "build",
+    "rootDir": "src/ui",
+    "outDir": "build/bundle",
+    "baseUrl": "src/ui",
+    "declarationDir": "build/bundle",
     "lib": [
       "DOM",
       "DOM.Iterable",
