@@ -14,4 +14,14 @@
  * }
  */
 
-declare module '*.module.css';
+declare module '*.module.css' {
+  // Main usage
+  const classes: { [key: string]: string };
+  export default classes;
+
+  // These get injected by esbuild
+  // @see app/scripts/plugins/postcss-modules-plugin.mjs
+  // @see server/scripts/plugins/ssr-postcss-modules-plugin.mjs
+  export const css: string;
+  export const digest: string;
+}

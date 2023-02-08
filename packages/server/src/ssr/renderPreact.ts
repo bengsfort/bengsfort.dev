@@ -1,6 +1,6 @@
-import {render}                                                                      from 'preact-render-to-string';
-import {Attributes, ComponentType, createElement, ComponentProps, FunctionComponent} from 'preact';
-import {readFile}                                                                    from 'node:fs/promises';
+import {render}                                           from 'preact-render-to-string';
+import {createElement, ComponentProps, FunctionComponent} from 'preact';
+import {readFile}                                         from 'node:fs/promises';
 
 const INITIAL_STATE_TAG = `<!-- @__INITIAL_STATE__-->`;
 const SSR_RENDER_TAG = `<!-- @__SSR_RENDER__ -->`;

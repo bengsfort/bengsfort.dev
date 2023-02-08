@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import * as esbuild from '@bengsfort.dev/esbuild';
+import * as esbuild       from '@bengsfort.dev/esbuild';
+
+import {exposeCssModules} from './plugins/ssr-expose-css-modules.mjs';
+import {cssModulesPlugin} from './plugins/ssr-postcss-modules-plugin.mjs';
 
 export const buildApp = watchMode => {
   return esbuild.build({
@@ -26,6 +29,8 @@ export const buildApp = watchMode => {
       // into an object containing the component, but also all of the css modules
       // within the tree so that we can inject them into the DOM before sending SSR'd
       // markup back to the browser.
+      cssModulesPlugin([]),
+      exposeCssModules(),
     ],
   }, {watchMode, name: `Server`});
 };
