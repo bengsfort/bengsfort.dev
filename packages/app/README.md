@@ -1,6 +1,6 @@
 # @bengsfort/app
 
-The app/ui code for [bengsfort.dev](https://bengsfort.dev).
+The app/ui code for [bengsfort.dev](https://bengsfort.dev). It is a pretty standard Preact app, and gets imported by @bengsfort.dev/server both in the actual server code during Server Side Rendering, as well as in it's bundle that gets served to the client. As such, this is sort of like a UI library but instead of providing a bunch of common components, provides the components that make up the app, and the server is the main consumer of it.
 
 ## Commands
 
