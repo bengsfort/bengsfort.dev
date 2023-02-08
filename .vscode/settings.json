@@ -2,6 +2,9 @@
   "typescript.format.enable": true,
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
+  "cssvar.files": [
+    "./packages/app/src/style/app.variables.css",
+  ],
   "[typescript]": {
     "editor.codeLens": true,
     "editor.suggest.showReferences": true,

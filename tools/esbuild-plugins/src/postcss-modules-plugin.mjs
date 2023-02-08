@@ -86,7 +86,7 @@ const onResolveFactory = (
   await ensureDir(tmpDir);
   const tmpFilePath = path.resolve(tmpDir, `${sourceBaseName}.css`);
 
-  const {jsContent} = await buildCssModulesJS(sourceFullPath, plugins, target === `node`);
+  const {jsContent} = await buildCssModulesJS(sourceFullPath, plugins, target.includes(`node`));
 
   await writeFile(`${tmpFilePath}.js`, jsContent, {encoding: `utf-8`});
 
