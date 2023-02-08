@@ -1,0 +1,5 @@
+{
+    "extends": [
+        "@bengsfort.dev/postcss/stylelint"
+    ]
+}

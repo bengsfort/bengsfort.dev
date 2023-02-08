@@ -2,6 +2,7 @@
 
 import * as esbuild                         from '@bengsfort.dev/esbuild';
 import {exposeCssModules, cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
+import {postcssPlugins}                     from '@bengsfort.dev/postcss';
 
 export const buildApp = watchMode => {
   return esbuild.build({
@@ -27,7 +28,9 @@ export const buildApp = watchMode => {
       // into an object containing the component, but also all of the css modules
       // within the tree so that we can inject them into the DOM before sending SSR'd
       // markup back to the browser.
-      cssModulesPlugin([]),
+      cssModulesPlugin([
+        ...postcssPlugins,
+      ]),
       exposeCssModules(),
     ],
   }, {watchMode, name: `Server`});

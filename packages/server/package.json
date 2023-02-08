@@ -2,7 +2,9 @@
   "name": "@bengsfort.dev/server",
   "packageManager": "yarn@3.2.0",
   "scripts": {
-    "lint": "eslint ./src --fix",
+    "lint": "yarn lint:ts && yarn lint:css",
+    "lint:ts": "eslint ./src --fix",
+    "lint:css": "stylelint './src/**/*.css' --fix",
     "clean": "rimraf ./build",
     "build": "node ./scripts/build-cli.mjs",
     "watch": "node ./scripts/build-cli.mjs --watch",
@@ -14,6 +16,7 @@
   "devDependencies": {
     "@bengsfort.dev/esbuild": "workspace:^",
     "@bengsfort.dev/esbuild-plugins": "workspace:^",
+    "@bengsfort.dev/postcss": "workspace:^",
     "@types/express": "^4.17.17",
     "eslint": "^8.33.0",
     "rimraf": "^4.1.2",

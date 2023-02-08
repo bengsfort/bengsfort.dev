@@ -3,6 +3,7 @@
 import * as esbuild       from '@bengsfort.dev/esbuild';
 import {html}             from '@esbuilder/html';
 import {cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
+import {postcssPlugins}   from '@bengsfort.dev/postcss';
 import path               from 'node:path';
 import {fileURLToPath}    from 'node:url';
 
@@ -45,7 +46,9 @@ export const buildUI = (watchMode, entryPoints, outdir, tsconfigPath = `tsconfig
       html({
         entryNames: `assets/[name]`,
       }),
-      cssModulesPlugin([]),
+      cssModulesPlugin([
+        ...postcssPlugins,
+      ]),
     ],
   }, {watchMode, name: `UI`});
 };

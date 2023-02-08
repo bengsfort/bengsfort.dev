@@ -21,6 +21,10 @@
             "path": "./tools/eslint-config"
         },
         {
+            "name": "PostCSS",
+            "path": "./tools/postcss"
+        },
+        {
             "name": "Workspace",
             "path": "."
         },
