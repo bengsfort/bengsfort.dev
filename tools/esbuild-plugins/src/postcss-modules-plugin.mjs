@@ -132,7 +132,10 @@ const onLoadFactory = () => args => {
 
 
 /** @returns {import('esbuild').Plugin} */
-export const cssModulesPlugin = (plugins = []) => ({
+export const cssModulesPlugin = (
+  /** @type {import('postcss').Plugin[]} */
+  plugins = [],
+) => ({
   name: `postcss-modules`,
   setup: async build => {
     build.onResolve(

@@ -13,7 +13,7 @@ buildReporter(`Server`)
 
 Build Reporter is a simple informative plugin that provides build performance + formatted build errors/warnings information. This is currently used in the main esbuild wrapper.
 
-### `cssModulesPlugin([]: string[])`
+### `cssModulesPlugin(plugins: Postcss.Plugin[])`
 
 ```js
 import {cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
@@ -27,6 +27,23 @@ cssModulesPlugin([
 ```
 
 CSS Modules Plugin is a modified version of [esbuild-css-modules-plugin](https://github.com/indooorsman/esbuild-css-modules-plugin) to allow support for passing postcss plugins into the css module implementation, otherwise we could have css modules but with no postcss plugins. The modifications mostly surround being able to pass in an array of postcss plugins, and making the injected codes both browser-ready and SSR safe.
+
+This is used in both the client build and server build.
+
+### `globalPostcssPlugin(plugins: Postcss.Plugin[])`
+
+```js
+import {globalPostcssPlugin} from '@bengsfort.dev/esbuild-plugins';
+import autoprefixer from 'autoprefixer';
+import postcssNested from 'postcss-nested';
+
+cssModulesPlugin([
+  autoprefixer,
+  postcssNested,
+])
+```
+
+Global Postcss Plugin allows us to have PostCSS process global css files rather than just the modules. This is useful for making sure that global CSS also gets pre-processed.
 
 This is used in both the client build and server build.
 

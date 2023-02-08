@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import * as esbuild                         from '@bengsfort.dev/esbuild';
-import {exposeCssModules, cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
-import {postcssPlugins}                     from '@bengsfort.dev/postcss';
+import * as esbuild                                              from '@bengsfort.dev/esbuild';
+import {exposeCssModules, cssModulesPlugin, globalPostcssPlugin} from '@bengsfort.dev/esbuild-plugins';
+import {postcssPlugins}                                          from '@bengsfort.dev/postcss';
 
 export const buildApp = watchMode => {
   return esbuild.build({
@@ -29,6 +29,9 @@ export const buildApp = watchMode => {
       // within the tree so that we can inject them into the DOM before sending SSR'd
       // markup back to the browser.
       cssModulesPlugin([
+        ...postcssPlugins,
+      ]),
+      globalPostcssPlugin([
         ...postcssPlugins,
       ]),
       exposeCssModules(),

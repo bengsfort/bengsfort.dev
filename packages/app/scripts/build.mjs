@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import * as esbuild       from '@bengsfort.dev/esbuild';
-import {html}             from '@esbuilder/html';
-import {cssModulesPlugin} from '@bengsfort.dev/esbuild-plugins';
-import {postcssPlugins}   from '@bengsfort.dev/postcss';
-import path               from 'node:path';
-import {fileURLToPath}    from 'node:url';
+import * as esbuild                            from '@bengsfort.dev/esbuild';
+import {html}                                  from '@esbuilder/html';
+import {cssModulesPlugin, globalPostcssPlugin} from '@bengsfort.dev/esbuild-plugins';
+import {postcssPlugins}                        from '@bengsfort.dev/postcss';
+import path                                    from 'node:path';
+import {fileURLToPath}                         from 'node:url';
 
 const CURRENT_MODULE_PATH = fileURLToPath(import.meta.url);
 
@@ -47,6 +47,9 @@ export const buildUI = (watchMode, entryPoints, outdir, tsconfigPath = `tsconfig
         entryNames: `assets/[name]`,
       }),
       cssModulesPlugin([
+        ...postcssPlugins,
+      ]),
+      globalPostcssPlugin([
         ...postcssPlugins,
       ]),
     ],
