@@ -39,6 +39,9 @@ export const buildUI = (watchMode, entryPoints, outdir, tsconfigPath = `tsconfig
       '.png': `file`,
       '.jpg': `file`,
       '.gif': `file`,
+      // We don't want global/variable files bundled with the normal css.
+      '.global.css': `empty`,
+      '.variables.css': `empty`,
     },
 
     // Plugins
