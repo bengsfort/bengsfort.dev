@@ -1,6 +1,9 @@
 import {FunctionComponent} from 'preact';
+import 'modern-normalize';
 
-import styles              from './App.module.css';
+import './style/app.variables.css';
+import './style/app.global.css';
+import styles from './App.module.css';
 
 interface Props {
   target?: string;
@@ -10,9 +13,3 @@ export const App: FunctionComponent<Props> = ({target}) => {
     <h1 className={styles.header}>Hello, {target}</h1>
   );
 };
-
-
-// export function App({target = `world`}: Props): FunctionComponent<Props> {
-//   return (
-//   );
-// }

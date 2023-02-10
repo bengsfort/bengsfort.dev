@@ -14,7 +14,7 @@ module.exports = {
     "no-missing-end-of-source-newline": true,
     "at-rule-no-unknown": [true, {ignoreAtRules: [`define-mixin`, `mixin`]}],
     "unit-allowed-list": [
-      [`rem`, `ms`, `%`, `deg`, `vw`, `vh`, `fr`],
+      [`px`, `rem`, `ms`, `%`, `deg`, `vw`, `vh`, `fr`],
       {ignoreProperties: {em: [`letter-spacing`], px: [`/border-*/`, `box-shadow`, `backdrop-filter`, `filter`]}},
     ],
     "declaration-block-no-duplicate-properties": true,

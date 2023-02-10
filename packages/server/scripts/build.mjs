@@ -19,6 +19,9 @@ export const buildApp = watchMode => {
     // File handling
     loader: {
       '.html': `file`,
+      // We don't want global/variable files bundled with the normal css.
+      '.global.css': `empty`,
+      '.variables.css': `empty`,
     },
     external: [],
 
@@ -29,9 +32,6 @@ export const buildApp = watchMode => {
       // within the tree so that we can inject them into the DOM before sending SSR'd
       // markup back to the browser.
       cssModulesPlugin([
-        ...postcssPlugins,
-      ]),
-      globalPostcssPlugin([
         ...postcssPlugins,
       ]),
       exposeCssModules(),
