@@ -11,6 +11,9 @@
       "DOM.Iterable",
       "ESNext",
     ],
+    "types": [
+      "vite/client",
+    ],
     "typeRoots": [
       "../../node_modules/types",
       "./src/types",

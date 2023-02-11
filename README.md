@@ -23,7 +23,8 @@ The project is setup as a yarn workspace for ease of maintenenance and separatio
 
 - `yarn lint`: Lint all workspaces.
 
-
 ## How I made this
 
 1. [Build system](https://github.com/bengsfort/bengsfort.dev/pull/1)
+2. [Core styles](https://github.com/bengsfort/bengsfort.dev/pull/2)
+3. [Vite Setup](https://github.com/bengsfort/bengsfort.dev/pull/3)
