@@ -48,5 +48,8 @@ const isWatchMode = args.includes(`--watch`);
 
 buildApp(isWatchMode);
 buildUI(isWatchMode);
-
 ```
+
+## Note
+
+While this project no longer has two separate esbuild builds (client/server), I have opted to keep this boilerplate package so that if the need to extend esbuild with custom plugins arises, that can be added in isolation and without dirtying up the main server package. 

@@ -3,12 +3,6 @@ import * as esbuild    from 'esbuild';
 import {buildReporter} from './plugins/reporter.mjs';
 
 export const build = async (options, {watchMode = false, name = ``}) => {
-  const measureStartId = `${name}-start`;
-  const measureEndId = `${name}-end`;
-  const measureTimingId = `${name}-time`;
-
-  performance.mark(measureStartId);
-
   /** @type {import('esbuild').BuildOptions} */
   const opts = {
     // General

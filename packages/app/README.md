@@ -8,4 +8,6 @@ The app/ui code for [bengsfort.dev](https://bengsfort.dev). It is a pretty stand
 - `yarn lint:ts`: Lint the typescript portion of the codebase.
 - `yarn lint:css`: Lint the CSS of the codebase.
 
-_* The build commands in this package are mostly for ease-of-use when it comes to inspecting the actual build output to validate it, as the actual build is ran in the server package for simplicity and less orchestration. The server package uses the build scripts included here to generate the bundle, so running the commands here will produce the same output as the server build._
+## Where are my build commands?!
+
+In [packages/server](/packages/server)! The server contains a Vite build which imports this package in it's two entry points (client and ssr), and the server also contains a vite dev server with HMR when ran in dev mode. As such, there is no need for this package to contain any builds (except maybe storybook in the future). If you would like to generate a production build, try `yarn build` in the server package, or if you would like to start up a dev build/server, try `yarn dev` in the server package.
