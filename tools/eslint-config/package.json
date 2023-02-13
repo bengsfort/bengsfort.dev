@@ -1,6 +1,7 @@
 {
   "name": "@bengsfort.dev/eslint-config",
   "packageManager": "yarn@3.2.0",
+  "type": "commonjs",
   "main": "./.eslintrc.js",
   "peerDependencies": {
     "eslint": "^8.33.0"
