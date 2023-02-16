@@ -43,5 +43,5 @@
     "./packages/server",
     "./tools/esbuild",
     "./tools/postcss",
-  ],
+  ]
 }
