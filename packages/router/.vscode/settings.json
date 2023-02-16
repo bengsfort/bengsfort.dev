@@ -28,7 +28,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": true,
-    "**/node_modules": false,
+    "**/node_modules": true,
     "**/.yarn": false
   },
   "stylelint.validate": [
@@ -43,5 +43,5 @@
     "./packages/server",
     "./tools/esbuild",
     "./tools/postcss",
-  ],
+  ]
 }
