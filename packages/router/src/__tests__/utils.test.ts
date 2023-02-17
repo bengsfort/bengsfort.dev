@@ -168,6 +168,9 @@ describe(`Utils`, () => {
         {
           route: routes[1], // /user/:userId
           isExact: true,
+          params: {
+            userId: `bob`,
+          },
         },
       ]);
 
@@ -175,10 +178,16 @@ describe(`Utils`, () => {
       expect(dynamicUrlChild[0]).toEqual<RouteMatch>({
         route: routes[2], // /user/:userId/add
         isExact: true,
+        params: {
+          userId: `bob`,
+        },
       });
       expect(dynamicUrlChild[1]).toEqual<RouteMatch>({
         route: routes[1], // /user/:userId
         isExact: false,
+        params: {
+          userId: `bob`,
+        },
       });
     });
   });

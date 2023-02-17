@@ -7,7 +7,7 @@ const createHandlersMock = (): RouterImplementationHandlers => ({
   handleNavigateTo: jest.fn(),
   handleBack: jest.fn(),
   handleForward: jest.fn(),
-  redirect: jest.fn(),
+  handleRedirect: jest.fn(),
 });
 
 const createBaseRouteObject = (path: string): RouteObject => ({
@@ -30,7 +30,7 @@ describe(`router`, () => {
     handleNavigateTo: jest.fn(),
     handleBack: jest.fn(),
     handleForward: jest.fn(),
-    redirect: jest.fn(),
+    handleRedirect: jest.fn(),
   });
 
   describe(`initialization`, () => {
@@ -227,9 +227,9 @@ describe(`router`, () => {
       expect(router.historyCursor).toEqual(4);
 
       const state = router.getCurrentState();
-      expect(state.currentRoute).toEqual(testRoutes[0]);
+      expect(state.currentRoute).toEqual(testRoutes[2]);
 
-      const postDetachedHistory = router.getCurrentState().customHistory;
+      const postDetachedHistory = state.customHistory;
       expect(postDetachedHistory).toEqual([
         testRoutes[0],
         testRoutes[1],
@@ -320,9 +320,26 @@ describe(`router`, () => {
       expect(state.currentRoute).toEqual({
         ...routes[2],
         params: {
-          itemId: 123,
+          itemId: `123`,
         },
       });
+    });
+
+    it(`should call the appropriate handlers when handling routes`, () => {
+      const handlers = createHandlersMock();
+      const router = new Router(handlers, testRoutes);
+
+      router.navigateTo(testRoutes[1].path);
+      expect(handlers.handleNavigateTo).toHaveBeenCalledTimes(1);
+
+      router.back();
+      expect(handlers.handleBack).toHaveBeenCalledTimes(1);
+
+      router.forward();
+      expect(handlers.handleForward).toHaveBeenCalledTimes(1);
+
+      router.redirect(testRoutes[2].path);
+      expect(handlers.handleRedirect).toHaveBeenCalledTimes(1);
     });
   });
 });

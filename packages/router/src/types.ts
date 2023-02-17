@@ -20,9 +20,12 @@ export interface RouteHistoryEntry<
 }
 
 /** Interface used when defining a matching route. */
-export interface RouteMatch {
+export interface RouteMatch<
+  ParamType extends Record<string, any> = Record<string, any>,
+> {
   route: RouteObject;
   isExact: boolean;
+  params?: ParamType;
 }
 
 /**
@@ -51,5 +54,5 @@ export interface RouterImplementationHandlers {
   handleNavigateTo(path: string, match?: RouteHistoryEntry): void;
   handleForward(): void;
   handleBack(): void;
-  redirect(path: string, match?: RouteHistoryEntry): void;
+  handleRedirect(path: string, match?: RouteHistoryEntry): void;
 }

@@ -1,7 +1,7 @@
-import {VNode}                   from 'preact';
+import {VNode}                                      from 'preact';
 
-import {RouteProps}              from './components/Route';
-import {RouteMatch, RouteObject} from './types';
+import {RouteProps}                                 from './components/Route';
+import {RouteHistoryEntry, RouteMatch, RouteObject} from './types';
 
 /**
  * Extracts route information from a given Route component.
@@ -52,11 +52,13 @@ export function findRankedPartialMatches(targetPath: string, routes: Array<Route
     if (basename !== targetBasename || routeSegments.length > targetSegments.length)
       return;
 
-
     // If there are more than 0 segments this will be updated with the correct
     // value, however if there are no segments this validates that we have the
     // correct root route.
     let isExact = routeSegments.length === targetSegments.length;
+
+    // Store any parameters we may find
+    let params: Record<string, unknown> | undefined;
 
     // If we actually have segments, parse them. Otherwise, skip.
     if (routeSegments.length > 0) {
@@ -66,8 +68,15 @@ export function findRankedPartialMatches(targetPath: string, routes: Array<Route
         if (typeof targetEquivalent === `undefined`)
           return false;
 
-        const segmentMatches = segment.charAt(0) === `:` || segment === targetEquivalent;
-        if (segmentMatches) {
+        const isParam = segment.charAt(0) === `:`;
+
+        // Store the provided parameter in the match.
+        if (isParam) {
+          if (!params) params = {};
+          params[segment.slice(1)] = targetEquivalent;
+        }
+
+        if (isParam || segment === targetEquivalent) {
           matchDepth++;
           return true;
         }
@@ -83,6 +92,7 @@ export function findRankedPartialMatches(targetPath: string, routes: Array<Route
     matches.push({
       route,
       isExact: routeSegments.length < targetSegments.length ? false : isExact,
+      params,
     });
   });
 

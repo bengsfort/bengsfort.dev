@@ -25,7 +25,7 @@ interface Props {
   handleNavigateTo: (path: string, match?: RouteObject) => void;
   handleForward: () => void;
   handleBack: () => void;
-  redirect: (path: string, match?: RouteObject) => void;
+  handleRedirect: (path: string, match?: RouteObject) => void;
   children: ComponentChildren;
 }
 export function RouterCore({children, ...handlers}: Props) {
