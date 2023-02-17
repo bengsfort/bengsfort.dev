@@ -44,30 +44,53 @@ export function findRankedPartialMatches(targetPath: string, routes: Array<Route
   const matches: Array<RouteMatch> = [];
   const [targetBasename, ...targetSegments] = segmentize(targetPath);
 
+  // Iterate through each route to find any matches.
   routes.forEach(route => {
     const [basename, ...routeSegments] = segmentize(route.path);
 
     // if our basenames don't match,  go ahead and just skip this route.
-    if (basename !== targetBasename)
-      return false;
+    if (basename !== targetBasename || routeSegments.length > targetSegments.length)
+      return;
 
-    const isExact = routeSegments.every((segment, i) => {
-      const targetEquivalent = targetSegments[i];
-      if (typeof targetEquivalent === `undefined`)
+
+    // If there are more than 0 segments this will be updated with the correct
+    // value, however if there are no segments this validates that we have the
+    // correct root route.
+    let isExact = routeSegments.length === targetSegments.length;
+
+    // If we actually have segments, parse them. Otherwise, skip.
+    if (routeSegments.length > 0) {
+      let matchDepth = 0;
+      isExact = routeSegments.every((segment, i) => {
+        const targetEquivalent = targetSegments[i];
+        if (typeof targetEquivalent === `undefined`)
+          return false;
+
+        const segmentMatches = segment.charAt(0) === `:` || segment === targetEquivalent;
+        if (segmentMatches) {
+          matchDepth++;
+          return true;
+        }
+
         return false;
-      return segment.charAt(0) === `:` || segment === targetEquivalent;
-    });
+      });
+
+      if (matchDepth < 1) {
+        return;
+      }
+    }
 
     matches.push({
       route,
-      isExact,
+      isExact: routeSegments.length < targetSegments.length ? false : isExact,
     });
   });
 
   // Sort the matches so the exact match is first.
   matches.sort((a, b) =>
-    a.isExact && !b.isExact ? 1 :
-      !a.isExact && b.isExact ? -1 : 0);
+    a.isExact && !b.isExact ? -1 :
+      !a.isExact && b.isExact ? 1 : 0,
+  );
 
   return matches;
 }

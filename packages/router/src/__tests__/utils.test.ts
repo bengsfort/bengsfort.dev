@@ -1,10 +1,10 @@
-import {Route}                              from '../components';
+import {Route}                                                        from '../components';
 
-import {createElement}                      from 'preact';
-import type {ComponentProps}                from 'preact';
+import {createElement}                                                from 'preact';
+import type {ComponentProps}                                          from 'preact';
 
-import {getRouteObjectFromNode, segmentize} from '../utils';
-import {RouteObject}                        from '../types';
+import {findRankedPartialMatches, getRouteObjectFromNode, segmentize} from '../utils';
+import {RouteMatch, RouteObject}                                      from '../types';
 
 describe(`Utils`, () => {
   describe(`getRouteObjectFromNode`, () => {
@@ -77,6 +77,109 @@ describe(`Utils`, () => {
     it(`should preserve dynamic variables`, () => {
       const target = `/user/:id`;
       expect(segmentize(target)).toEqual([`user`, `:id`]);
+    });
+  });
+
+  describe(`findRankedPartialMatches`, () => {
+    const createRouteObject = (path: string): RouteObject => ({
+      path,
+      component: createElement(`div`, {}),
+    });
+
+    it(`should return nothing if there are no matches`, () => {
+      const result = findRankedPartialMatches(`/nope`, [
+        createRouteObject(`/`),
+        createRouteObject(`/exists`),
+      ]);
+      expect(result).toHaveLength(0);
+    });
+
+    it(`should not treat an empty route as a partial match`, () => {
+      const result = findRankedPartialMatches(`/`, [
+        createRouteObject(`/`),
+        createRouteObject(`/home`),
+        createRouteObject(`/users`),
+      ]);
+      expect(result).toHaveLength(1);
+    });
+
+    it(`should return partial and exact matches (exact matches first)`, () => {
+      const routes = [
+        createRouteObject(`/home`),
+        createRouteObject(`/users`),
+        createRouteObject(`/users/me`),
+        createRouteObject(`/users/me/edit`),
+        createRouteObject(`/users/bob`),
+      ];
+      const result = findRankedPartialMatches(`/users/me`, routes);
+      expect(result).toHaveLength(2);
+
+      expect(result[0]).toEqual<RouteMatch>({
+        route: routes[2],
+        isExact: true,
+      });
+      expect(result[1].route).toEqual(routes[1]); // /users
+    });
+
+    it(`should match basenames`, () => {
+      const routes = [
+        createRouteObject(`/home`),
+        createRouteObject(`/users`),
+        createRouteObject(`/users/me`),
+      ];
+      const result = findRankedPartialMatches(`/users`, routes);
+      expect(result).toHaveLength(1);
+      expect(result[0].route).toEqual(routes[1]);
+      expect(result[0].isExact).toEqual(true);
+    });
+
+    it(`should not mark parent routes as exact matches when deeply nested`, () => {
+      const routes = [
+        createRouteObject(`/home`),
+        createRouteObject(`/user/bob`),
+        createRouteObject(`/user/bob/add`),
+        createRouteObject(`/user/list`),
+      ];
+      const dynamicUrlChild = findRankedPartialMatches(`/user/bob/add`, routes);
+
+      expect(dynamicUrlChild).toHaveLength(2);
+      expect(dynamicUrlChild[0]).toEqual<RouteMatch>({
+        route: routes[2], // /user/bob/add
+        isExact: true,
+      });
+      expect(dynamicUrlChild[1]).toEqual<RouteMatch>({
+        route: routes[1], // /user/bob
+        isExact: false,
+      });
+    });
+
+    it(`should not return siblings of dynamic routes`, () => {
+      const routes = [
+        createRouteObject(`/home`),
+        createRouteObject(`/user/:userId`),
+        createRouteObject(`/user/:userId/add`),
+        createRouteObject(`/user/list`),
+      ];
+      const dynamicUrlResult = findRankedPartialMatches(`/user/bob`, routes);
+      const dynamicUrlChild = findRankedPartialMatches(`/user/bob/add`, routes);
+
+      expect(dynamicUrlResult).toHaveLength(1);
+      expect(dynamicUrlResult).toEqual<Array<RouteMatch>>([
+        {
+          route: routes[1], // /user/:userId
+          isExact: true,
+        },
+      ]);
+
+      expect(dynamicUrlChild).toHaveLength(2);
+      expect(dynamicUrlChild[0]).toEqual<RouteMatch>({
+        route: routes[2], // /user/:userId/add
+        isExact: true,
+      });
+      expect(dynamicUrlChild[1]).toEqual<RouteMatch>({
+        route: routes[1], // /user/:userId
+        isExact: false,
+      });
     });
   });
 });
