@@ -187,6 +187,7 @@ export class Router {
       routes: this._routes,
       customHistory: [...this._history],
       currentRoute: this._currentRoute,
+      cursor: this._cursor,
 
       navigateTo: this.navigateTo,
       forward: this.forward,
@@ -203,5 +204,10 @@ export class Router {
     return () => {
       this._subscriptions.delete(fn);
     };
+  }
+
+  public updateCursorFromExternal(newCursor: number) {
+    this._cursor = newCursor;
+    this._notifySubscribers();
   }
 }

@@ -28,16 +28,20 @@ export interface RouteMatch<
   params?: ParamType;
 }
 
-/**
- * This is the main exposed router API which should represent the
- * currently active state.
- */
-export interface RouterContext {
+/** */
+export interface RouterState {
   // State
   routes: Array<RouteObject>;
   customHistory: Array<RouteHistoryEntry>;
   currentRoute: RouteHistoryEntry | null;
+  cursor: number;
+}
 
+/**
+ * This is the main exposed router API which should represent the
+ * currently active state.
+ */
+export interface RouterContext extends RouterState {
   // API
   navigateTo(path: string): void;
   forward(): void;
@@ -56,3 +60,8 @@ export interface RouterImplementationHandlers {
   handleBack(): void;
   handleRedirect(path: string, match?: RouteHistoryEntry): void;
 }
+
+export type HandleNavigateCb = RouterImplementationHandlers[`handleNavigateTo`];
+export type HandleForwardCb = RouterImplementationHandlers[`handleForward`];
+export type HandleBackCb = RouterImplementationHandlers[`handleBack`];
+export type HandleRedirectCb = RouterImplementationHandlers[`handleRedirect`];

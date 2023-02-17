@@ -1,1 +1,2 @@
-export {Page} from './Page/Page';
+export {Page} from './Page';
+export {PageNav} from './PageNav';

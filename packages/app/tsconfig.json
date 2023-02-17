@@ -6,6 +6,15 @@
     "outDir": "build",
     "baseUrl": "./src",
     "declarationDir": "build",
+    "skipLibCheck": true,
+    "paths": {
+      "react": [
+        "../../node_modules/preact/compat/"
+      ],
+      "react-dom": [
+        "../../node_modules/preact/compat/"
+      ]
+    },
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -15,7 +24,7 @@
       "vite/client",
     ],
     "typeRoots": [
-      "../../node_modules/types",
+      "../../node_modules/@types",
       "./src/types",
     ],
     // CSS Modules
