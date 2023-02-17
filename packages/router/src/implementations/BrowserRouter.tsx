@@ -1,17 +1,20 @@
-import {ComponentChildren}                                                 from 'preact';
-import {useRef, useEffect}                                                 from 'preact/hooks';
+import {ComponentChildren, createRef}                                                   from 'preact';
+import {useRef, useEffect}                                                              from 'preact/hooks';
 
-import {HandleBackCb, HandleForwardCb, HandleNavigateCb, HandleRedirectCb} from '../types';
-import {RouterCore}                                                        from '../RouterCore';
+import {HandleBackCb, HandleForwardCb, HandleNavigateCb, HandleRedirectCb, RouterState} from '../types';
+import {RouterCore}                                                                     from '../RouterCore';
+import {Router}                                                                         from '../router';
 
 interface Props {
   children: ComponentChildren;
 }
 export function BrowserRouter({children}: Props) {
+  const routerRef = createRef<Router>();
   const initialPath = useRef(window.location.pathname);
   const routerTriggeredEvent = useRef(false);
 
   const handleNavigateTo: HandleNavigateCb = (path, match) => {
+    // @todo need to update the args to be the state
     routerTriggeredEvent.current = true;
     history.pushState({...match}, ``, path);
   };
@@ -38,10 +41,16 @@ export function BrowserRouter({children}: Props) {
         return;
       }
 
-      // @todo notify router instance of change of state
-      // ONLY NEEDED IN THE CASE OF FORWARD/BACK WHEN WE
-      // ARE NOT THE ONES THAT HAVE TRIGGERED IT!
-      // (ie. when back buton on browser has been used)
+      // const {} = ev.state as Partial<RouterState>;
+      // routerRef.current?.historyCursor
+      if (typeof ev.state !== `object`) return;
+
+      const {cursor} = ev.state as Partial<RouterState>;
+      if (typeof cursor === `undefined`) return;
+
+      // @todo: These that this actually correctly updates the router
+      // state whenever the back/forward buttons are used.
+      routerRef.current?.updateCursorFromExternal(cursor);
     };
 
     window.addEventListener(`popstate`, handlePopState);
@@ -57,6 +66,7 @@ export function BrowserRouter({children}: Props) {
       handleForward={handleForward}
       handleBack={handleBack}
       handleRedirect={handleRedirect}
+      ref={routerRef}
     >
       {children}
     </RouterCore>

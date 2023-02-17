@@ -1,5 +1,6 @@
 import {ComponentChildren, createContext, toChildArray, VNode}        from 'preact';
 import {useContext, useEffect, useImperativeHandle, useRef, useState} from 'preact/hooks';
+import {forwardRef}                                                   from 'preact/compat';
 
 import {RouteProps}                                                   from './components/Route';
 import {Router}                                                       from './router';
@@ -26,30 +27,24 @@ interface Props extends RouterImplementationHandlers {
   url: string;
   children: ComponentChildren;
 }
-export function RouterCore({children, url, ...handlers}: Props) {
+export const RouterCore = forwardRef<Router, Props>(({children, url, ...handlers}: Props, ref) => {
   const routes = (toChildArray(children) as Array<VNode<RouteProps>>)
     .map(node => getRouteObjectFromNode(node));
   const router = useRef(new Router(handlers, routes, url));
   const [routerState, setRouterState] = useState(router.current.getCurrentState());
-  const routerRef = useRef<unknown>();
 
   useEffect(() => {
     return router.current.subscribe(setRouterState);
   }, []);
 
-  useImperativeHandle(routerRef, () => router, []);
-
-  // @todo We need to expose a ref via useImperativeHandle
-  // That way the implementations can notify the Router of
-  // external changes (ie. the browser back button being pressed)
-
+  useImperativeHandle(ref, () => router.current, []);
 
   return (
-    <Context.Provider value={routerState} ref={routerRef}>
+    <Context.Provider value={routerState}>
       {children}
     </Context.Provider>
   );
-}
+});
 
 export function useRouter() {
   return useContext(Context);
