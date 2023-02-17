@@ -1,13 +1,14 @@
-import {RouteObject, RouterContext, RouterImplementationHandlers} from './types';
+import {segmentize}          from './utils';
+import type * as RouterTypes from './types';
 
-type RouterUpdateCallback = (state: RouterContext) => void;
+type RouterUpdateCallback = (state: RouterTypes.RouterContext) => void;
 
 export class Router {
-  private readonly _handlers: RouterImplementationHandlers;
-  private readonly _routes: Array<RouteObject>;
-  private readonly _history: Array<RouteObject>;
+  private readonly _handlers: RouterTypes.RouterImplementationHandlers;
+  private readonly _routes: Array<RouterTypes.RouteObject>;
+  private readonly _history: Array<RouterTypes.RouteHistoryEntry>;
 
-  private _currentRoute: RouteObject;
+  private _cursor: number;
   private _subscriptions: Set<RouterUpdateCallback>;
 
   public get subscriptionCount(): number {
@@ -18,16 +19,26 @@ export class Router {
     return this._history.length;
   }
 
-  constructor(handlers: RouterImplementationHandlers, routes: Array<RouteObject>) {
+  public get historyCursor(): number {
+    return this._cursor;
+  }
+
+  private get _currentRoute(): RouterTypes.RouteHistoryEntry {
+    return this._history[this._cursor];
+  }
+
+  constructor(handlers: RouterTypes.RouterImplementationHandlers, routes: Array<RouterTypes.RouteObject>) {
     this._handlers = handlers;
     this._routes = routes;
-    this._currentRoute = this._getDefaultRoute(routes);
-    this._history = [this._currentRoute];
+
+    const currentRoute = this._getDefaultRoute(routes);
+    this._history = [currentRoute];
+    this._cursor = 0;
     this._subscriptions = new Set();
   }
 
-  private _getDefaultRoute(routes: Array<RouteObject>) {
-    let defaultRoute: RouteObject | undefined;
+  private _getDefaultRoute(routes: Array<RouterTypes.RouteObject>) {
+    let defaultRoute: RouterTypes.RouteObject | undefined;
 
     routes.forEach(route => {
       // If we already have a route marked as default, just skip the rest.
@@ -43,7 +54,16 @@ export class Router {
   }
 
   public navigateTo = (path: string) => {
-    // @todo
+    let targetPath = path;
+
+    // When handling relative paths we add the path to the current path.
+    if (path[0] !== `/`) {
+      targetPath = [
+        `/`,
+        ...segmentize(this._currentRoute.path),
+        ...segmentize(path),
+      ].join(`/`);
+    }
   };
 
   public forward = () => {
@@ -58,10 +78,10 @@ export class Router {
     // @todo
   };
 
-  public getCurrentState(): RouterContext {
+  public getCurrentState(): RouterTypes.RouterContext {
     return {
       routes: this._routes,
-      customHistory: this._history,
+      customHistory: [...this._history],
       currentRoute: this._currentRoute,
 
       navigateTo: this.navigateTo,

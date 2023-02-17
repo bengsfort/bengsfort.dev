@@ -22,7 +22,8 @@ describe(`router`, () => {
       isDefault: true,
     },
     createBaseRouteObject(`/profile`),
-    createBaseRouteObject(`/item/:id`),
+    createBaseRouteObject(`/profile/edit`),
+    createBaseRouteObject(`/item`),
   ];
 
   const createHandlersMock = (): RouterImplementationHandlers => ({
@@ -91,51 +92,237 @@ describe(`router`, () => {
       const fn = jest.fn();
       const unsub = router.subscribe(fn);
 
-      // @todo: trigger changes, observe mock function getting called.
+      router.navigateTo(testRoutes[1].path);
+      expect(fn).toHaveBeenCalledTimes(1);
+
+      router.back();
+      expect(fn).toHaveBeenCalledTimes(2);
+
+      router.forward();
+      expect(fn).toHaveBeenCalledTimes(3);
+
+      router.redirect(testRoutes[0].path);
+      expect(fn).toHaveBeenCalledTimes(4);
+
+      unsub();
+      router.navigateTo(testRoutes[2].path);
+      expect(fn).toHaveBeenCalledTimes(4);
     });
   });
 
   describe(`.navigateTo(routePath)`, () => {
     it(`should update the current route and add to the history`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      expect(router.historySize).toEqual(1);
+      expect(router.historyCursor).toEqual(0);
+
+      router.navigateTo(testRoutes[1].path);
+      expect(router.historySize).toEqual(2);
+      expect(router.historyCursor).toEqual(1);
     });
 
     it(`should revert to the error route if the route is not found`, () => {
-      // @todo
+      const routes: Array<RouteObject> = [
+        createBaseRouteObject(`/`),
+        {
+          ...createBaseRouteObject(`/404`),
+          isError: true,
+        },
+      ];
+      const router = new Router(createHandlersMock(), routes);
+      let state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(routes[0]);
+
+      router.navigateTo(`lolnope`);
+      state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(routes[1]);
     });
 
     it(`should revert to the default route if the route and an error route are not found`, () => {
-      // @todo
+      const routes: Array<RouteObject> = [
+        createBaseRouteObject(`/home`),
+        createBaseRouteObject(`/foo`),
+      ];
+      const router = new Router(createHandlersMock(), routes);
+      router.navigateTo(`/foo`);
+
+      let state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(routes[1]);
+
+      router.navigateTo(`/unknown`);
+      state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(routes[0]);
     });
   });
 
   describe(`.back()`, () => {
     it(`should move backwards in the history`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      router.navigateTo(testRoutes[1].path);
+      router.navigateTo(testRoutes[2].path);
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(2);
+
+      router.back();
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(1);
+
+      const state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(testRoutes[1]);
     });
 
     it(`should do nothing if already at the last history entry`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      router.navigateTo(testRoutes[1].path);
+      router.navigateTo(testRoutes[2].path);
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(2);
+
+      router.back();
+      router.back();
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(0);
+
+      const ogState = router.getCurrentState();
+      router.back();
+      expect(ogState).toEqual(router.getCurrentState());
     });
 
     it(`should discard future elements when navigating from a detached head`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      // Each navigate call has the history cursor next to it.
+      router.navigateTo(testRoutes[1].path); // 1
+      router.navigateTo(testRoutes[2].path); // 2
+      router.navigateTo(testRoutes[3].path); // 3
+      router.navigateTo(testRoutes[0].path); // 4
+      router.navigateTo(testRoutes[1].path); // 5
+      router.navigateTo(testRoutes[2].path); // 6
+      expect(router.historySize).toEqual(7);
+      expect(router.historyCursor).toEqual(6);
+
+      router.back(); // -> 5
+      router.back(); // -> 4
+      router.back(); // -> 3
+      expect(router.historySize).toEqual(7);
+      expect(router.historyCursor).toEqual(3);
+
+      const preDetachedHistory = router.getCurrentState().customHistory;
+      expect(preDetachedHistory).toEqual([
+        testRoutes[0],
+        testRoutes[1],
+        testRoutes[2],
+        testRoutes[3],
+        testRoutes[0],
+        testRoutes[1],
+        testRoutes[2],
+      ]);
+
+      // Detaches the head
+      router.navigateTo(testRoutes[2].path);
+      expect(router.historySize).toEqual(5);
+      expect(router.historyCursor).toEqual(4);
+
+      const state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(testRoutes[0]);
+
+      const postDetachedHistory = router.getCurrentState().customHistory;
+      expect(postDetachedHistory).toEqual([
+        testRoutes[0],
+        testRoutes[1],
+        testRoutes[2],
+        testRoutes[3],
+        testRoutes[2],
+      ]);
     });
   });
 
   describe(`.forward()`, () => {
     it(`should move forwards in the history`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      router.navigateTo(testRoutes[1].path);
+      router.navigateTo(testRoutes[2].path);
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(2);
+
+      router.back();
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(1);
+
+      router.forward();
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(2);
+
+      const state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(testRoutes[2]);
     });
 
     it(`should do nothing if already at the first history entry`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      router.navigateTo(testRoutes[1].path);
+      router.navigateTo(testRoutes[2].path);
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(2);
+
+      router.forward();
+      expect(router.historySize).toEqual(3);
+      expect(router.historyCursor).toEqual(2);
     });
   });
 
   describe(`.redirect()`, () => {
     it(`should re-write the current history item and update the current route`, () => {
-      // @todo
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      router.navigateTo(testRoutes[2].path);
+
+      expect(router.getCurrentState().currentRoute).toEqual(testRoutes[2]);
+      expect(router.historySize).toEqual(2);
+      expect(router.historyCursor).toEqual(1);
+
+      router.redirect(testRoutes[1].path);
+
+      expect(router.getCurrentState().currentRoute).toEqual(testRoutes[1]);
+      expect(router.historySize).toEqual(2);
+      expect(router.historyCursor).toEqual(1);
+    });
+  });
+
+  describe(`Route Handling`, () => {
+    it(`should treat paths without '/' as relative`, () => {
+      const router = new Router(createHandlersMock(), testRoutes);
+
+      router.navigateTo(testRoutes[1].path); // /profile
+      let state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(testRoutes[1]);
+
+      router.navigateTo(`edit`);
+      state = router.getCurrentState();
+      expect(state.currentRoute).toEqual(testRoutes[2]); // /profile/edit
+    });
+
+    it(`should map dynamic paths to the correct path and provide the value`, () => {
+      const routes: Array<RouteObject> = [
+        createBaseRouteObject(`/`),
+        createBaseRouteObject(`/collection`),
+        createBaseRouteObject(`/item/:itemId`),
+      ];
+      const router = new Router(createHandlersMock(), routes);
+
+      router.navigateTo(`/item/123`);
+      const state = router.getCurrentState();
+
+      expect(state.currentRoute).toEqual({
+        ...routes[2],
+        params: {
+          itemId: 123,
+        },
+      });
     });
   });
 });

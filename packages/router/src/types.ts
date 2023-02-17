@@ -9,6 +9,20 @@ export interface RouteObject {
   path: string;
   component: VNode<RouteProps>;
   isDefault?: boolean;
+  isError?: boolean;
+}
+
+/** This defines a route that was active. */
+export interface RouteHistoryEntry<
+  ParamType extends Record<string, any> = Record<string, any>,
+> extends RouteObject {
+  params?: ParamType;
+}
+
+/** Interface used when defining a matching route. */
+export interface RouteMatch {
+  route: RouteObject;
+  isExact: boolean;
 }
 
 /**
@@ -18,8 +32,8 @@ export interface RouteObject {
 export interface RouterContext {
   // State
   routes: Array<RouteObject>;
-  customHistory: Array<RouteObject>;
-  currentRoute: RouteObject | null;
+  customHistory: Array<RouteHistoryEntry>;
+  currentRoute: RouteHistoryEntry | null;
 
   // API
   navigateTo(path: string): void;
@@ -34,8 +48,8 @@ export interface RouterContext {
  * it to the browser History API.
  */
 export interface RouterImplementationHandlers {
-  handleNavigateTo(path: string, match?: RouteObject): void;
+  handleNavigateTo(path: string, match?: RouteHistoryEntry): void;
   handleForward(): void;
   handleBack(): void;
-  redirect(path: string, match?: RouteObject): void;
+  redirect(path: string, match?: RouteHistoryEntry): void;
 }

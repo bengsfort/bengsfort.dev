@@ -1,12 +1,11 @@
-import type {ComponentChildren} from 'preact';
+import type {ComponentChildren, FunctionalComponent} from 'preact';
+import {RouteObject}                                 from 'types';
 
-export interface Props {
-  path: string;
+export interface Props extends Omit<RouteObject, `component`> {
   children: ComponentChildren;
-  isDefault?: boolean;
 }
-export function Route({path, children, isDefault}: Props) {
+export const Route: FunctionalComponent<Props> = ({path, children, isDefault}) => {
   return (
     <>{children}</>
   );
-}
+};
