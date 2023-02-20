@@ -136,7 +136,7 @@ export class Router {
     }
 
     this._cursor++;
-    this._handlers.handleNavigateTo(targetPath, historyEntry);
+    this._handlers.handleNavigateTo(targetPath, this.getCurrentState());
     this._notifySubscribers();
   };
 
@@ -178,7 +178,7 @@ export class Router {
       : 1;
 
     this._history.splice(this._cursor, replaceCount, historyEntry);
-    this._handlers.handleRedirect(targetPath, historyEntry);
+    this._handlers.handleRedirect(targetPath, this.getCurrentState());
     this._notifySubscribers();
   };
 

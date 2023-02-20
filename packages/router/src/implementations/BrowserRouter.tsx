@@ -13,10 +13,10 @@ export function BrowserRouter({children}: Props) {
   const initialPath = useRef(window.location.pathname);
   const routerTriggeredEvent = useRef(false);
 
-  const handleNavigateTo: HandleNavigateCb = (path, match) => {
+  const handleNavigateTo: HandleNavigateCb = (path, state) => {
     // @todo need to update the args to be the state
     routerTriggeredEvent.current = true;
-    history.pushState({...match}, ``, path);
+    history.pushState({...state}, ``, path);
   };
 
   const handleForward: HandleForwardCb = () => {
@@ -29,9 +29,9 @@ export function BrowserRouter({children}: Props) {
     history.back();
   };
 
-  const handleRedirect: HandleRedirectCb = (path, match) => {
+  const handleRedirect: HandleRedirectCb = (path, state) => {
     routerTriggeredEvent.current = true;
-    history.replaceState({...match}, ``, path);
+    history.replaceState({...state}, ``, path);
   };
 
   useEffect(() => {
@@ -41,14 +41,12 @@ export function BrowserRouter({children}: Props) {
         return;
       }
 
-      // const {} = ev.state as Partial<RouterState>;
-      // routerRef.current?.historyCursor
       if (typeof ev.state !== `object`) return;
 
       const {cursor} = ev.state as Partial<RouterState>;
       if (typeof cursor === `undefined`) return;
 
-      // @todo: These that this actually correctly updates the router
+      // @todo: Verify that this actually correctly updates the router
       // state whenever the back/forward buttons are used.
       routerRef.current?.updateCursorFromExternal(cursor);
     };
