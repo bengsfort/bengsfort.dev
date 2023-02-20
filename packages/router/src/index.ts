@@ -1,2 +1,4 @@
-export {BrowserRouter, StaticRouter} from './implementations';
-export {Link, Route} from './components';
+export {BrowserRouter, StaticRouter} from './routers';
+export {Link, Route, Redirect} from './components';
+
+export * from './hooks';

@@ -1,8 +1,12 @@
 {
   "name": "@bengsfort.dev/router",
   "packageManager": "yarn@3.2.0",
-  "main": "src/index.ts",
+  "main": "./src/index.ts",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
+  },
   "scripts": {
     "watch": "yarn test --verbose --watch",
     "test": "jest ./src",

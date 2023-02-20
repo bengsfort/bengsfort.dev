@@ -3,6 +3,7 @@
   "include": [
     "./packages/server/**/*",
     "./packages/app/**/*",
+    "./packages/router/**/*",
   ],
   "compilerOptions": {
     "paths": {
@@ -11,6 +12,9 @@
       ],
       "@bengsfort.dev/server": [
         "./packages/server",
+      ],
+      "@bengsfort.dev/router": [
+        "./packages/router",
       ]
     }
   }

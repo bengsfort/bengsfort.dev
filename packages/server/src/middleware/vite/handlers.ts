@@ -16,7 +16,7 @@ const BUILD_HTML_PATH = resolve(`./client/index.html`);
 const BUILD_ENTRY_PATH = resolve(`./server/entry-server.js`);
 const BUILD_ASSETS_PATH = resolve(`./client`);
 const DEV_HTML_PATH = resolve(`../index.html`);
-const DEV_ENTRY_PATH = `/src/entry-server.ts`;
+const DEV_ENTRY_PATH = `/src/entry-server.tsx`;
 
 interface SsrHandler {
   attachMiddleware(app: Express): void | Promise<void>;

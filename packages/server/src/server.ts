@@ -1,6 +1,6 @@
 import express   from 'express';
 
-import {viteSsr} from './middleware/vite/ssr';
+import {viteSsr} from './middleware/vite/ssr.js';
 
 async function main(port: number) {
   const app = express();

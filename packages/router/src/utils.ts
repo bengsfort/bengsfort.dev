@@ -1,7 +1,7 @@
-import {VNode}                                      from 'preact';
+import {VNode}                   from 'preact';
 
-import {RouteProps}                                 from './components/Route';
-import {RouteHistoryEntry, RouteMatch, RouteObject} from './types';
+import {RouteProps}              from './components/Route';
+import {RouteMatch, RouteObject} from './types';
 
 /**
  * Extracts route information from a given Route component.

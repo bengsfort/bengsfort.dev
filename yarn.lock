@@ -456,6 +456,7 @@ __metadata:
   resolution: "@bengsfort.dev/app@workspace:packages/app"
   dependencies:
     "@bengsfort.dev/postcss": "workspace:^"
+    "@bengsfort.dev/router": "workspace:^"
     "@types/classnames": ^2.3.1
     classnames: ^2.3.2
     eslint: ^8.33.0
@@ -513,7 +514,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@bengsfort.dev/router@workspace:packages/router":
+"@bengsfort.dev/router@workspace:^, @bengsfort.dev/router@workspace:packages/router":
   version: 0.0.0-use.local
   resolution: "@bengsfort.dev/router@workspace:packages/router"
   dependencies:
@@ -539,6 +540,7 @@ __metadata:
     "@bengsfort.dev/app": "workspace:^"
     "@bengsfort.dev/esbuild": "workspace:^"
     "@bengsfort.dev/postcss": "workspace:^"
+    "@bengsfort.dev/router": "workspace:^"
     "@preact/preset-vite": ^2.5.0
     "@types/babel__core": ^7
     "@types/compression": ^1

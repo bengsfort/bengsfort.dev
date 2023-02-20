@@ -1,3 +1,5 @@
+import {Link}                                                  from '@bengsfort.dev/router';
+
 import {Github, PortfolioIcon, LinkedIn, CvIcon, ArticlesIcon} from '../../assets/icons';
 import {VisuallyHidden}                                        from '../VisuallyHidden';
 
@@ -22,19 +24,19 @@ export function PageNav() {
       <nav aria-label={`Main Menu`}>
         <ul class={styles.navList}>
           <li class={styles.navItem}>
-            <a href={`/`} class={styles.navLink}>
+            <Link to={`/`} class={styles.navLink} activeClass={styles.active}>
               <PortfolioIcon role={`presentation`} class={styles.navIcon} />
-              Portfolio</a>
+              Portfolio</Link>
           </li>
           <li class={styles.navItem}>
-            <a href={`/cv`} class={styles.navLink}>
+            <Link to={`/cv`} class={styles.navLink} activeClass={styles.active}>
               <CvIcon role={`presentation`} class={styles.navIcon} />
-              CV</a>
+              CV</Link>
           </li>
           <li class={styles.navItem}>
-            <a href={`/articles`} class={styles.navLink}>
+            <Link to={`/articles`} class={styles.navLink} activeClass={styles.active}>
               <ArticlesIcon role={`presentation`} class={styles.navIcon} />
-              Articles</a>
+              Articles</Link>
           </li>
         </ul>
       </nav>

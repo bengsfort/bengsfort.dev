@@ -88,6 +88,7 @@
 
     &:hover, &.active {
       background-color: var(--color-primary-light);
+      cursor: pointer;
     }
 
     .nav-icon {

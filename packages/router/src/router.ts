@@ -49,6 +49,8 @@ export class Router {
     this._handlers = handlers;
     this._routes = routes;
 
+    console.log(`Initializing with routes`, routes);
+
     this._initialPath = initialPath;
     this._defaultRouteIndex = this._getDefaultRoute(routes);
     this._errorRouteIndex = this._getErrorRoute(routes);
