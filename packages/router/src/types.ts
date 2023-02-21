@@ -55,13 +55,9 @@ export interface RouterContext extends RouterState {
  * it to the browser History API.
  */
 export interface RouterImplementationHandlers {
-  handleNavigateTo(path: string, state?: RouterState): void;
+  handleInit(path: string, state: RouterState): void;
+  handleNavigateTo(path: string, state: RouterState): void;
   handleForward(): void;
   handleBack(): void;
-  handleRedirect(path: string, state?: RouterState): void;
+  handleRedirect(path: string, state: RouterState): void;
 }
-
-export type HandleNavigateCb = RouterImplementationHandlers[`handleNavigateTo`];
-export type HandleForwardCb = RouterImplementationHandlers[`handleForward`];
-export type HandleBackCb = RouterImplementationHandlers[`handleBack`];
-export type HandleRedirectCb = RouterImplementationHandlers[`handleRedirect`];

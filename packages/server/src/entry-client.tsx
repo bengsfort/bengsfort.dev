@@ -1,4 +1,5 @@
-import {BrowserRouter, Route}        from '@bengsfort.dev/router';
+import {Route}                       from '@bengsfort.dev/router';
+import {BrowserRouter}               from '@bengsfort.dev/router/client';
 import {Articles, Portfolio, Resume} from '@bengsfort.dev/app';
 import {hydrate}                     from 'preact';
 

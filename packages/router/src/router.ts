@@ -49,8 +49,6 @@ export class Router {
     this._handlers = handlers;
     this._routes = routes;
 
-    console.log(`Initializing with routes`, routes);
-
     this._initialPath = initialPath;
     this._defaultRouteIndex = this._getDefaultRoute(routes);
     this._errorRouteIndex = this._getErrorRoute(routes);
@@ -64,6 +62,7 @@ export class Router {
     this._history = [initialRoute];
     this._cursor = 0;
     this._subscriptions = new Set();
+    this._handlers.handleInit(initialPath, this.getCurrentState());
   }
 
   private _getErrorRoute(routes: Array<RouterTypes.RouteObject>) {
@@ -107,6 +106,16 @@ export class Router {
     return historyEntry;
   }
 
+  private _ensureRelativePathSafety(path: string) {
+    if (path.charAt(0) === `/`) return path;
+
+    return [
+      `/`,
+      ...segmentize(this._currentRoute.path),
+      ...segmentize(path),
+    ].join(`/`);
+  }
+
   private _notifySubscribers() {
     const state = this.getCurrentState();
 
@@ -116,16 +125,7 @@ export class Router {
   }
 
   public navigateTo = (path: string) => {
-    let targetPath = path;
-
-    // When handling relative paths we add the path to the current path.
-    if (path[0] !== `/`) {
-      targetPath = [
-        `/`,
-        ...segmentize(this._currentRoute.path),
-        ...segmentize(path),
-      ].join(`/`);
-    }
+    const targetPath = this._ensureRelativePathSafety(path);
 
     const historyEntry = this._getRouteForPath(targetPath, this._routes);
 
@@ -161,17 +161,7 @@ export class Router {
   };
 
   public redirect = (path: string) => {
-    let targetPath = path;
-
-    // When handling relative paths we add the path to the current path.
-    if (path[0] !== `/`) {
-      targetPath = [
-        `/`,
-        ...segmentize(this._currentRoute.path),
-        ...segmentize(path),
-      ].join(`/`);
-    }
-
+    const targetPath = this._ensureRelativePathSafety(path);
     const historyEntry = this._getRouteForPath(targetPath, this._routes);
 
     // When we have a detached history cursor, we need to remove any detached.
@@ -208,8 +198,18 @@ export class Router {
     };
   }
 
-  public updateCursorFromExternal(newCursor: number) {
+  public updateCursorFromExternal(newCursor: number, path: string) {
     this._cursor = newCursor;
+
+    // Sometimes things can get de-synced when using the back button to LEAVE the site and then return.
+    // To fix this, we need to re-build the state if things don't look correct.
+    const newRoute = this._history[newCursor];
+    if (typeof newRoute === `undefined`) {
+      const targetPath = this._ensureRelativePathSafety(path);
+      const historyEntry = this._getRouteForPath(targetPath, this._routes);
+      this._history[newCursor] = historyEntry;
+    }
+
     this._notifySubscribers();
   }
 }

@@ -1,22 +1,31 @@
-import {ComponentChildren, createRef}                                                   from 'preact';
-import {useRef, useEffect}                                                              from 'preact/hooks';
+import {ComponentChildren, createRef}              from 'preact';
+import {useRef, useEffect}                         from 'preact/hooks';
 
-import {HandleBackCb, HandleForwardCb, HandleNavigateCb, HandleRedirectCb, RouterState} from '../types';
-import {RouterCore}                                                                     from '../RouterCore';
-import {Router}                                                                         from '../router';
+import {RouterImplementationHandlers, RouterState} from '../types';
+import {RouterCore}                                from '../RouterCore';
+
+type HandleInitCb = RouterImplementationHandlers[`handleInit`];
+type HandleNavigateCb = RouterImplementationHandlers[`handleNavigateTo`];
+type HandleForwardCb = RouterImplementationHandlers[`handleForward`];
+type HandleBackCb = RouterImplementationHandlers[`handleBack`];
+type HandleRedirectCb = RouterImplementationHandlers[`handleRedirect`];
 
 interface Props {
   children: ComponentChildren;
 }
 export function BrowserRouter({children}: Props) {
-  const routerRef = createRef<Router>();
+  const routerRef = createRef<RouterCore>();
   const initialPath = useRef(window.location.pathname);
   const routerTriggeredEvent = useRef(false);
 
+  const handleInit: HandleInitCb = (path, state) => {
+    const {cursor} = state;
+    history.replaceState({cursor}, ``, path);
+  };
+
   const handleNavigateTo: HandleNavigateCb = (path, state) => {
-    // @todo need to update the args to be the state
-    routerTriggeredEvent.current = true;
-    history.pushState({...state}, ``, path);
+    const {cursor} = state;
+    history.pushState({cursor}, ``, path);
   };
 
   const handleForward: HandleForwardCb = () => {
@@ -30,8 +39,8 @@ export function BrowserRouter({children}: Props) {
   };
 
   const handleRedirect: HandleRedirectCb = (path, state) => {
-    routerTriggeredEvent.current = true;
-    history.replaceState({...state}, ``, path);
+    const {cursor} = state;
+    history.replaceState({cursor}, ``, path);
   };
 
   useEffect(() => {
@@ -41,14 +50,11 @@ export function BrowserRouter({children}: Props) {
         return;
       }
 
-      if (typeof ev.state !== `object`) return;
-
+      if (typeof ev.state !== `object` || ev.state === null) return;
       const {cursor} = ev.state as Partial<RouterState>;
       if (typeof cursor === `undefined`) return;
 
-      // @todo: Verify that this actually correctly updates the router
-      // state whenever the back/forward buttons are used.
-      routerRef.current?.updateCursorFromExternal(cursor);
+      routerRef.current?.updateCursorFromExternal(cursor, window.location.pathname);
     };
 
     window.addEventListener(`popstate`, handlePopState);
@@ -60,6 +66,7 @@ export function BrowserRouter({children}: Props) {
   return (
     <RouterCore
       url={initialPath.current}
+      handleInit={handleInit}
       handleNavigateTo={handleNavigateTo}
       handleForward={handleForward}
       handleBack={handleBack}

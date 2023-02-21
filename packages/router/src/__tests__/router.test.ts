@@ -3,13 +3,6 @@ import {RouteObject, RouterImplementationHandlers} from 'types';
 
 import {Router}                                    from '../router';
 
-const createHandlersMock = (): RouterImplementationHandlers => ({
-  handleNavigateTo: jest.fn(),
-  handleBack: jest.fn(),
-  handleForward: jest.fn(),
-  handleRedirect: jest.fn(),
-});
-
 const createBaseRouteObject = (path: string): RouteObject => ({
   path,
   component: createElement(`div`, {}),
@@ -27,6 +20,7 @@ describe(`router`, () => {
   ];
 
   const createHandlersMock = (): RouterImplementationHandlers => ({
+    handleInit: jest.fn(),
     handleNavigateTo: jest.fn(),
     handleBack: jest.fn(),
     handleForward: jest.fn(),
@@ -340,6 +334,30 @@ describe(`router`, () => {
 
       router.redirect(testRoutes[2].path);
       expect(handlers.handleRedirect).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe(`Edge cases`, () => {
+    // I couldn't think of a better name for this test, but it basically tests
+    // how we re-generate the state whenever re-building from external nav.
+    //
+    // ie. If you use the browser back button to leave the site, and then use
+    // the forward button to return, when you come back the browser history
+    // still has a valid history stack, but since the site re-initializes fresh
+    // when returning we don't actually have history entries. In that case, we
+    // have to re-build the history stack.
+    it(`should handle lazy- re-initializing gracefully`, () => {
+      const handlers = createHandlersMock();
+      const router = new Router(handlers, testRoutes);
+
+      const initialState = router.getCurrentState();
+      expect(initialState.currentRoute?.path).toEqual(testRoutes[0].path);
+      expect(initialState.cursor).toEqual(0);
+
+      router.updateCursorFromExternal(1, testRoutes[2].path);
+      const newState = router.getCurrentState();
+      expect(newState.currentRoute?.path).toEqual(testRoutes[2].path);
+      expect(newState.cursor).toEqual(1);
     });
   });
 });

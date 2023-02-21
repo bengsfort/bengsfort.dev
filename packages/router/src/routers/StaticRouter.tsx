@@ -1,8 +1,7 @@
-import {ComponentChildren, createRef}                                      from 'preact';
+import {ComponentChildren, createRef} from 'preact';
 
-import {HandleBackCb, HandleForwardCb, HandleNavigateCb, HandleRedirectCb} from '../types';
-import {RouterCore}                                                        from '../RouterCore';
-import {Router}                                                            from '../router';
+import {RouterCore}                   from '../RouterCore';
+import {Router}                       from '../router';
 
 interface Props {
   url: string;
@@ -11,22 +10,24 @@ interface Props {
 export function StaticRouter({url, children}: Props) {
   const routerRef = createRef<Router>();
 
-  const handleNavigateTo: HandleNavigateCb = (_path, _state) => {
+  const handleInit = () => {};
+  const handleNavigateTo = () => {
     console.error(`Navigation is not available in static environments.`);
   };
-  const handleForward: HandleForwardCb = () => {
+  const handleForward = () => {
     console.error(`Navigation is not available in static environments.`);
   };
-  const handleBack: HandleBackCb = () => {
+  const handleBack = () => {
     console.error(`Navigation is not available in static environments.`);
   };
-  const handleRedirect: HandleRedirectCb = (_path, _state) => {
+  const handleRedirect = () => {
     console.error(`Navigation is not available in static environments.`);
   };
 
   return (
     <RouterCore
       url={url}
+      handleInit={handleInit}
       handleNavigateTo={handleNavigateTo}
       handleForward={handleForward}
       handleBack={handleBack}
