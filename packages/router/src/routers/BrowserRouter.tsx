@@ -1,8 +1,8 @@
-import {ComponentChildren, createRef}              from 'preact';
-import {useRef, useEffect}                         from 'preact/hooks';
+import {createRef}                                                         from 'preact';
+import {useRef, useEffect}                                                 from 'preact/hooks';
 
-import {RouterImplementationHandlers, RouterState} from '../types';
-import {RouterCore}                                from '../RouterCore';
+import type {CommonRouterProps, RouterImplementationHandlers, RouterState} from '../types';
+import {RouterCore}                                                        from '../RouterCore';
 
 type HandleInitCb = RouterImplementationHandlers[`handleInit`];
 type HandleNavigateCb = RouterImplementationHandlers[`handleNavigateTo`];
@@ -10,12 +10,10 @@ type HandleForwardCb = RouterImplementationHandlers[`handleForward`];
 type HandleBackCb = RouterImplementationHandlers[`handleBack`];
 type HandleRedirectCb = RouterImplementationHandlers[`handleRedirect`];
 
-interface Props {
-  children: ComponentChildren;
-}
-export function BrowserRouter({children}: Props) {
+interface Props extends CommonRouterProps {}
+export function BrowserRouter({url = window.location.pathname, children}: Props) {
   const routerRef = createRef<RouterCore>();
-  const initialPath = useRef(window.location.pathname);
+  const initialPath = useRef(url);
   const routerTriggeredEvent = useRef(false);
 
   const handleInit: HandleInitCb = (path, state) => {

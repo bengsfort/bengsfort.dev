@@ -1,6 +1,6 @@
 import type {ComponentChildren} from 'preact';
 
-import {PageNav}                from '../PageNav';
+import {PageNav}                from '../PageNav/index.js';
 
 interface Props {
   children: ComponentChildren;

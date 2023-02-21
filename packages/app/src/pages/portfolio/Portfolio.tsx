@@ -1,11 +1,8 @@
 import {FunctionComponent} from 'preact';
-import 'modern-normalize';
 
-import styles from './Portfolio.module.css';
+import styles              from './Portfolio.module.css';
 
-import '../style/app.variables.css';
-import '../style/app.global.css';
-import {Page} from '../components';
+import {Page}              from '../../common/components';
 
 
 interface Props {}

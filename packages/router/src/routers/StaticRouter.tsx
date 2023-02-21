@@ -1,12 +1,10 @@
-import {ComponentChildren, createRef} from 'preact';
+import {createRef}              from 'preact';
 
-import {RouterCore}                   from '../RouterCore';
-import {Router}                       from '../router';
+import {RouterCore}             from '../RouterCore';
+import {Router}                 from '../router';
+import type {CommonRouterProps} from '../types';
 
-interface Props {
-  url: string;
-  children: ComponentChildren;
-}
+interface Props extends CommonRouterProps {}
 export function StaticRouter({url, children}: Props) {
   const routerRef = createRef<Router>();
 

@@ -1,6 +1,6 @@
-import {VNode}      from 'preact';
+import {ComponentChildren, VNode} from 'preact';
 
-import {RouteProps} from './components/Route';
+import {RouteProps}               from './components/Route';
 
 /**
  * This defines a given Route.
@@ -60,4 +60,9 @@ export interface RouterImplementationHandlers {
   handleForward(): void;
   handleBack(): void;
   handleRedirect(path: string, state: RouterState): void;
+}
+
+export interface CommonRouterProps {
+  url: string;
+  children: ComponentChildren;
 }
