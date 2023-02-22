@@ -41,6 +41,7 @@
   "eslint.workingDirectories": [
     "./packages/app",
     "./packages/server",
+    "./packages/router",
     "./tools/esbuild",
     "./tools/postcss",
   ],
