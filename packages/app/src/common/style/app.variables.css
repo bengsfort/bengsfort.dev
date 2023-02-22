@@ -29,4 +29,13 @@
   --text-h2: 32px;
   --text-h3: 28px;
   --text-h4: 24px;
+
+  /** Global Layout */
+  --page-nav-width: 256px;
+  --page-nav-height: 480px;
+  --page-content-area: 800px;
+
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 32px;
 }

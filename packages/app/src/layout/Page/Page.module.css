@@ -1,25 +1,8 @@
-:root {
-  --page-nav-width: 256px;
-  --page-nav-height: 480px;
-  --page-nav-bg: var(--color-primary);
+.content-area-wrapper {
+  padding-left: calc(var(--spacing-large) + var(--page-nav-width));
 }
 
-.page-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--page-nav-width);
-  height: var(--page-nav-height);
-  background-color: var(--page-nav-bg);
-
-  .info {
-    margin-top: 12px;
-    margin-bottom: 24px;
-  }
-
-  .site-name {
-    font-size: var(--text-large);
-    font-family: var(--font-mono);
-    text-align: center;
-  }
+.content-area {
+  width: 100%;
+  max-width: var(--page-content-area);
 }

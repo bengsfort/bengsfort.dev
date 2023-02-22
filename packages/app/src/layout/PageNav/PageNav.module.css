@@ -1,8 +1,5 @@
 :root {
-  --page-nav-width: 256px;
-  --page-nav-height: 480px;
   --page-nav-bg: var(--color-primary);
-  --page-nav-x-padding: 30px;
 }
 
 .page-nav {
@@ -47,8 +44,8 @@
   display: flex;
   gap: 8px;
   margin-top: 8px;
-  padding-right: var(--page-nav-x-padding);
-  padding-left: var(--page-nav-x-padding);
+  padding-right: var(--spacing-large);
+  padding-left: var(--spacing-large);
 
   .social-item {
     transition: transform 155ms ease-out;
@@ -78,7 +75,7 @@
   .nav-link {
     position: relative;
     display: block;
-    padding: 8px var(--page-nav-x-padding);
+    padding: var(--spacing-small) var(--spacing-large);
     color: var(--color-text);
     font-weight: var(--weight-regular);
     font-size: var(--text-large);

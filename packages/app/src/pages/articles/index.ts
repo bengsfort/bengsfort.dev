@@ -1,1 +1,2 @@
-export {Articles} from './Articles';
+export {ArticlesList} from './ArticlesList';
+export {Article} from './article';
