@@ -1,22 +1,18 @@
 import {readFile}          from 'node:fs/promises';
-import path                from 'node:path';
-import * as url            from 'node:url';
 import {Express}           from 'express';
 
+import {resolve}           from '../../utils/paths.js';
 // We only import the type staticly so we can type our interface.
-import type {renderStatic} from '../../entry-server';
+import type {renderStatic} from '../../entry-server.js';
 
 type SsrRenderFn = typeof renderStatic;
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const resolve = (targetPath: string) => path.resolve(__dirname, targetPath);
 
 const BUILD_HTML_PATH = resolve(`./client/index.html`);
 const BUILD_ENTRY_PATH = resolve(`./server/entry-server.js`);
 const BUILD_ASSETS_PATH = resolve(`./client`);
 const DEV_HTML_PATH = resolve(`../index.html`);
-const DEV_ENTRY_PATH = `/src/entry-server.ts`;
+const DEV_ENTRY_PATH = `/src/entry-server.tsx`;
 
 interface SsrHandler {
   attachMiddleware(app: Express): void | Promise<void>;
@@ -67,6 +63,7 @@ export async function ssrDevHandler(root: string, hmrPort: number): Promise<SsrH
       app.use(viteDevServer.middlewares);
     },
     async prepareRenderer(url) {
+      console.log(`Preparing renderer for ${url}`);
       // We always want to use a fresh template in dev
       const rawTemplate = await readFile(DEV_HTML_PATH, `utf-8`);
       const template = await viteDevServer.transformIndexHtml(url, rawTemplate);

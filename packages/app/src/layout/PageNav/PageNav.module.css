@@ -1,0 +1,107 @@
+:root {
+  --page-nav-bg: var(--color-primary);
+}
+
+.page-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--page-nav-width);
+  padding-bottom: 64px;
+  background-color: var(--page-nav-bg);
+  transform: translate(0, 0);
+  transition: transform 500ms ease-out;
+
+  &:after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: var(--page-nav-width);
+    height: 148px;
+    background-color: var(--color-primary-dark);
+    content: "";
+    clip-path: polygon(100% 0, 0 0, 0 100%);
+  }
+
+  .hide {
+    transform: translate(-100%, 148px);
+    transition-timing-function: ease-in;
+  }
+}
+
+.site-info {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+.site-name {
+  font-size: var(--text-large);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  padding-right: var(--spacing-large);
+  padding-left: var(--spacing-large);
+
+  .social-item {
+    transition: transform 155ms ease-out;
+
+    &:hover {
+      transform: translate(0, -4px);
+      transition-timing-function: cubic-bezier(.4,-0.46,.65,1.03);
+    }
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--color-text);
+  }
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .nav-item {
+    padding: 0;
+  }
+
+  .nav-link {
+    position: relative;
+    display: block;
+    padding: var(--spacing-small) var(--spacing-large);
+    color: var(--color-text);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-large);
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 155ms;
+
+    &:hover, &.active {
+      background-color: var(--color-primary-light);
+      cursor: pointer;
+    }
+
+    .nav-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      width: 24px;
+      transform: translateY(-12px) translateX(-40px);
+      transition: transform 175ms ease-in;
+      fill: var(--color-text);
+    }
+
+    &:hover .nav-icon,
+    &.active .nav-icon {
+      transform: translateY(-12px) translateX(0px);
+      transition-timing-function: ease-out;
+    }
+  }
+}

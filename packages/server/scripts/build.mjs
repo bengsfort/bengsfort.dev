@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-
+import {copy}       from 'esbuild-plugin-copy';
 import * as esbuild from '@bengsfort.dev/esbuild';
 
 export const buildApp = watchMode => {
@@ -24,6 +24,15 @@ export const buildApp = watchMode => {
     ],
 
     // Plugins
-    plugins: [],
+    plugins: [
+      copy({
+        assets: [
+          {
+            from: [`./src/public/**/*`],
+            to: [`./public`], // uses the dist directory as a base.
+          },
+        ],
+      }),
+    ],
   }, {watchMode, name: `Server`});
 };

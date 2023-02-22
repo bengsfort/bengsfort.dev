@@ -28,7 +28,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": true,
-    "**/node_modules": true,
+    "**/node_modules": false,
     "**/.yarn": false
   },
   "stylelint.validate": [
@@ -41,7 +41,8 @@
   "eslint.workingDirectories": [
     "./packages/app",
     "./packages/server",
+    "./packages/router",
     "./tools/esbuild",
     "./tools/postcss",
-  ]
+  ],
 }

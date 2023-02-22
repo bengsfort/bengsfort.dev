@@ -1,15 +1,39 @@
-import {FunctionComponent} from 'preact';
+import type {FunctionalComponent} from 'preact';
+import {CommonRouterProps, Route} from '@bengsfort.dev/router';
 import 'modern-normalize';
 
-import './style/app.variables.css';
-import './style/app.global.css';
-import styles from './App.module.css';
+import {ArticlesList, Article} from './pages/articles';
+import {Portfolio}             from './pages/portfolio';
+import {Resume}                from './pages/resume';
+import {NotFound}              from './pages/not-found';
+import {Routes}                from './routes';
+import './common/style/app.variables.css';
+import './common/style/app.global.css';
 
 interface Props {
-  target?: string;
+  routerComponent: FunctionalComponent<CommonRouterProps>;
+  initialRoute: string;
 }
-export const App: FunctionComponent<Props> = ({target = `Client Rendered`}) => {
+export function App({routerComponent, initialRoute}: Props) {
+  const Router = routerComponent;
+
   return (
-    <h1 className={styles.header}>Hello, {target}</h1>
+    <Router url={initialRoute}>
+      <Route path={Routes.Portfolio} isDefault>
+        <Portfolio />
+      </Route>
+      <Route path={Routes.Resume}>
+        <Resume />
+      </Route>
+      <Route path={Routes.ArticleList}>
+        <ArticlesList />
+      </Route>
+      <Route path={Routes.Article}>
+        <Article />
+      </Route>
+      <Route path={Routes.NotFound} isError>
+        <NotFound />
+      </Route>
+    </Router>
   );
-};
+}

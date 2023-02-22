@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "stylelint.vscode-stylelint",
+      "vunguyentuan.vscode-css-variables",
+      "vunguyentuan.vscode-postcss",
+      "clinyong.vscode-css-modules",
+      "andrewleedham.vscode-css-modules",
+  ]
+}

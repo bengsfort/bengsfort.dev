@@ -1,0 +1,8 @@
+.content-area-wrapper {
+  padding-left: calc(var(--spacing-large) + var(--page-nav-width));
+}
+
+.content-area {
+  width: 100%;
+  max-width: var(--page-content-area);
+}

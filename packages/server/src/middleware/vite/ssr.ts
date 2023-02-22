@@ -1,6 +1,6 @@
 import {Express}                       from 'express';
 
-import {ssrDevHandler, ssrProdHandler} from './handlers';
+import {ssrDevHandler, ssrProdHandler} from './handlers.js';
 
 const INITIAL_STATE_TAG = `<!-- @__INITIAL_STATE__-->`;
 const SSR_RENDER_TAG = `<!-- @__SSR_RENDER__ -->`;

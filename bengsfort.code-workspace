@@ -9,6 +9,10 @@
             "path": "./packages/server"
         },
         {
+            "name": "Router",
+            "path": "./packages/router"
+        },
+        {
             "name": "ESBuild",
             "path": "./tools/esbuild"
         },
