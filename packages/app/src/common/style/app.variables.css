@@ -31,9 +31,9 @@
   --text-h4: 24px;
 
   /** Global Layout */
-  --page-nav-width: 256px;
-  --page-nav-height: 480px;
-  --page-content-area: 800px;
+  --page-nav-width: 100vw;
+  --page-nav-height: 80px;
+  --page-content-area: 1000px;
 
   --spacing-small: 8px;
   --spacing-medium: 16px;
