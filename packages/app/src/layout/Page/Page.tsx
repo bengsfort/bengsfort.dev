@@ -12,8 +12,12 @@ export function Page({children}: Props) {
     <>
       <PageNav />
       <main class={styles.contentAreaWrapper}>
-        <div class={styles.contentArea}>{children}</div>
+        {children}
       </main>
     </>
   );
 }
+
+Page.Container = ({children}: Props) => (
+  <div class={styles.contentArea}>{children}</div>
+);

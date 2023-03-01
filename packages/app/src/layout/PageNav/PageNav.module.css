@@ -1,5 +1,4 @@
 :root {
-  --page-nav-bg: var(--color-dark);
   --nav-indicator-size: 6px;
   --nav-indicator-color: var(--color-primary);
 }
@@ -10,7 +9,6 @@
   left: 0;
   width: var(--page-nav-width);
   height: var(--page-nav-height);
-  background-color: var(--page-nav-bg);
   backdrop-filter: blur(2px);
   
   .container {

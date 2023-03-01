@@ -1,0 +1,17 @@
+
+.text-wrapper {
+  width: 850px;
+  margin: 0 auto;
+}
+
+.hero-header {
+  margin: 64px 0 64px;
+  font-weight: var(--weight-regular);
+  color: var(--color-text);
+}
+
+.lead-text {
+  font-size: var(--text-large);
+  font-weight: var(--weight-regular);
+  color: var(--color-text);  
+}
