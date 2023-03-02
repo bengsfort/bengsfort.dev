@@ -20,6 +20,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
+    "postcss-functions": "^4.0.2",
     "postcss-modules": "^6.0.0",
     "postcss-nested": "^6.0.0",
     "stylelint": "^14.16.1",

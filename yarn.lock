@@ -505,6 +505,7 @@ __metadata:
     autoprefixer: ^10.4.13
     eslint: ^8.33.0
     postcss: ^8.4.21
+    postcss-functions: ^4.0.2
     postcss-modules: ^6.0.0
     postcss-nested: ^6.0.0
     stylelint: ^14.16.1
@@ -7782,6 +7783,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-functions@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "postcss-functions@npm:4.0.2"
+  dependencies:
+    postcss-value-parser: ^4.0.0
+  peerDependencies:
+    postcss: ^8.0.0
+  checksum: de837e5b0fd57f323a7f08482f0c9291982ce850cdbac6a93327176eabca40f085fa8fb40b20e5c1c877bcb740fdfc567ae6509e09f6ade9e79ecedb9c02eed0
+  languageName: node
+  linkType: hard
+
 "postcss-html@npm:^0.36.0":
   version: 0.36.0
   resolution: "postcss-html@npm:0.36.0"
@@ -8053,7 +8065,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-value-parser@npm:^4.1.0, postcss-value-parser@npm:^4.2.0":
+"postcss-value-parser@npm:^4.0.0, postcss-value-parser@npm:^4.1.0, postcss-value-parser@npm:^4.2.0":
   version: 4.2.0
   resolution: "postcss-value-parser@npm:4.2.0"
   checksum: 819ffab0c9d51cf0acbabf8996dffbfafbafa57afc0e4c98db88b67f2094cb44488758f06e5da95d7036f19556a4a732525e84289a425f4f6fd8e412a9d7442f
