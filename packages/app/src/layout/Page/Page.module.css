@@ -1,5 +1,10 @@
 .content-area-wrapper {
+  position: relative;
   padding-top: calc(var(--spacing-large) + var(--page-nav-height));
+
+  &.no-padding {
+    padding-top: 0px;
+  }
 }
 
 .content-area {

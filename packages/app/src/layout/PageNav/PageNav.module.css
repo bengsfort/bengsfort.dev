@@ -10,6 +10,7 @@
   width: var(--page-nav-width);
   height: var(--page-nav-height);
   backdrop-filter: blur(2px);
+  z-index: 9999;
   
   .container {
     height: 100%;
