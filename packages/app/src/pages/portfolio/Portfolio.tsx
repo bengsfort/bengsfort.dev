@@ -8,7 +8,7 @@ import {IntroSection}      from './IntroSection';
 interface Props {}
 export const Portfolio: FunctionComponent<Props> = () => {
   return (
-    <Page>
+    <Page hasNoPadding>
       <IntroSection />
     </Page>
   );
