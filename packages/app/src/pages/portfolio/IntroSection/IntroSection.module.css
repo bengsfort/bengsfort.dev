@@ -8,6 +8,14 @@
 .text-wrapper {
   width: 850px;
   margin: 0 auto var(--spacing-xlarge);
+  transform: translateY(--spacing-medium);
+  opacity: 0;
+  transition: opacity 350ms 150ms, transform 500ms;
+
+  &.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .hero-header {
