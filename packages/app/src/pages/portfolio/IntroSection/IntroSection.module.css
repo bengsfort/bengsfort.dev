@@ -1,23 +1,37 @@
 .section-wrapper {
+  position: relative;
   width: 100%;
   height: 675px;
-  position: relative;
   padding-top: calc(var(--spacing-large) + var(--page-nav-height));
 }
 
 .text-wrapper {
   width: 850px;
-  margin: 0 auto;
+  margin: 0 auto var(--spacing-xlarge);
 }
 
 .hero-header {
   margin: 64px 0 64px;
-  font-weight: var(--weight-regular);
   color: var(--color-text);
+  font-weight: var(--weight-regular);
 }
 
 .lead-text {
-  font-size: var(--text-large);
+  color: var(--color-text);
   font-weight: var(--weight-regular);
-  color: var(--color-text);  
+  font-size: var(--text-large);
+}
+
+.scroll-indicator {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    top: calc(100% + var(--spacing-medium));
+    left: 50%;
+    width: 1px;
+    height: 128px;
+    background-color: rgba(255, 255, 255, 0.1);
+    content: "";
+  }
 }
