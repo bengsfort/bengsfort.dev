@@ -1,0 +1,13 @@
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.gradient-start {
+  stop-color: var(--color-accent-light);
+}
+
+.gradient-stop {
+  stop-color: var(--color-accent-light-faded);
+}

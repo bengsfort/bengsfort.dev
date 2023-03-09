@@ -1,13 +1,24 @@
 .section-wrapper {
+  --scroll-indicator-size: 128px;
+
   position: relative;
   width: 100%;
-  height: 675px;
+  height: 100vh;
   padding-top: calc(var(--spacing-large) + var(--page-nav-height));
+  overflow: hidden;
 }
 
 .text-wrapper {
   width: 850px;
   margin: 0 auto var(--spacing-xlarge);
+  transform: translateY(var(--spacing-medium));
+  opacity: 0;
+  transition: opacity 350ms 150ms, transform 500ms;
+
+  &.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .hero-header {
@@ -23,15 +34,36 @@
 }
 
 .scroll-indicator {
-  position: relative;
+  position: absolute;
+  bottom: calc(var(--scroll-indicator-size) + var(--spacing-medium));
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 350ms 350ms;
+
+  &.visible {
+    opacity: 1;
+  }
 
   &:before {
     position: absolute;
     top: calc(100% + var(--spacing-medium));
     left: 50%;
     width: 1px;
-    height: 128px;
+    height: var(--scroll-indicator-size);
     background-color: rgba(255, 255, 255, 0.1);
     content: "";
   }
+}
+
+.star-layer {
+  z-index: -1;
+}
+
+.mountain-layer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: auto;
 }
