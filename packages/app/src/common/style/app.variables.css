@@ -8,6 +8,7 @@
   --color-primary-light: #4a82ed;
   --color-accent-dark: #19253b;
   --color-accent-light: #262736;
+  --color-accent-light-faded: #222226;
 
   /** Main elements */
   --color-bg: var(--color-dark);

@@ -13,12 +13,14 @@ interface Props {
   farMovementModifier?: number;
   maxDistance?: number;
   throttleMs?: number;
+  className?: string;
 }
 export function StarField({
   closeMovementModifier = 1.5,
   farMovementModifier = 0.5,
   maxDistance = 50,
   throttleMs = FPS_60,
+  className,
 }: Props) {
   const lastUpdatedRef = useRef<number>(Date.now());
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -65,7 +67,7 @@ export function StarField({
   };
 
   return (
-    <div class={styles.wrapper} aria-hidden={`true`} ref={wrapperRef}>
+    <div class={classNames(styles.wrapper, className)} aria-hidden={`true`} ref={wrapperRef}>
       <div
         class={classNames(styles.starLayer, styles.close)}
         style={{
