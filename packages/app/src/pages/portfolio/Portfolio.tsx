@@ -1,6 +1,6 @@
 import {FunctionComponent} from 'preact';
 
-import {Page}              from '../../common/components';
+import {Page}              from '../../layout';
 
 import {IntroSection}      from './IntroSection';
 import {TechSection}       from './TechSection';

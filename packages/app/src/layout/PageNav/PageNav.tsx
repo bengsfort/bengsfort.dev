@@ -1,9 +1,6 @@
-import {Link}                                                  from '@bengsfort.dev/router';
+import {Link} from '@bengsfort.dev/router';
 
-import {Github, PortfolioIcon, LinkedIn, CvIcon, ArticlesIcon} from '../../common/assets/icons/index.js';
-import {VisuallyHidden}                                        from '../../common/components/VisuallyHidden';
-
-import styles                                                  from './PageNav.module.css';
+import styles from './PageNav.module.css';
 
 export function PageNav() {
   return (

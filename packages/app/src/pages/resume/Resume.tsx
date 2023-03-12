@@ -2,7 +2,7 @@ import {FunctionComponent} from 'preact';
 
 import styles              from './Resume.module.css';
 
-import {Page}              from '../../common/components';
+import {Page}              from '../../layout';
 
 
 interface Props {}

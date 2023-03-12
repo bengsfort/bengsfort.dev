@@ -1,18 +1,11 @@
-import classNames      from 'classnames';
+import styles                from './TechSection.module.css';
 
-import {useInViewport} from '../../../common/hooks/useInViewport.hook';
-
-import {useRef}        from 'preact/hooks';
-
-import styles          from './TechSection.module.css';
+import {TransitionOnVisible} from '../../../common/components';
 
 export function TechSection() {
-  const labelRef = useRef<HTMLDivElement>(null);
-  const visible = useInViewport(labelRef);
-
   return (
     <section class={styles.sectionWrapper}>
-      <div class={classNames(styles.label, visible && styles.visible)} ref={labelRef}>Hello</div>
+      <TransitionOnVisible defaultStyles={styles.label} visibleStyles={styles.visible}>Hello</TransitionOnVisible>
     </section>
   );
 }

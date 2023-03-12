@@ -2,7 +2,7 @@ import {FunctionComponent} from 'preact';
 
 import styles              from './Article.module.css';
 
-import {Page}              from '../../../common/components';
+import {Page}              from '../../../layout';
 
 import {useRouteParams}    from '@bengsfort.dev/router';
 
