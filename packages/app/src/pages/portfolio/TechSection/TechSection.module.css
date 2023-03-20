@@ -1,18 +1,22 @@
 .section-wrapper {
   position: relative;
   width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  padding-block: 200px 200px;
   background-color: var(--color-accent-dark);
 }
 
-.label {
-  opacity: 0;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: var(--page-content-area);
+  margin: 0 auto;
 
-  &.visible {
-    opacity: 1;
+  &> section:nth-of-type(odd) {
+    align-self: flex-start;
+  }
+
+  &> section:nth-of-type(even) {
+    align-self: flex-end;
   }
 }
