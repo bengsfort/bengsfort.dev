@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   padding-block: 200px 200px;
-  background-color: pink;
+  background-color: var(--palette-black-600);
 }
 
 .container {
@@ -19,4 +19,10 @@
   &> section:nth-of-type(even) {
     align-self: flex-end;
   }
+}
+
+.title {
+  color: var(--palette-red-500);
+  font-weight: var(--text-weight-extra-bold);
+  font-size: var(--text-h1);
 }

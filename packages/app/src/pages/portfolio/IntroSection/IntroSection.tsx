@@ -20,6 +20,12 @@ export function IntroSection() {
   const visible = useClassOnMount(styles.visible);
   const reduceMotion = usePrefersReducedMotion();
 
+  // @todo: Update this copy.
+  /*
+  I'm a software developer passionate about delivering high quality experiences that feel good.
+  I specialise in UI for web, games, and mobile as well as developer tooling and game programming.
+  I'm currently based in Helsinki, Finland, and am working at Noice (previously Epic Games and Unity Technologies).
+  */
   return (
     <section class={styles.sectionWrapper}>
       <StarField className={styles.starLayer} noAnimation={reduceMotion} />

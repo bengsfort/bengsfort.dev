@@ -1,12 +1,14 @@
 import {useEffect, useState} from 'preact/hooks';
 
+import {safeMatchMedia}      from '../../utils';
+
 type QueryListener = (matches: boolean) => void;
 
 // We use a factory here so that we don't have to make media queries every time
 // the hook is called. Instead, we can just make one query and then use it for
 // all the hooks.
 const queryFactory = () => {
-  const query = window.matchMedia(`(prefers-reduced-motion: reduce)`);
+  const query = safeMatchMedia(`(prefers-reduced-motion: reduce)`);
   let cachedPrefersReducedMotion = query.matches;
 
   const hookCallbacks = new Set<QueryListener>();
