@@ -1,1 +1,0 @@
-export {Mountains} from './Mountains';

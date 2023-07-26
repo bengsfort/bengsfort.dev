@@ -2,7 +2,7 @@
   position: relative;
   width: 100%;
   padding-block: 200px 200px;
-  background-color: var(--color-accent-dark);
+  background-color: pink;
 }
 
 .container {

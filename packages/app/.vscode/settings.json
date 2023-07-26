@@ -36,8 +36,10 @@
     "postcss",
   ],
   "cssModules.camelCase": true,
+  "emmet.includeLanguages": {
+    "postcss": "css"
+  },
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "eslint.packageManager": "yarn",
   "eslint.workingDirectories": [
     "./packages/app",
     "./packages/server",

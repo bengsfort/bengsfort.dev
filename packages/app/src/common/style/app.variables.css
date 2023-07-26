@@ -6,7 +6,7 @@
   --palette-black-400: #4A4D72; /* unused */
   --palette-black-500: #2A2C41;
   --palette-black-600: #222334; /* unused */
-  --palette-black-700: #191B27; /* unused */
+  --palette-black-700: #191B27;
   --palette-black-800: #11121A; /* unused */
   --palette-black-900: #08090D; /* unused */
   --palette-black: var(--palette-black-500);
@@ -35,22 +35,22 @@
 
   --palette-yellow-100: #FDFAD6; /* unused */
   --palette-yellow-200: #FCF5AD; /* unused */
-  --palette-yellow-300: #FAF084; /* unused */
+  --palette-yellow-300: #FAF084;
   --palette-yellow-400: #F8EB5A; /* unused */
   --palette-yellow-500: #F6E631;
   --palette-yellow-600: #E3D109; /* unused */
-  --palette-yellow-700: #AA9D07; /* unused */
+  --palette-yellow-700: #AA9D07;
   --palette-yellow-800: #726905; /* unused */
   --palette-yellow-900: #393402; /* unused */
   --palette-yellow: var(--palette-yellow-500);
 
   --palette-blue-100: #D8EDF7; /* unused */
   --palette-blue-200: #B2DBEF; /* unused */
-  --palette-blue-300: #8BC9E6; /* unused */
+  --palette-blue-300: #8BC9E6;
   --palette-blue-400: #64B8DE; /* unused */
   --palette-blue-500: #3DA6D6;
   --palette-blue-600: #2788B6; /* unused */
-  --palette-blue-700: #1D6688; /* unused */
+  --palette-blue-700: #1D6688;
   --palette-blue-800: #13445B; /* unused */
   --palette-blue-900: #0A222D; /* unused */
   --palette-blue: var(--palette-blue-500);
@@ -68,7 +68,7 @@
   --color-accent-light: var(--palette-yellow-300);
 
   /** Main elements */
-  --color-bg: var(--color-dark);
+  --color-bg: var(--palette-black-700);
   --color-text: var(--color-light);
 
   /** Typography */
