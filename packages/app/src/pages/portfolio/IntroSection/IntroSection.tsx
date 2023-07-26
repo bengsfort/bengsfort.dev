@@ -1,11 +1,11 @@
-import styles            from './IntroSection.module.css';
-import {FlyoutLabels}    from './FlyoutLabels';
-import {StarField}       from './StarField';
-import {WavyText}        from './WavyText';
+import styles                                     from './IntroSection.module.css';
+import {FlyoutLabels}                             from './FlyoutLabels';
+import {StarField}                                from './StarField';
+import {WavyText}                                 from './WavyText';
 
-import {useClassOnMount} from '../../../common/hooks/useClassOnMount.hook';
+import {useClassOnMount, usePrefersReducedMotion} from '../../../common/hooks';
 
-import classNames        from 'classnames';
+import classNames                                 from 'classnames';
 
 
 export function IntroSection() {
@@ -18,10 +18,11 @@ export function IntroSection() {
   ];
 
   const visible = useClassOnMount(styles.visible);
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <section class={styles.sectionWrapper}>
-      <StarField className={styles.starLayer} />
+      <StarField className={styles.starLayer} noAnimation={reduceMotion} />
       <div class={classNames(styles.textWrapper, visible)}>
         <h1 class={styles.heroHeader}>Hey, my name is <strong>Matt</strong>.</h1>
         <p class={styles.leadText}>I'm a software developer who specialises in <FlyoutLabels labels={specialtyList}>many things</FlyoutLabels> currently based in Helsinki, Finland.</p>

@@ -13,6 +13,8 @@ interface Props {
   farMovementModifier?: number;
   maxDistance?: number;
   throttleMs?: number;
+  // @todo: Implement static animation on mobile devices.
+  noAnimation?: boolean;
   className?: string;
 }
 export function StarField({
@@ -20,6 +22,7 @@ export function StarField({
   farMovementModifier = 0.5,
   maxDistance = 50,
   throttleMs = FPS_60,
+  noAnimation = false,
   className,
 }: Props) {
   const lastUpdatedRef = useRef<number>(Date.now());
@@ -27,6 +30,8 @@ export function StarField({
   const [offset, setOffset] = useState<Vec2>({x: 0, y: 0});
 
   useEffect(() => {
+    if (noAnimation) return;
+
     const handlePointerMove = (ev: PointerEvent) => {
       const now = Date.now();
 
@@ -55,7 +60,7 @@ export function StarField({
     return () => {
       window.removeEventListener(`pointermove`, handlePointerMove);
     };
-  }, [throttleMs]);
+  }, [throttleMs, noAnimation]);
 
   const closeLayer: Vec2 = {
     x: offset.x * closeMovementModifier * maxDistance,
