@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'preact/hooks';
 
-import {safeMatchMedia}      from '../../utils';
+import {matchMedia}          from '../../utils';
 
 type QueryListener = (matches: boolean) => void;
 
@@ -8,7 +8,7 @@ type QueryListener = (matches: boolean) => void;
 // the hook is called. Instead, we can just make one query and then use it for
 // all the hooks.
 const queryFactory = () => {
-  const query = safeMatchMedia(`(prefers-reduced-motion: reduce)`);
+  const query = matchMedia(`(prefers-reduced-motion: reduce)`);
   let cachedPrefersReducedMotion = query.matches;
 
   const hookCallbacks = new Set<QueryListener>();

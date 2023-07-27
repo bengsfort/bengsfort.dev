@@ -1,3 +1,3 @@
 export * from './utils';
-export {SSRIntersectionObserver} from './shims/SSRSafeIntersectionObserver';
-export {safeMatchMedia} from './shims/matchMedia';
+export {IntersectionObserver} from './shims/IntersectionObserver';
+export {matchMedia} from './shims/matchMedia';

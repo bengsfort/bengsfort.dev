@@ -1,12 +1,12 @@
 import {MutableRef, StateUpdater, useEffect, useState} from 'preact/hooks';
 
-import {SSRIntersectionObserver}                       from '../../utils';
+import {IntersectionObserver}                          from '../../utils';
 
 const observerHookFactory = (opts: IntersectionObserverInit) => {
   const targetDispatchMap = new Map<Element, StateUpdater<boolean>>();
 
   // Set up an observer to dispatch visibility to the cached handlers.
-  const observer = new SSRIntersectionObserver(entries => {
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       const dispatcher = targetDispatchMap.get(entry.target);
       dispatcher?.(entry.isIntersecting);

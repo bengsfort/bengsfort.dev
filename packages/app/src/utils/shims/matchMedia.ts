@@ -1,4 +1,4 @@
-let matchMediaFn: typeof matchMedia;
+let matchMediaFn: typeof window.matchMedia;
 
 if (import.meta.env.SSR) {
   matchMediaFn = (media: string) => ({
@@ -17,4 +17,4 @@ if (import.meta.env.SSR) {
   matchMediaFn = window.matchMedia;
 }
 
-export const safeMatchMedia = matchMediaFn;
+export const matchMedia = matchMediaFn;

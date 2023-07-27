@@ -1,4 +1,4 @@
-let ObserverClass: typeof IntersectionObserver;
+let ObserverClass: typeof window.IntersectionObserver;
 
 if (import.meta.env.SSR) {
   class ObserverShim {
@@ -25,7 +25,7 @@ if (import.meta.env.SSR) {
 
   ObserverClass = ObserverShim;
 } else {
-  ObserverClass = IntersectionObserver;
+  ObserverClass = window.IntersectionObserver;
 }
 
-export const SSRIntersectionObserver = ObserverClass;
+export const IntersectionObserver = ObserverClass;
