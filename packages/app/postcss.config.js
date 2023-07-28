@@ -3,6 +3,8 @@ import {postcssPlugins} from '@bengsfort.dev/postcss';
 
 export default {
   plugins: [
-    ...postcssPlugins,
+    ...postcssPlugins([
+      './src/common/style/media-queries.global.css',
+    ]),
   ],
 };

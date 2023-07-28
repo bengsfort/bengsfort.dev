@@ -3,7 +3,8 @@
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
   "cssvar.files": [
-    "./packages/app/src/common/style/app.variables.css",
+    "./src/common/style/app.variables.css",
+    "./src/common/style/media-queries.globals.css",
   ],
   "[typescript]": {
     "editor.codeLens": true,

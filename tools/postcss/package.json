@@ -18,8 +18,10 @@
     "eslint": "^8.33.0"
   },
   "dependencies": {
+    "@csstools/postcss-global-data": "^2.0.1",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
+    "postcss-custom-media": "^10.0.0",
     "postcss-functions": "^4.0.2",
     "postcss-modules": "^6.0.0",
     "postcss-nested": "^6.0.0",
