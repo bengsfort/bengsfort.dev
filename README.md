@@ -28,3 +28,7 @@ The project is setup as a yarn workspace for ease of maintenenance and separatio
 1. [Build system](https://github.com/bengsfort/bengsfort.dev/pull/1)
 2. [Core styles](https://github.com/bengsfort/bengsfort.dev/pull/2)
 3. [Vite Setup](https://github.com/bengsfort/bengsfort.dev/pull/3)
+4. [Core layout and routing](https://github.com/bengsfort/bengsfort.dev/pull/4)
+5. [Portfolio page blockout](https://github.com/bengsfort/bengsfort.dev/pull/5)
+6. [Portfolio: Intro section](https://github.com/bengsfort/bengsfort.dev/pull/6)
+
