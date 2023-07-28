@@ -21,10 +21,22 @@
   }
 }
 
-.hero-header {
-  margin: 64px 0 64px;
+.hero {
+  margin: 64px 0 24px;
   color: var(--color-text);
   font-weight: var(--weight-regular);
+  font-size: var(--text-large);
+
+  h1 {
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-weight: var(--weight-regular);
+  }
+}
+
+.emphasized-text {
+  font-weight: var(--weight-semibold);
 }
 
 .lead-text {

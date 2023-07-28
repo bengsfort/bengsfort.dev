@@ -1,0 +1,10 @@
+.container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-item {
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-h1);
+}
