@@ -14,7 +14,8 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "lint": "yarn workspaces foreach -pt run lint"
+    "lint": "yarn workspaces foreach -pt run lint",
+    "dev": "yarn workspace '@bengsfort.dev/server' run dev"
   },
   "engines": {
     "node": ">=16.3.0"
