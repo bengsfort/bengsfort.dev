@@ -8,6 +8,17 @@ module.exports = {
     require.resolve(`@yarnpkg/eslint-config/react`),
   ],
 
+  parser: `@typescript-eslint/parser`,
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: `module`,
+    'import/parsers': {
+      '@typescript-eslint/parser': [`.ts`],
+    },
+  },
+
+  plugins: [`import`],
+
   rules: {
     'consistent-return': 0,
     'arca/import-ordering': 0,

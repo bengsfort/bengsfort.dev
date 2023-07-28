@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'preact/hooks';
 
-import {matchMedia}          from '../../utils';
+import {matchMedia}          from '@utils/shims';
 
 type QueryListener = (matches: boolean) => void;
 

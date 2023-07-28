@@ -1,8 +1,8 @@
 .flyout {
   position: relative;
   display: inline-block;
-  font-weight: var(--weight-bold);
   color: var(--color-primary);
+  font-weight: var(--weight-bold);
   cursor: pointer;
 
   &:hover .label {
@@ -39,8 +39,8 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  pointer-events: none;
   user-select: none;
+  pointer-events: none;
 
   &, & > li {
     position: absolute;
@@ -50,10 +50,10 @@
 }
 
 .label {
-  font-weight: var(--weight-regular);
-  color: var(--color-text);
-  text-align: right;
   min-width: 250px;
+  color: var(--color-text);
+  font-weight: var(--weight-regular);
+  text-align: right;
   opacity: 0;
   transition: opacity 155ms, transform 175ms;
   transition-timing-function: ease-in;

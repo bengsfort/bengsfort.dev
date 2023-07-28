@@ -1,6 +1,6 @@
 import {MutableRef, StateUpdater, useEffect, useState} from 'preact/hooks';
 
-import {IntersectionObserver}                          from '../../utils';
+import {IntersectionObserver}                          from '@utils/shims';
 
 const observerHookFactory = (opts: IntersectionObserverInit) => {
   const targetDispatchMap = new Map<Element, StateUpdater<boolean>>();

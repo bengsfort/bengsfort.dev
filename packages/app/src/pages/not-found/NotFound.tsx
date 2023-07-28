@@ -2,7 +2,7 @@ import {FunctionComponent} from 'preact';
 
 import styles              from './NotFound.module.css';
 
-import {Page}              from '../../layout';
+import {Page}              from '@layout/Page';
 
 
 interface Props {}

@@ -1,6 +1,6 @@
 import classNames          from 'classnames';
 
-import {useInViewport}     from '../../../../common/hooks/useInViewport.hook';
+import {useInViewport}     from '@hooks/useInViewport.hook';
 
 import {ComponentChildren} from 'preact';
 import {useRef}            from 'preact/hooks';

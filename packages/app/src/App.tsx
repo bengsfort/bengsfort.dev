@@ -7,8 +7,8 @@ import {Portfolio}             from './pages/portfolio';
 import {Resume}                from './pages/resume';
 import {NotFound}              from './pages/not-found';
 import {Routes}                from './routes';
-import './common/style/app.variables.css';
-import './common/style/app.global.css';
+import '@styles/app.variables.css';
+import '@styles/app.global.css';
 
 interface Props {
   routerComponent: FunctionalComponent<CommonRouterProps>;

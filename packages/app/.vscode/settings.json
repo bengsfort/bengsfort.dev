@@ -41,9 +41,6 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "eslint.workingDirectories": [
-    "./packages/app",
-    "./packages/server",
-    "./tools/esbuild",
-    "./tools/postcss",
+    "./src",
   ]
 }

@@ -1,0 +1,36 @@
+.container {
+  --transition-start-offset: -16px;
+
+  width: 740px;
+
+  & + & {
+    margin-block-start: 200px;
+  }
+
+  &:nth-child(even) {
+    --transition-start-offset: 16px;
+  }
+}
+
+.header {
+  transform: translateX(var(--transition-start-offset));
+  opacity: 0;
+  transition: transform 225ms, opacity 225ms;
+
+  &.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.content {
+  font-size: var(--text-small);
+  transform: translateX(var(--transition-start-offset));
+  opacity: 0;
+  transition: transform 225ms, opacity 225ms;
+
+  &.active {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
