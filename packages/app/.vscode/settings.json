@@ -3,7 +3,8 @@
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
   "cssvar.files": [
-    "./packages/app/src/common/style/app.variables.css",
+    "./src/common/style/app.variables.css",
+    "./src/common/style/media-queries.globals.css",
   ],
   "[typescript]": {
     "editor.codeLens": true,
@@ -28,7 +29,7 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": true,
-    "**/node_modules": true,
+    "**/node_modules": false,
     "**/.yarn": false
   },
   "stylelint.validate": [
@@ -36,12 +37,11 @@
     "postcss",
   ],
   "cssModules.camelCase": true,
+  "emmet.includeLanguages": {
+    "postcss": "css"
+  },
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "eslint.packageManager": "yarn",
   "eslint.workingDirectories": [
-    "./packages/app",
-    "./packages/server",
-    "./tools/esbuild",
-    "./tools/postcss",
+    "./src",
   ]
 }

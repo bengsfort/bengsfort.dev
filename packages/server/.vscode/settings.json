@@ -37,11 +37,7 @@
   ],
   "cssModules.camelCase": true,
   "typescript.tsdk": "node_modules\\typescript\\lib",
-  "eslint.packageManager": "yarn",
   "eslint.workingDirectories": [
-    "./packages/app",
-    "./packages/server",
-    "./tools/esbuild",
-    "./tools/postcss",
+    "./src",
   ]
 }

@@ -1,0 +1,27 @@
+.text-wrapper {
+  --letter-delay: 0ms;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-small);
+}
+
+.letter {
+  display: inline-block;
+  animation: bounce 5000ms infinite;
+  animation-delay: var(--letter-delay);
+  user-select: none;
+}
+
+@keyframes bounce {
+  0%, 10%, 100% {
+    transform: translateY(0);
+  }
+
+  5% {
+    transform: translateY(-0.5rem);
+  }
+}

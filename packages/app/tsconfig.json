@@ -13,15 +13,33 @@
       ],
       "react-dom": [
         "../../node_modules/preact/compat/"
-      ]
+      ],
+      "@assets/*": [
+        "./common/assets/*"
+      ],
+      "@hooks/*": [
+        "./common/hooks/*"
+      ],
+      "@components/*": [
+        "./common/components/*"
+      ],
+      "@styles/*": [
+        "./common/style/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@layout/*": [
+        "./layout/*"
+      ],
     },
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext",
-    ],
-    "types": [
-      "vite/client",
     ],
     "typeRoots": [
       "../../node_modules/@types",
