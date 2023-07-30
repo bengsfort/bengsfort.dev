@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "preact/hooks";
+import {useEffect, useState} from 'preact/hooks';
 
 interface HookProps {
   typeSpeed?: number;
@@ -19,13 +19,13 @@ export function useTypeTransition({
   typeSpeed = DEFAULT_TYPE_SPEED,
   deleteSpeed = DEFAULT_DELETE_SPEED,
 }: HookProps): HookResult {
-  const [target, setTarget] = useState('');
-  const [currentText, setCurrentText] = useState('');
+  const [target, setTarget] = useState(``);
+  const [currentText, setCurrentText] = useState(``);
 
   useEffect(() => {
-    if (currentText === target) {
+    if (currentText === target)
       return;
-    }
+
     const shouldDelete = target.length === 0;
 
 
@@ -45,7 +45,7 @@ export function useTypeTransition({
   };
 
   const deleteText = () => {
-    setTarget('');
+    setTarget(``);
   };
 
   return {

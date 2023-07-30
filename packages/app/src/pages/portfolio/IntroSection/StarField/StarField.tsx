@@ -42,7 +42,7 @@ export function StarField({
           x: Math.sin(Math.cos(smoothedNow)) * 100,
           y: -Math.cos(Math.sin(smoothedNow)) * 100,
         };
-    });
+      });
 
       animRef = requestAnimationFrame(animate);
     };

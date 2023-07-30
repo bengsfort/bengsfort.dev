@@ -4,12 +4,12 @@
   ],
   "parserOptions": {
     "project": [
-      "./tsconfig.json"
+      "../tsconfig.json"
     ]
   },
   "settings": {
     "import/resolver": {
-      "typescript": true,
+      "typescript": true
     }
   }
 }

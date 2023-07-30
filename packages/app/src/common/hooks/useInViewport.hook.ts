@@ -1,5 +1,4 @@
 import {MutableRef, StateUpdater, useEffect, useState} from 'preact/hooks';
-
 import {IntersectionObserver}                          from '@utils/shims';
 
 const observerHookFactory = (opts: IntersectionObserverInit) => {

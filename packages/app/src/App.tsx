@@ -7,6 +7,7 @@ import {Portfolio}             from './pages/portfolio';
 import {Resume}                from './pages/resume';
 import {NotFound}              from './pages/not-found';
 import {Routes}                from './routes';
+
 import '@styles/app.variables.css';
 import '@styles/app.global.css';
 
