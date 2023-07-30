@@ -6,6 +6,11 @@
   height: 100vh;
   padding-top: calc(var(--spacing-large) + var(--page-nav-height));
   overflow: hidden;
+  background: linear-gradient(
+    0deg,
+    var(--color-bg) 0%,
+    var(--palette-black-800) 100%
+  );
 }
 
 .text-wrapper {
@@ -66,8 +71,4 @@
     background-color: rgba(255, 255, 255, 0.1);
     content: "";
   }
-}
-
-.star-layer {
-  z-index: -1;
 }

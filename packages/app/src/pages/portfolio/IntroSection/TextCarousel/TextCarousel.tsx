@@ -1,6 +1,14 @@
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 import styles from './TextCarousel.module.css';
 import { useTypeTransition } from "./hooks/useTypeTransition.hook";
+import { VisuallyHidden } from "@components/VisuallyHidden";
+import classNames from "classnames";
+
+const listify = (items: string[]) => items.reduce(
+  (sentence, item, i, arr) => i === arr.length - 1
+    ? `${sentence} and ${item}`
+    : `${sentence}${item}, `
+, ``);
 
 interface Props {
   items: string[];
@@ -10,25 +18,48 @@ interface Props {
 export function TextCarousel({items, interval = 1000, transitionTime = 500}: Props) {
   const [index, setIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
+  const stringifiedItems = listify(items);
 
-  const handleTransitionEnd = () => {
-    console.log('transition end');
-    setTransitioning(false);
-    setTimeout(() => {
-      setIndex((index + 1) % items.length);
+  const {
+    currentText,
+    currentTextTarget,
+    typeText,
+    deleteText
+  } = useTypeTransition({});
+
+  useEffect(() => {
+    if (currentText !== currentTextTarget) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      if (currentText !== ``) {
+        deleteText();
+        return;
+      }
+
+      const nextIndex = index === items.length - 1 ? 0 : index + 1;
+      setIndex(nextIndex);
     }, interval);
-  };
 
-  const currentText = useTypeTransition({
-    text: items[index],
-    delay: interval,
-    duration: transitionTime,
-    onFinished: handleTransitionEnd,
-  });
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [currentText, currentTextTarget]);
+
+  useEffect(() => {
+    typeText(items[index]);
+  }, [index]);
 
   return (
-    <div class={styles.container}>
-      <div class={styles.carouselItem}>{currentText}</div>
+    <div class={styles.carousel}>
+      <div class={classNames({
+        [styles.carouselItem]: true,
+        [styles.idle]: currentText === currentTextTarget,
+      })} aria-hidden="true">
+        {currentText}
+      </div>
+      <VisuallyHidden>{stringifiedItems}</VisuallyHidden>
     </div>
   );
 }

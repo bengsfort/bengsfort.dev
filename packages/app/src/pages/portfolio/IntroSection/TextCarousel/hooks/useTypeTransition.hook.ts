@@ -1,39 +1,57 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 
 interface HookProps {
-  text: string;
-  delay: number;
-  duration: number;
-  onFinished: () => void;
+  typeSpeed?: number;
+  deleteSpeed?: number;
 }
-export function useTypeTransition({ text, delay, duration, onFinished }: HookProps): string {
-  const [textState, setTextState] = useState('');
-  const [isFinished, setIsFinished] = useState(false);
+
+interface HookResult {
+  currentText: string;
+  currentTextTarget: string;
+  typeText: (text: string) => void;
+  deleteText: () => void;
+}
+
+const DEFAULT_TYPE_SPEED = 24;
+const DEFAULT_DELETE_SPEED = 16;
+
+export function useTypeTransition({
+  typeSpeed = DEFAULT_TYPE_SPEED,
+  deleteSpeed = DEFAULT_DELETE_SPEED,
+}: HookProps): HookResult {
+  const [target, setTarget] = useState('');
+  const [currentText, setCurrentText] = useState('');
 
   useEffect(() => {
-    setTextState('');
-    setIsFinished(false);
-  }, [text]);
-
-  useEffect(() => {
-    if (isFinished) {
-      onFinished();
+    if (currentText === target) {
+      return;
     }
-  }, [isFinished]);
+    const shouldDelete = target.length === 0;
 
-  useEffect(() => {
-    const timeoutDuration = textState.length === 0 ? delay : duration / text.length;
 
     const timeout = setTimeout(() => {
-      if (textState.length < text.length) {
-        setTextState(text.slice(0, textState.length + 1));
-      } else {
-        setIsFinished(true);
-      }
-    }, timeoutDuration);
+      const nextText = shouldDelete
+        ? currentText.slice(0, -1)
+        : currentText + target[currentText.length];
+
+      setCurrentText(nextText);
+    }, shouldDelete ? deleteSpeed : typeSpeed);
 
     return () => clearTimeout(timeout);
-  }, [textState]);
+  }, [currentText, target, typeSpeed, deleteSpeed]);
 
-  return textState;
+  const typeText = (text: string) => {
+    setTarget(text);
+  };
+
+  const deleteText = () => {
+    setTarget('');
+  };
+
+  return {
+    currentText,
+    currentTextTarget: target,
+    typeText,
+    deleteText,
+  };
 }
