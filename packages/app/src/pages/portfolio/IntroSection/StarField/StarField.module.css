@@ -12,25 +12,23 @@
 
 .star-layer {
   --star-size: 1px;
-  --layer-offset-x: 0px;
-  --layer-offset-y: 0px;
 
   width: var(--star-size);
   height: var(--star-size);
   background-color: transparent;
-  transform: translate(var(--layer-offset-x), var(--layer-offset-y));
+  transform: translate3d(0, 0, 0);
 
   &.close {
     --star-size: 4px;
-    box-shadow: duplicatedShadow(var(--palette-light-100), 50, 2000, 2000);
-    opacity: 0.5;
+    z-index: 1;
+    box-shadow: duplicatedShadow(var(--palette-light-700), 25, 2000, 2000);
   }
 
   &.far {
     --star-size: 2px;
-    box-shadow: duplicatedShadow(var(--palette-light-100), 100, 2000, 2000);
-    opacity: 0.25;
+    z-index: 0;
+    box-shadow: duplicatedShadow(var(--palette-light-800), 25, 2000, 2000);
   }
 
-  transition: transform 100ms ease-out;
+  /* transition: transform 100ms ease-out; */
 }

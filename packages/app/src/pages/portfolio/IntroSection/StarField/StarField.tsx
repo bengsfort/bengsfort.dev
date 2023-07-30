@@ -29,13 +29,13 @@ export function StarField({
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [baseMovement, setBaseMovement] = useState<Vec2>({x: 0, y: 0});
-  const [offset, setOffset] = useState<Vec2>({x: 0, y: 0});
+  const offset = useRef<Vec2>({x: 0, y: 0});
 
   useEffect(() => {
     if (noAnimation) return;
     let animRef = 0;
 
-    const animate = (now = Date.now()) => {
+    const animate = (now: number) => {
       setBaseMovement(() => {
         const smoothedNow = now / FPS_60 / 1000;
         return {
@@ -47,7 +47,7 @@ export function StarField({
       animRef = requestAnimationFrame(animate);
     };
 
-    animate();
+    animate(performance.now());
 
     return () => {
       cancelAnimationFrame(animRef);
@@ -74,10 +74,10 @@ export function StarField({
       const xOffset = 1 - (ev.clientX / halfWidth);
       const yOffset = 1 - (ev.pageY / halfHeight);
 
-      setOffset({
+      offset.current = {
         x: xOffset,
         y: yOffset,
-      });
+      };
       lastUpdatedRef.current = now;
     };
 
@@ -87,28 +87,22 @@ export function StarField({
     };
   }, [throttleMs, noAnimation]);
 
-  const closeLayer: Vec2 = {
-    x: baseMovement.x + offset.x * closeMovementModifier * maxDistance,
-    y: baseMovement.y + offset.y * closeMovementModifier * maxDistance,
-  };
-  const farLayer: Vec2 = {
-    x: baseMovement.x + offset.x * farMovementModifier * maxDistance,
-    y: baseMovement.y + offset.y * farMovementModifier * maxDistance,
-  };
+  const closeX = baseMovement.x + offset.current.x * closeMovementModifier * maxDistance;
+  const closeY = baseMovement.y + offset.current.y * closeMovementModifier * maxDistance;
+  const farX = baseMovement.x + offset.current.x * farMovementModifier * maxDistance;
+  const farY = baseMovement.y + offset.current.y * farMovementModifier * maxDistance;
 
   return (
     <div class={classNames(styles.wrapper, className)} aria-hidden={`true`} ref={wrapperRef}>
       <div
         class={classNames(styles.starLayer, styles.close)}
         style={{
-          [`--layer-offset-x`]: asPixels(closeLayer.x),
-          [`--layer-offset-y`]: asPixels(closeLayer.y),
+          transform: `translate3d(${asPixels(closeX)}, ${asPixels(closeY)}, 0)`,
         }} />
       <div
         class={classNames(styles.starLayer, styles.far)}
         style={{
-          [`--layer-offset-x`]: asPixels(farLayer.x),
-          [`--layer-offset-y`]: asPixels(farLayer.y),
+          transform: `translate3d(${asPixels(farX)}, ${asPixels(farY)}, 0)`,
         }} />
     </div>
   );
