@@ -6,6 +6,10 @@
     "./src/common/style/app.variables.css",
     "./src/common/style/media-queries.globals.css",
   ],
+  "[postcss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint",
+    "editor.formatOnSave": true
+  },
   "[typescript]": {
     "editor.codeLens": true,
     "editor.suggest.showReferences": true,

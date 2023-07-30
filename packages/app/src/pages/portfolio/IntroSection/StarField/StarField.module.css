@@ -1,3 +1,4 @@
+/* stylelint-disable function-no-unknown */
 .wrapper {
   position: absolute;
   top: 0;
@@ -21,11 +22,15 @@
 
   &.close {
     --star-size: 4px;
-    box-shadow: duplicatedShadow(#c3c3c3, 50, 2000, 2000);
+    box-shadow: duplicatedShadow(var(--palette-light-100), 50, 2000, 2000);
+    opacity: 0.5;
   }
 
   &.far {
     --star-size: 2px;
-    box-shadow: duplicatedShadow(#c3c3c3, 100, 2000, 2000);
+    box-shadow: duplicatedShadow(var(--palette-light-100), 100, 2000, 2000);
+    opacity: 0.25;
   }
+
+  transition: transform 100ms ease-out;
 }

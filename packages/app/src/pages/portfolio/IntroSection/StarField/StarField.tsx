@@ -27,7 +27,32 @@ export function StarField({
 }: Props) {
   const lastUpdatedRef = useRef<number>(Date.now());
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const [baseMovement, setBaseMovement] = useState<Vec2>({x: 0, y: 0});
   const [offset, setOffset] = useState<Vec2>({x: 0, y: 0});
+
+  useEffect(() => {
+    if (noAnimation) return;
+    let animRef = 0;
+
+    const animate = (now = Date.now()) => {
+      setBaseMovement(() => {
+        const smoothedNow = now / FPS_60 / 1000;
+        return {
+          x: Math.sin(Math.cos(smoothedNow)) * 100,
+          y: -Math.cos(Math.sin(smoothedNow)) * 100,
+        };
+    });
+
+      animRef = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      cancelAnimationFrame(animRef);
+    };
+  }, [noAnimation]);
 
   useEffect(() => {
     if (noAnimation) return;
@@ -63,12 +88,12 @@ export function StarField({
   }, [throttleMs, noAnimation]);
 
   const closeLayer: Vec2 = {
-    x: offset.x * closeMovementModifier * maxDistance,
-    y: offset.y * closeMovementModifier * maxDistance,
+    x: baseMovement.x + offset.x * closeMovementModifier * maxDistance,
+    y: baseMovement.y + offset.y * closeMovementModifier * maxDistance,
   };
   const farLayer: Vec2 = {
-    x: offset.x * farMovementModifier * maxDistance,
-    y: offset.y * farMovementModifier * maxDistance,
+    x: baseMovement.x + offset.x * farMovementModifier * maxDistance,
+    y: baseMovement.y + offset.y * farMovementModifier * maxDistance,
   };
 
   return (
