@@ -21,7 +21,7 @@ export async function viteSsr({
   const handler = await (isProd ? ssrProdHandler() : ssrDevHandler(viteRoot, hmrPort));
 
   // Attach required middlewares to the app.
-  handler.attachMiddleware(app);
+  await handler.attachMiddleware(app);
 
   // Set up a catch-all so that any non-explicit routes get handled via vite/client.
   // This enables us to set up 404 pages client side, have client side routing, etc.

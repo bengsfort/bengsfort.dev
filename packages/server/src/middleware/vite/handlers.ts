@@ -1,18 +1,18 @@
-import {readFile}          from 'node:fs/promises';
-import {Express}           from 'express';
+import {readFile}                         from 'node:fs/promises';
+import {Express, static as ExpressStatic} from 'express';
 
-import {resolve}           from '../../utils/paths.js';
+import {resolve}                          from '../../utils/paths.js';
 // We only import the type staticly so we can type our interface.
-import type {renderStatic} from '../../entry-server.js';
+import type {renderStatic}                from '../../entry-server.js';
 
 type SsrRenderFn = typeof renderStatic;
 
 
 const BUILD_HTML_PATH = resolve(`./client/index.html`);
 const BUILD_ENTRY_PATH = resolve(`./server/entry-server.js`);
-const BUILD_ASSETS_PATH = resolve(`./client`);
+const BUILD_ASSETS_PATH = resolve(`./client/assets`);
 const DEV_HTML_PATH = resolve(`../index.html`);
-const DEV_ENTRY_PATH = `/src/entry-server.tsx`;
+const DEV_ENTRY_PATH = `./src/entry-server.tsx`;
 
 interface SsrHandler {
   attachMiddleware(app: Express): void | Promise<void>;
@@ -31,7 +31,7 @@ export async function ssrProdHandler(): Promise<SsrHandler> {
   return {
     async attachMiddleware(app) {
       app.use((await import(`compression`)).default());
-      app.use((await import(`serve-static`)).default(BUILD_ASSETS_PATH, {
+      app.use(`/assets`, ExpressStatic(BUILD_ASSETS_PATH, {
         index: false,
       }));
     },
