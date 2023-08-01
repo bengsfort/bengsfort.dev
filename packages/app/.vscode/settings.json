@@ -46,6 +46,6 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "eslint.workingDirectories": [
-    "./src",
+    "./",
   ]
 }
