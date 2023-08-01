@@ -17,6 +17,7 @@
   height: var(--star-size);
   background-color: transparent;
   transform: translate3d(0, 0, 0);
+  transition: transform 16ms ease-out;
 
   &.close {
     --star-size: 4px;
@@ -29,6 +30,4 @@
     z-index: 0;
     box-shadow: duplicatedShadow(var(--palette-light-800), 25, 2000, 2000);
   }
-
-  /* transition: transform 100ms ease-out; */
 }

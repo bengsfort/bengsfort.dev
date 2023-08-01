@@ -25,7 +25,7 @@ export function StarField({
   noAnimation = false,
   className,
 }: Props) {
-  const lastUpdatedRef = useRef<number>(Date.now());
+  const lastUpdatedRef = useRef<number>(performance.now());
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [baseMovement, setBaseMovement] = useState<Vec2>({x: 0, y: 0});
@@ -36,6 +36,11 @@ export function StarField({
     let animRef = 0;
 
     const animate = (now: number) => {
+      animRef = requestAnimationFrame(animate);
+
+      if (now - lastUpdatedRef.current < throttleMs)
+        return;
+
       setBaseMovement(() => {
         const smoothedNow = now / FPS_60 / 1000;
         return {
@@ -44,7 +49,7 @@ export function StarField({
         };
       });
 
-      animRef = requestAnimationFrame(animate);
+      lastUpdatedRef.current = now;
     };
 
     animate(performance.now());
@@ -52,16 +57,14 @@ export function StarField({
     return () => {
       cancelAnimationFrame(animRef);
     };
-  }, [noAnimation]);
+  }, [noAnimation, throttleMs]);
 
   useEffect(() => {
     if (noAnimation) return;
 
     const handlePointerMove = (ev: PointerEvent) => {
-      const now = Date.now();
-
       // Only run if the tick rate has passed.
-      if (!wrapperRef.current || now - lastUpdatedRef.current < throttleMs) return;
+      if (!wrapperRef.current) return;
 
       // Only run if the element is on screen.
       const wrapperBounds = wrapperRef.current.getBoundingClientRect();
@@ -78,14 +81,13 @@ export function StarField({
         x: xOffset,
         y: yOffset,
       };
-      lastUpdatedRef.current = now;
     };
 
     window.addEventListener(`pointermove`, handlePointerMove);
     return () => {
       window.removeEventListener(`pointermove`, handlePointerMove);
     };
-  }, [throttleMs, noAnimation]);
+  }, [noAnimation]);
 
   const closeX = baseMovement.x + offset.current.x * closeMovementModifier * maxDistance;
   const closeY = baseMovement.y + offset.current.y * closeMovementModifier * maxDistance;

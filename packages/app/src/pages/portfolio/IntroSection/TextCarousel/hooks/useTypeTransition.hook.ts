@@ -12,8 +12,8 @@ interface HookResult {
   deleteText: () => void;
 }
 
-const DEFAULT_TYPE_SPEED = 24;
-const DEFAULT_DELETE_SPEED = 16;
+const DEFAULT_TYPE_SPEED = 48;
+const DEFAULT_DELETE_SPEED = 24;
 
 export function useTypeTransition({
   typeSpeed = DEFAULT_TYPE_SPEED,

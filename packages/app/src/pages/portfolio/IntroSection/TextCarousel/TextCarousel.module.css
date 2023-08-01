@@ -1,4 +1,6 @@
 .carousel {
+  --carousel-text-color: var(--palette-blue-600);
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -9,7 +11,7 @@
 .carousel-item {
   height: calc(var(--text-h1) + 16px);
   padding: 8px 0px;
-  color: var(--color-accent);
+  color: var(--carousel-text-color);
   font-weight: var(--weight-regular);
   font-size: var(--text-h1);
   line-height: 1;
@@ -18,25 +20,8 @@
     display: inline-block;
     width: 4px;
     height: 100%;
-    margin-inline-start: 8px;
-    background-color: var(--color-accent);
-    transform: translateY(4px);
+    background-color: var(--carousel-text-color);
+    transform: translate(4px, 4px);
     content: '';
-  }
-
-  &.idle {
-    &:after {
-      animation: pulse 200ms ease-in-out infinite alternate;
-    }
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 0%;
-  }
-
-  100% {
-    opacity: 100%;
   }
 }

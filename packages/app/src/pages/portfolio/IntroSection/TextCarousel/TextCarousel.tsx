@@ -14,9 +14,11 @@ const listify = (items: Array<string>) => items.reduce(
 
 interface Props {
   items: Array<string>;
+  emptyDuration?: number;
   interval?: number;
+  pause?: boolean;
 }
-export function TextCarousel({items, interval = 1000}: Props) {
+export function TextCarousel({items, emptyDuration = 350, interval = 2000, pause}: Props) {
   const [index, setIndex] = useState(0);
   const stringifiedItems = listify(items);
 
@@ -28,24 +30,24 @@ export function TextCarousel({items, interval = 1000}: Props) {
   } = useTypeTransition({});
 
   useEffect(() => {
-    if (currentText !== currentTextTarget)
+    if (currentText !== currentTextTarget || pause)
       return;
 
-
+    const isEmpty = currentText === ``;
     const timeout = setTimeout(() => {
-      if (currentText !== ``) {
+      if (!isEmpty) {
         deleteText();
         return;
       }
 
       const nextIndex = index === items.length - 1 ? 0 : index + 1;
       setIndex(nextIndex);
-    }, interval);
+    }, isEmpty ? emptyDuration : interval);
 
     return () => {
       clearTimeout(timeout);
     };
-  }, [currentText, currentTextTarget]);
+  }, [currentText, currentTextTarget, emptyDuration, interval, pause]);
 
   useEffect(() => {
     typeText(items[index]);
