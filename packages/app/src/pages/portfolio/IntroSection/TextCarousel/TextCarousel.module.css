@@ -1,19 +1,29 @@
 .carousel {
   --carousel-text-color: var(--palette-blue-600);
+  --carousel-indicator-size: 8px;
 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
   width: 100%;
 }
 
+.carousel-main {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.carousel-prefix {
+  margin-inline-end: 8px;
+  font-weight: var(--weight-regular);
+  font-size: var(--text-large);
+}
+
 .carousel-item {
-  height: calc(var(--text-h1) + 16px);
+  height: calc(48px + 16px);
   padding: 8px 0px;
   color: var(--carousel-text-color);
   font-weight: var(--weight-regular);
-  font-size: var(--text-h1);
+  font-size: 48px;
   line-height: 1;
 
   &:after {
@@ -23,5 +33,37 @@
     background-color: var(--carousel-text-color);
     transform: translate(4px, 4px);
     content: '';
+  }
+}
+
+.carousel-indicators {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.carousel-indicator {
+  width: var(--carousel-indicator-size);
+  height: var(--carousel-indicator-size);
+  margin: 0px 4px;
+  background-color: var(--carousel-text-color);
+  border-radius: 50%;
+  transform: scale(1);
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+
+  &:hover {
+    background-color: var(--palette-blue-400);
+    transform: scale(1.5);
+    transition-timing-function: cubic-bezier(.47,.07,.47,1.25);
+  }
+
+  &.active {
+    background-color: var(--palette-blue-400);
+    transform: scale(1.5);
+    transition-timing-function: cubic-bezier(.47,.07,.47,1.25);
   }
 }

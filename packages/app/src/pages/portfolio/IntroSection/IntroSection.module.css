@@ -17,6 +17,7 @@
   width: 100%;
   max-width: 850px;
   margin: 0 auto var(--spacing-xlarge);
+  text-align: center;
   transform: translateY(var(--spacing-medium));
   opacity: 0;
   transition: opacity 350ms 150ms, transform 500ms;
@@ -32,7 +33,7 @@
   flex-direction: row;
   gap: 8px;
   align-items: baseline;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 64px 0 48px;
   color: var(--color-text);
   font-weight: var(--weight-regular);

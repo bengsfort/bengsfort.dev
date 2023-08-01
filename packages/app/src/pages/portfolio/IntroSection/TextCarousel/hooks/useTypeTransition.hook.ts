@@ -12,7 +12,7 @@ interface HookResult {
   deleteText: () => void;
 }
 
-const DEFAULT_TYPE_SPEED = 48;
+const DEFAULT_TYPE_SPEED = 64;
 const DEFAULT_DELETE_SPEED = 24;
 
 export function useTypeTransition({
@@ -27,7 +27,6 @@ export function useTypeTransition({
       return;
 
     const shouldDelete = target.length === 0;
-
 
     const timeout = setTimeout(() => {
       const nextText = shouldDelete
