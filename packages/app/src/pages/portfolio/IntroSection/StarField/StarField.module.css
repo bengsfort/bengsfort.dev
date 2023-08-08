@@ -15,9 +15,14 @@
 
   width: var(--star-size);
   height: var(--star-size);
-  background-color: transparent;
   transform: translate3d(0, 0, 0);
   transition: transform 16ms ease-out;
+
+  /*
+  This is a heavy operation, so to avoid jank we'll use will-change
+  Not really something to use often, but this is a good use case.
+  */
+  will-change: transform;
 
   &.close {
     --star-size: 4px;
