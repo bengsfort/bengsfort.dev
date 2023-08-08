@@ -1,0 +1,33 @@
+.link {
+  --link-color: var(--color-accent);
+  --link-color-shadow: var(--color-accent-dark);
+  --link-icon-size: var(--text-large);
+
+  position: relative;
+  color: var(--link-color-shadow);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-large);
+  text-decoration: none;
+
+  .icon {
+    width: var(--link-icon-size);
+    height: var(--link-icon-size);
+    margin-inline-end: 0.375rem;
+    transform: translateY(4px);
+  }
+
+  .link-top {
+    position: absolute;
+    color: var(--link-color);
+    inset-inline-end: 0;
+    inset-block-start: 0;
+    transform: translateY(4px);
+    transition: transform 125ms ease-in-out;
+  }
+
+  &:hover {
+    .link-top {
+      transform: translate(2px, 2px);
+    }
+  }
+}
