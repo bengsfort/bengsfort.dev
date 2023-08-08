@@ -1,6 +1,7 @@
 .carousel {
   --carousel-text-color: var(--palette-blue-600);
-  --carousel-indicator-size: 8px;
+  --carousel-indicator-color: var(--palette-blue-600);
+  --carousel-indicator-active-color: var(--palette-yellow);
 
   width: 100%;
 }
@@ -46,24 +47,24 @@
 }
 
 .carousel-indicator {
-  width: var(--carousel-indicator-size);
-  height: var(--carousel-indicator-size);
+  width: 30px;
+  height: 6px;
   margin: 0px 4px;
-  background-color: var(--carousel-text-color);
-  border-radius: 50%;
+  background-color: var(--carousel-indicator-color);
+  border-radius: 2px;
   transform: scale(1);
   cursor: pointer;
   transition: transform 200ms ease-in-out;
 
   &:hover {
-    background-color: var(--palette-blue-400);
-    transform: scale(1.5);
+    background-color: var(--carousel-indicator-active-color);
+    transform: scale(1.05);
     transition-timing-function: cubic-bezier(.47,.07,.47,1.25);
   }
 
   &.active {
-    background-color: var(--palette-blue-400);
-    transform: scale(1.5);
+    background-color: var(--carousel-indicator-active-color);
+    transform: scale(1.25);
     transition-timing-function: cubic-bezier(.47,.07,.47,1.25);
   }
 }
