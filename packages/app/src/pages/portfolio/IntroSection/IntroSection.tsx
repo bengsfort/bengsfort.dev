@@ -32,7 +32,7 @@ export function IntroSection() {
       <div class={classNames(styles.textWrapper, visible)}>
         <div class={styles.hero}>
           <h1>Hey, my name is <strong>Matt</strong>;</h1>
-          and I specialise in
+          <span>and I specialise in</span>
         </div>
         <TextCarousel items={specialtyList} pause={!inViewport} />
         <p class={styles.leadText}>I am currently based in Helsinki, Finland and building cool stuff with <EmployerLink href={`https://noice.com`} iconUrl={NoiceIcon} label={`Noice`} /> (previously <EmployerLink href={`https://epicgames.com`} iconUrl={EpicIcon} label={`Epic Games`} />, <EmployerLink href={`https://unity3d.com`} iconUrl={UnityIcon} label={`Unity`} />).</p>
