@@ -4,6 +4,7 @@
   --link-icon-size: var(--text-large);
 
   position: relative;
+  display: inline-block;
   color: var(--link-color-shadow);
   font-weight: var(--weight-semibold);
   font-size: var(--text-large);
@@ -21,13 +22,14 @@
     color: var(--link-color);
     inset-inline-end: 0;
     inset-block-start: 0;
-    transform: translateY(4px);
+    /* Offset shadow initially due to line height */
+    transform: translateY(3px);
     transition: transform 125ms ease-in-out;
   }
 
   &:hover {
     .link-top {
-      transform: translate(2px, 2px);
+      transform: translate(2px, 1px);
     }
   }
 }
