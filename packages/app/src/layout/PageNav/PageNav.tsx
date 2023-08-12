@@ -2,6 +2,8 @@ import {Link} from '@bengsfort.dev/router';
 
 import styles from './PageNav.module.css';
 
+// @todo: I'd like to do a hamburger menu with a full screen overlay for mobile
+// but I'd like to move on to other things for now, so I'll leave this as is for now.
 export function PageNav() {
   return (
     <header class={styles.pageNav}>

@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: var(--text-base);
+  font-family: var(--font-main);
+}
+
 body {
   color: var(--color-text);
   font-size: var(--text-size);
