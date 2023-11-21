@@ -1,1 +1,0 @@
-export {MiniSection} from './MiniSection';

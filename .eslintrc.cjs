@@ -1,12 +1,10 @@
+/** @type {import('eslint').ESLint.ConfigData} */
 module.exports = {
-  root: true,
-
-  extends: [
-    require.resolve(`@bengsfort.dev/eslint-config`),
-  ],
-
-  rules: {
-    'consistent-return': 0,
-    'arca/import-ordering': 0,
+  extends: ['@bengsfort'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    project: ['tsconfig.json'],
+    ecmaVersion: 20,
+    sourceType: 'module',
   },
 };
