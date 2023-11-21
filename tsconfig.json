@@ -1,21 +1,30 @@
 {
-  "extends": "./tsconfig.base.json",
-  "include": [
-    "./packages/server/**/*",
-    "./packages/app/**/*",
-    "./packages/router/**/*",
+  "exclude": [
+    "**/node_modules",
+    "**/build",
   ],
   "compilerOptions": {
-    "paths": {
-      "@bengsfort.dev/app": [
-        "./packages/app/src"
-      ],
-      "@bengsfort.dev/server": [
-        "./packages/server",
-      ],
-      "@bengsfort.dev/router": [
-        "./packages/router",
-      ]
-    }
-  }
+    "target": "ESNext",
+    "module": "ESNext",
+    "baseUrl": "packages/",
+    "outDir": "build/",
+    "typeRoots": [
+      "node_modules/@types",
+      "types"
+    ],
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "declarationDir": "build/",
+    "isolatedModules": true,
+    "strict": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+  },
 }
