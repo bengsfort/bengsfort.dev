@@ -1,0 +1,43 @@
+:root {
+  /** Colors */
+  --color-light: #e6e6e6;
+  --color-dark: #202020;
+  --color-grey: #2c2c2c;
+  --color-primary: #2365e1;
+  --color-primary-dark: #1a479c;
+  --color-primary-light: #4a82ed;
+  --color-accent-dark: #19253b;
+  --color-accent-light: #262736;
+
+  /** Main elements */
+  --color-bg: var(--color-dark);
+  --color-text: var(--color-light);
+
+  /** Typography */
+  --font-main: 'Poppins', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  --font-mono: 'Ubuntu Mono', monospace;
+
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-regular: 400;
+  --weight-light: 200;
+  --weight-base: var(--weight-regular);
+
+  --text-size: 22px;
+  --text-large: 32px;
+  --text-small: 18px;
+
+  --text-h1: 42px;
+  --text-h2: 36px;
+  --text-h3: 32px;
+  --text-h4: 28px;
+
+  /** Special */
+  --noice-purple: #6c2cfc;
+  --noice-magenta: #bb12fc;
+  --noice-gradient: linear-gradient(
+    90deg,
+    #6c2cfc 0%,
+    #bb12fc 100%
+  );
+}
