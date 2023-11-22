@@ -6,8 +6,8 @@ const { logDev } = makeLoggers('carousel');
 const ITEM_SEPARATOR = ',';
 const PROP_INIT = 'data-carousel';
 
-const ANIMATION_SHOW_SPEED_MS = 32;
-const ANIMATION_HIDE_SPEED_MS = 16;
+const ANIMATION_SHOW_SPEED_MS = 64;
+const ANIMATION_HIDE_SPEED_MS = 32;
 const ANIMATION_PRESENT_DURATION_MS = 2500;
 const ANIMATION_IDLE_DURATION_MS = 1000;
 
