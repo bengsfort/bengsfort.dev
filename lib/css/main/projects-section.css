@@ -1,0 +1,54 @@
+@layer bengsfort.ui {
+  .recent-projects {
+    inline-size: 100%;
+    max-inline-size: 32rem;
+    font-size: var(--text-small);
+
+    h2 {
+      text-align: center;
+      font-size: var(--text-size);
+      margin-block-end: 0.5rem;
+    }
+  }
+
+  .project-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .project-item {
+    position: relative;
+    block-size: 8rem;
+    inline-size: 8rem;
+  }
+
+  .project-link {
+    display: block;
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-xsmall);
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-light);
+
+    &:hover + .project-preview {
+      display: block;
+    }
+  }
+
+  .project-icon {
+    block-size: 6rem;
+    inline-size: 6rem;
+    border-radius: 0.5rem;
+  }
+
+  .project-preview {
+    position: absolute;
+    inset-block-end: 100%;
+    inset-inline-start: 0;
+    display: none;
+  }
+}
