@@ -1,3 +1,3 @@
-import { setupCarousel } from "./effects/text-carousel";
+import { setupCarousel } from './effects/text-carousel';
 
 setupCarousel();

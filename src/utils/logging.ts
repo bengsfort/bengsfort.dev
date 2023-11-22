@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 type Logger = {
   log: typeof console.log;
   warn: typeof console.warn;
@@ -6,7 +7,7 @@ type Logger = {
   logDev: typeof console.log;
   warnDev: typeof console.warn;
   subscope: (...subscopes: string[]) => Logger;
-}
+};
 
 export const makeLoggers = (...scopes: string[]): Logger => {
   const scopeStr = scopes.join(':');
@@ -20,4 +21,4 @@ export const makeLoggers = (...scopes: string[]): Logger => {
     warnDev: (...data) => import.meta.env.DEV && console.warn(scopeStr, ...data),
     subscope: (...subscopes) => makeLoggers(scopeStr, ...subscopes),
   };
-}
+};

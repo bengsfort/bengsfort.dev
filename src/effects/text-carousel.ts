@@ -1,5 +1,5 @@
-import { BengsfortEvents, GameFocusChangedEvent } from "../utils/events";
-import { makeLoggers } from "../utils/logging";
+import { BengsfortEvents, GameFocusChangedEvent } from '../utils/events';
+import { makeLoggers } from '../utils/logging';
 
 const { logDev } = makeLoggers('carousel');
 
@@ -11,17 +11,12 @@ const ANIMATION_HIDE_SPEED_MS = 16;
 const ANIMATION_PRESENT_DURATION_MS = 2500;
 const ANIMATION_IDLE_DURATION_MS = 1000;
 
-let paused = false;
 let carouselEl: HTMLDivElement | null = null;
 let items: HTMLDivElement[] = [];
 
-export function setCarouselPaused(shouldPause: boolean) {
-  paused = shouldPause;
-}
-
 export function setupCarousel() {
   carouselEl = document.querySelector(`[${PROP_INIT}]`);
-   
+
   if (!carouselEl) {
     return;
   }
@@ -31,35 +26,32 @@ export function setupCarousel() {
 
   logDev(`Initializing carousel with items`, itemList);
   items = initItems(carouselEl, itemList);
-  
-  let { pause, resume } = carouselLoop(items);
 
-  window.addEventListener(
-    BengsfortEvents.GameFocusChanged,
-    (ev) => {
-      const { isFocused } = (ev as GameFocusChangedEvent).detail;
-      if (isFocused) {
-        pause();
-      } else {
-        resume();
-      }
-    },
-  );
+  const { pause, resume } = carouselLoop(items);
+
+  window.addEventListener(BengsfortEvents.gameFocusChanged, (ev) => {
+    const { isFocused } = (ev as GameFocusChangedEvent).detail;
+    if (isFocused) {
+      pause();
+    } else {
+      resume();
+    }
+  });
 }
 
 function initItems(parent: HTMLDivElement, set: string[]): HTMLDivElement[] {
   return set.map((item) => {
     const el = document.createElement('div');
     el.className = 'carousel-item';
-    el.dataset.carouselItem = "true";
-    
+    el.dataset.carouselItem = 'true';
+
     let character: HTMLSpanElement;
     for (let i = 0; i < item.length; i++) {
       character = document.createElement('span');
       character.innerText = item[i];
       el.appendChild(character);
     }
-    
+
     parent.appendChild(el);
     return el;
   });
@@ -88,7 +80,7 @@ function carouselLoop(itemList: HTMLDivElement[]) {
         state = 'showing';
         activeIndex = (activeIndex + 1) % itemList.length;
         break;
-      
+
       case 'presenting':
         if (lastActDelta >= ANIMATION_PRESENT_DURATION_MS) {
           state = 'hiding';

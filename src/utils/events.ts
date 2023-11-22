@@ -1,8 +1,6 @@
-
 export const BengsfortEvents = {
-  GameFocusChanged: 'game-focus-changed',
+  gameFocusChanged: 'game-focus-changed',
 } as const;
-
 
 export type GameFocusChangedPayload = {
   isFocused: boolean;
@@ -11,8 +9,8 @@ export type GameFocusChangedPayload = {
 export type GameFocusChangedEvent = CustomEvent<GameFocusChangedPayload>;
 
 export const makeGameFocusEvent = (
-  payload: GameFocusChangedPayload
-): GameFocusChangedEvent => 
-  new CustomEvent(BengsfortEvents.GameFocusChanged, {
-    detail: payload
+  payload: GameFocusChangedPayload,
+): GameFocusChangedEvent =>
+  new CustomEvent(BengsfortEvents.gameFocusChanged, {
+    detail: payload,
   });
