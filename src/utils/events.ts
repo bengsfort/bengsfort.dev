@@ -16,5 +16,3 @@ export const makeGameFocusEvent = (
   new CustomEvent(BengsfortEvents.GameFocusChanged, {
     detail: payload
   });
-
-(window as any).__MAKE_EV__ = makeGameFocusEvent;
