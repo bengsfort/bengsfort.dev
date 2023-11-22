@@ -2,14 +2,46 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bengsfort.dev - Matt Bengston</title>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+  <!-- Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,600;0,700;1,400;1,600&family=Ubuntu+Mono&display=swap"
+    rel="stylesheet">
+
+  <!-- Internal Styles -->
+  <link rel="stylesheet" type="text/css" href="/src/css/variables.css" />
+  <link rel="stylesheet" type="text/css" href="/src/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="/src/css/main.css" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bengsfort.dev - Matt Bengston</title>
 </head>
 
 <body>
-    <script type="module" src="/src/main.ts"></script>
+  <main class="content">
+    <h1>Hey, I'm Matt.</h1>
+
+    <section class="hero">
+      <div class="hero-main" aria-hidden role="presentation">
+        <div class="hero-lead">I am a</div>
+        <div class="hero-carousel" data-carousel
+          data-items="Software Engineer,Game Developer,Tooling Engineer,UI Developer,Front-end Developer"></div>
+        <div class="visually-hidden">
+          Software Engineer, Game Developer, Tooling Engineer, UI Developer, and Front-end Developer
+        </div>
+        <div class="hero-end">currently @<a href="https://noice.com/" target="_blank" rel="external">Noice</a>.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="background"></div>
+
+  <script type="module" src="/src/main.ts"></script>
 </body>
 
 </html>
