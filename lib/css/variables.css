@@ -1,5 +1,7 @@
 :root {
   /** Colors */
+  --color-white: #fff;
+  --color-black: #000;
   --color-light: #e6e6e6;
   --color-dark: #202020;
   --color-grey: #2c2c2c;
@@ -34,6 +36,7 @@
   --text-h4: 28px;
 
   /** Special */
+  --noice-dark: #0C0032;
   --noice-purple: #6c2cfc;
   --noice-magenta: #bb12fc;
   --noice-gradient: linear-gradient(
