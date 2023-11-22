@@ -24,11 +24,20 @@
   --weight-base: var(--weight-regular);
 
   --text-size: 22px;
-  --text-large: 28px;
+  --text-large: 32px;
   --text-small: 18px;
 
-  --text-h1: 36px;
-  --text-h2: 32px;
-  --text-h3: 28px;
-  --text-h4: 24px;
+  --text-h1: 42px;
+  --text-h2: 36px;
+  --text-h3: 32px;
+  --text-h4: 28px;
+
+  /** Special */
+  --noice-purple: #6c2cfc;
+  --noice-magenta: #bb12fc;
+  --noice-gradient: linear-gradient(
+    90deg,
+    #6c2cfc 0%,
+    #bb12fc 100%
+  );
 }
