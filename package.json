@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint ./src",
+    "lint": "eslint ./lib",
     "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {

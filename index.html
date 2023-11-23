@@ -13,9 +13,9 @@
     rel="stylesheet">
 
   <!-- Internal Styles -->
-  <link rel="stylesheet" type="text/css" href="/src/css/variables.css" />
-  <link rel="stylesheet" type="text/css" href="/src/css/reset.css" />
-  <link rel="stylesheet" type="text/css" href="/src/css/main.css" />
+  <link rel="stylesheet" type="text/css" href="/lib/css/variables.css" />
+  <link rel="stylesheet" type="text/css" href="/lib/css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="/lib/css/main.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>bengsfort.dev - Matt Bengston</title>
@@ -27,10 +27,10 @@
       <h1>Hey, I'm Matt.</h1>
 
       <div class="hero-main" aria-hidden role="presentation">
-        <div class="carousel" data-carousel
-          data-items="Software Engineer,Game Developer,Tooling Engineer,UI Developer,Front-end Developer"></div>
+        <div class="carousel" data-carousel data-items="Software Engineer,Game Developer,Tooling Engineer,UI Developer">
+        </div>
         <div class="visually-hidden">
-          Software Engineer, Game Developer, Tooling Engineer, UI Developer, and Front-end Developer
+          Software Engineer, Game Developer, Tooling Engineer, and UI Developer
         </div>
 
         <div class="hero-end">
@@ -46,15 +46,37 @@
       </div>
     </section>
 
-    <section class="coming-soon">
-      <p>More to come here soon™</p>
-    </section>
+    <section class="recent-projects">
+      <h2>Check out some recent projects</h2>
 
+      <ul class="project-list">
+        <li class="project-item">
+          <a class="project-link noice" href="https://noice.com/" target="_blank" rel="external">
+            <div class="project-icon-wrapper">
+              <div class="project-icon-pattern"></div>
+              <img class="project-icon" src="/lib/assets/noice-logo.svg"
+                alt="Logo of the Noice game streaming service" />
+            </div>
+            <span class="project-name">Noice streaming</span>
+          </a>
+        </li>
+
+        <li class="project-item">
+          <a class="project-link twenty" href="https://twenty.bengsfort.dev/" target="_blank" rel="external">
+            <div class="project-icon-wrapper">
+              <div class="project-icon-pattern"></div>
+              <img class="project-icon" src="/lib/assets/20-logo.png" alt="Logo for the Twenty Numbers game" />
+            </div>
+            <span class="project-name">Twenty Numbers</span>
+          </a>
+        </li>
+      </ul>
+    </section>
   </main>
 
   <div class="background"></div>
 
-  <script type="module" src="/src/main.ts"></script>
+  <script type="module" src="/lib/ts/main.ts"></script>
 </body>
 
 </html>
