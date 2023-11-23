@@ -45,12 +45,10 @@
 
   @keyframes translate-background {
     0% {
-      background-position: top right;
-      mask-position: top left;
+      mask-position: top center;
     }
     100% {
-      background-position: bottom left;
-      mask-position: bottom right;
+      mask-position: bottom center;
     }
   }
 
@@ -99,7 +97,7 @@
       }
 
       .project-icon-pattern {
-        opacity: .1;
+        opacity: .25;
         background: linear-gradient(
           45deg,
           rgba(255, 255, 255, 0.2),
@@ -113,7 +111,7 @@
           var(--project-icon-mask-accent-2),
           rgba(255, 255, 255, 0.2)
         );
-        background-size: 200% 200%;
+        background-size: cover;
         background-position: 0px 0px;
         mix-blend-mode: screen;
         mask-image: var(--project-icon-mask-pattern);
