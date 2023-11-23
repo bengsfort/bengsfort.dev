@@ -30,15 +30,15 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    block-size: 6rem;
-    inline-size: 6rem;
+    block-size: 5rem;
+    inline-size: 5rem;
     margin-block-end: 0.75rem;
     border-radius: 0.5rem;
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.1);
   }
 
   /** @todo fancy hover effect */
   /** background -> gradient? */
-  /** Icon follows mouse? */
   .project-icon {
     block-size: 100%;
     inline-size: 100%;
@@ -46,7 +46,13 @@
   }
 
   .project-link {
-    display: block;
+    --icon-translate-x: 0px;
+    --icon-translate-y: 0px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-weight: var(--weight-semibold);
     font-size: var(--text-xsmall);
     text-align: center;
@@ -54,8 +60,13 @@
     color: var(--color-light);
 
     &:hover {
+      .project-icon-wrapper {
+        box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.2);
+      }
+
       .project-icon {
-        transform: scale(2);
+        transform: scale(1.5) translate(var(--icon-translate-x), var(--icon-translate-y));
+        transition: transform 0ms;
       }
     }
   }
@@ -63,6 +74,17 @@
   .project-link.noice {
     .project-icon-wrapper {
       background-color: var(--noice-dark);
+    }
+
+    .project-icon {
+      inline-size: 4rem;
+      block-size: auto;
+    }
+  }
+
+  .project-link.twenty {
+    .project-icon-wrapper {
+      background-color: var(--twenty-grey);
     }
 
     .project-icon {
