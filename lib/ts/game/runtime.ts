@@ -2,7 +2,7 @@ import { Clock, WebGLRenderer } from 'three';
 
 import { makeLoggers } from '../utils/logging';
 
-const {} = makeLoggers('game', 'runtime');
+const { logDev } = makeLoggers('game', 'runtime');
 
 const TARGET_BASE_FPS = 60.0;
 const FRAME_TIME_ARRAY_LEN = 10;
@@ -40,10 +40,17 @@ export class Runtime {
     this._jankClock = new Clock();
   }
 
+  public readonly resize = (width: number, height: number, pixelRatio: number): void => {
+    this._renderer.setSize(width, height);
+    this._renderer.setPixelRatio(pixelRatio);
+    logDev(`Resizing game runtime to (${width}, ${height})@${pixelRatio}`);
+  };
+
   public start() {}
 
   public update() {
-    const delta = this._clock.getDelta();
+    const _delta = this._clock.getDelta();
+    this._calculateTargetFps();
   }
 
   public stop() {}
