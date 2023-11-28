@@ -7,4 +7,26 @@ module.exports = {
     ecmaVersion: 20,
     sourceType: 'module',
   },
+  rules: {
+    '@typescript-eslint/member-ordering': [
+      'error',
+      {
+        default: [
+          // Index signature
+          'signature',
+
+          // Fields
+          'public-field',
+          'protected-field',
+          'private-field',
+          'field',
+          'constructor',
+          'public-method',
+          'protected-method',
+          'private-method',
+          'method',
+        ],
+      },
+    ],
+  }
 };
