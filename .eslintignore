@@ -1,2 +1,2 @@
 *.mjs
-./.eslintrc.js
+./.eslintrc.cjs
