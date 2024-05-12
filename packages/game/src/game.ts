@@ -1,16 +1,28 @@
 // Main game entry point and API definitions.
 // This module should be the main place where the game is controlled.
 
+import { GameOptions, initGameOptions } from './config/options';
+import { InputActions, InputActionsDef } from './input/actions';
+import { InputManager } from './input/input';
 import { GameWindow } from './renderer/GameWindow';
 
 // @todo (Matti) - Expose events? Game state change, jank detected, etc?
 export type GameMode = 'idle' | 'game';
 
 let renderer: GameWindow | null = null;
+let input: InputManager<InputActions> | null = null;
 
-export const initGame = (parent?: HTMLElement): Promise<void> => {
+export const initGame = (
+  parent?: HTMLElement,
+  opts: Partial<GameOptions> = {},
+): Promise<void> => {
+  initGameOptions(opts);
+
   renderer = new GameWindow({ parent });
-  return Promise.reject();
+  input = new InputManager();
+  input.registerActions(InputActionsDef);
+
+  return Promise.resolve();
 };
 
 export const runGame = () => {
