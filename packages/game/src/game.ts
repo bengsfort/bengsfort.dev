@@ -1,12 +1,15 @@
 // Main game entry point and API definitions.
 // This module should be the main place where the game is controlled.
 
+import { GameWindow } from './renderer/GameWindow';
+
 // @todo (Matti) - Expose events? Game state change, jank detected, etc?
 export type GameMode = 'idle' | 'game';
 
-export const initGame = (): Promise<HTMLCanvasElement> => {
-  // Create window, globals, consts, etc.
-  // Load assets
+let renderer: GameWindow | null = null;
+
+export const initGame = (parent?: HTMLElement): Promise<void> => {
+  renderer = new GameWindow({ parent });
   return Promise.reject();
 };
 
