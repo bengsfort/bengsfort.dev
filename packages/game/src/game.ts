@@ -6,41 +6,55 @@ import { InputActions, InputActionsDef } from './input/actions';
 import { InputManager } from './input/input';
 import { GameWindow } from './renderer/GameWindow';
 import { MainScene } from './scenes/MainScene';
+import type { GameContext, GameInstance, GameMode, GameTime } from './schema';
 import { PerformanceMonitor } from './utils/PerformanceMonitor';
 
 // @todo (Matti) - Expose events? Game state change, jank detected, etc?
-export type GameMode = 'idle' | 'game';
-
-export interface GameInstance {
-  readonly renderer: GameWindow;
-  readonly input: InputManager<Record<string, readonly string[]>>;
-  readonly perfMonitor: PerformanceMonitor;
-
-  run(): void;
-  isRunning(): boolean;
-  setMode(mode: GameMode): void;
-  pause(shouldPause: boolean): void;
-  stop(): void;
-}
-
 export const initGame = async (
   parent?: HTMLElement,
   opts: Partial<GameOptions> = {},
 ): Promise<GameInstance> => {
-  initGameOptions(opts);
+  if (window.GameInstance) {
+    throw new Error(
+      'Tried initializing a game instance when one exists! This should never happen, and is likely due to something calling `initGame` instead of retrieving the active game.',
+    );
+  }
 
+  // Setup our main constants.
+  const initialGameOpts = initGameOptions(opts);
   const perfMonitor = new PerformanceMonitor();
-  const renderer = new GameWindow({ parent });
-  const input = new InputManager<InputActions>();
-  input.registerActions(InputActionsDef);
+  const context: GameContext = {
+    renderer: new GameWindow({ parent }),
+    input: new InputManager<InputActions>(),
+  } as const;
+  context.input.registerActions(InputActionsDef);
 
-  const scene = new MainScene(renderer);
+  // Setup a basic timer.
+  const getTime = ((startTime: number) => {
+    let now = startTime;
+
+    return (timestamp: number): GameTime => {
+      const timeSinceStart = timestamp - startTime;
+      const deltaTime = timestamp - now;
+      now = timestamp;
+
+      return {
+        timestamp,
+        timeSinceStart,
+        deltaTime,
+        fixedDeltaTime:
+          window.GameOptions.fixedTimeStepMs ?? initialGameOpts.fixedTimeStepMs,
+      } as const;
+    };
+  })(performance.now());
+
+  const scene = new MainScene(context);
   await scene.load();
 
   let rafHandle: number | null = null;
 
-  renderer.onSizeChanged = (width, height) => {
-    if (!scene?.camera) {
+  context.renderer.onSizeChanged = (width, height) => {
+    if (!scene.camera) {
       return;
     }
 
@@ -52,28 +66,25 @@ export const initGame = async (
   const gameLoop = (timestamp: number) => {
     rafHandle = requestAnimationFrame(gameLoop);
 
-    if (!scene || !renderer || !perfMonitor) {
-      return;
-    }
-
+    const time = getTime(timestamp);
     perfMonitor.frameStart();
-    scene.update(timestamp);
+    scene.update(time);
     perfMonitor.frameEnd();
 
     perfMonitor.renderStart();
-    renderer.draw(scene.scene, scene.camera);
+    context.renderer.draw(scene.scene, scene.camera);
     perfMonitor.renderEnd();
 
-    perfMonitor?.captureMemory();
+    perfMonitor.captureMemory();
   };
 
   const instance: GameInstance = {
-    renderer,
-    input,
+    renderer: context.renderer,
+    input: context.input,
     perfMonitor,
 
     run() {
-      gameLoop(performance.now());
+      rafHandle = requestAnimationFrame(gameLoop);
       window.GameInstance = instance;
     },
 

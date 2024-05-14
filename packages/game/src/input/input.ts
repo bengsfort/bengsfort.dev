@@ -27,6 +27,20 @@ export class InputManager<
     document.addEventListener('keyup', this.#handleKeyUp);
   }
 
+  public getAxis(actionNeg: ActionName, actionPos: ActionName): number {
+    let result = 0;
+
+    if (this.isActionActive(actionPos)) {
+      result += 1;
+    }
+
+    if (this.isActionActive(actionNeg)) {
+      result -= 1;
+    }
+
+    return result;
+  }
+
   public isActionActive(action: ActionName) {
     return this.#_actionState.get(action) ?? false;
   }

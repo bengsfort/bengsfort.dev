@@ -1,4 +1,6 @@
-import { Camera, Scene } from 'three';
+import type { Camera, Scene } from 'three';
+
+import type { GameTime } from '../schema';
 
 export interface SceneDef {
   readonly name: string;
@@ -6,5 +8,5 @@ export interface SceneDef {
   readonly camera: Camera;
 
   load(): Promise<void>;
-  update(timestamp: number): void;
+  update(time: GameTime): void;
 }
