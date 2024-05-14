@@ -1,11 +1,10 @@
-import { initGame, runGame } from './game';
+import { initGame } from './game';
 import './dev-entry.module.css';
 
 async function main() {
   try {
-    const el = await initGame();
-    document.body.appendChild(el);
-    runGame();
+    const game = await initGame(document.body);
+    game.run();
   } catch (err) {
     console.error(err); // eslint-disable-line no-console
   }

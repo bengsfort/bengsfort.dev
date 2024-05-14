@@ -5,40 +5,102 @@ import { GameOptions, initGameOptions } from './config/options';
 import { InputActions, InputActionsDef } from './input/actions';
 import { InputManager } from './input/input';
 import { GameWindow } from './renderer/GameWindow';
+import { MainScene } from './scenes/MainScene';
+import { PerformanceMonitor } from './utils/PerformanceMonitor';
 
 // @todo (Matti) - Expose events? Game state change, jank detected, etc?
 export type GameMode = 'idle' | 'game';
 
-let renderer: GameWindow | null = null;
-let input: InputManager<InputActions> | null = null;
+export interface GameInstance {
+  readonly renderer: GameWindow;
+  readonly input: InputManager<Record<string, readonly string[]>>;
+  readonly perfMonitor: PerformanceMonitor;
 
-export const initGame = (
+  run(): void;
+  isRunning(): boolean;
+  setMode(mode: GameMode): void;
+  pause(shouldPause: boolean): void;
+  stop(): void;
+}
+
+export const initGame = async (
   parent?: HTMLElement,
   opts: Partial<GameOptions> = {},
-): Promise<void> => {
+): Promise<GameInstance> => {
   initGameOptions(opts);
 
-  renderer = new GameWindow({ parent });
-  input = new InputManager();
+  const perfMonitor = new PerformanceMonitor();
+  const renderer = new GameWindow({ parent });
+  const input = new InputManager<InputActions>();
   input.registerActions(InputActionsDef);
 
-  return Promise.resolve();
-};
+  const scene = new MainScene(renderer);
+  await scene.load();
 
-export const runGame = () => {
-  // Start game loop
-};
+  let rafHandle: number | null = null;
 
-export const setGameMode = (_: GameMode) => {
-  // Set game mode
-  // Update game scenes
-};
+  renderer.onSizeChanged = (width, height) => {
+    if (!scene?.camera) {
+      return;
+    }
 
-export const pauseGame = () => {
-  // Pause game loop
-};
+    const camera = scene.camera;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  };
 
-export const stopGame = () => {
-  // Stop game loop
-  // Clean up
+  const gameLoop = (timestamp: number) => {
+    rafHandle = requestAnimationFrame(gameLoop);
+
+    if (!scene || !renderer || !perfMonitor) {
+      return;
+    }
+
+    perfMonitor.frameStart();
+    scene.update(timestamp);
+    perfMonitor.frameEnd();
+
+    perfMonitor.renderStart();
+    renderer.draw(scene.scene, scene.camera);
+    perfMonitor.renderEnd();
+
+    perfMonitor?.captureMemory();
+  };
+
+  const instance: GameInstance = {
+    renderer,
+    input,
+    perfMonitor,
+
+    run() {
+      gameLoop(performance.now());
+      window.GameInstance = instance;
+    },
+
+    isRunning() {
+      return rafHandle !== null;
+    },
+
+    setMode(_mode: GameMode) {
+      // Set game mode
+      // Update game scenes
+    },
+
+    pause(shouldPause: boolean) {
+      if (shouldPause && rafHandle !== null) {
+        cancelAnimationFrame(rafHandle!);
+        rafHandle = null;
+      } else {
+        instance.run();
+      }
+    },
+
+    stop() {
+      cancelAnimationFrame(rafHandle!);
+      rafHandle = null;
+      window.GameInstance = undefined;
+    },
+  };
+
+  return instance;
 };

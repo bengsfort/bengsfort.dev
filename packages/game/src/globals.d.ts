@@ -3,4 +3,15 @@
 
 interface Window {
   GameOptions: import('./config/options').GameOptions;
+  GameInstance?: import('./game').GameInstance;
 }
+
+interface Performance {
+  memory: {
+    totalJSHeapSize: number;
+    usedJSHeapSize: number;
+    jsHeapSizeLimit: number;
+  };
+}
+
+declare module '*.glsl';

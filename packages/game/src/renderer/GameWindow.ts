@@ -1,4 +1,4 @@
-import { WebGLRenderer } from 'three';
+import { Camera, Scene, WebGLRenderer } from 'three';
 
 import { makeLoggers } from '../utils/logging';
 
@@ -70,6 +70,11 @@ export class GameWindow {
     info(`Updated render window size to {${width}, ${height}}@${devicePixelRatio}`);
     this.onSizeChanged?.(width, height);
   };
+
+  public draw(scene: Scene, camera: Camera) {
+    this.context.clear();
+    this.context.render(scene, camera);
+  }
 
   #onWindowSizeChanged = () => {
     if (this.#_resizeTimeout) {
