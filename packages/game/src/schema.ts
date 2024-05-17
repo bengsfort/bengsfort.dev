@@ -1,5 +1,6 @@
 import type { InputActions } from './input/actions';
 import type { InputManager } from './input/input';
+import { PhysicsWorld } from './physics/physics';
 import type { GameWindow } from './renderer/GameWindow';
 import type { PerformanceMonitor } from './utils/PerformanceMonitor';
 
@@ -20,6 +21,7 @@ export interface GameInstance {
 export interface GameContext {
   readonly renderer: GameWindow;
   readonly input: InputManager<InputActions>;
+  readonly physics: PhysicsWorld;
 }
 
 export interface GameTime {
@@ -27,6 +29,8 @@ export interface GameTime {
   readonly deltaTime: number;
   /** The current fixed time step. */
   readonly fixedDeltaTime: number;
+  /** Last fixed update time. */
+  readonly lastFixedUpdateTime: number;
   /** Time since the start of the game. */
   readonly timeSinceStart: number;
   /** The timestamp of this frame.  */

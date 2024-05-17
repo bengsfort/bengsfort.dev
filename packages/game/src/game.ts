@@ -4,6 +4,7 @@
 import { GameOptions, initGameOptions } from './config/options';
 import { InputActions, InputActionsDef } from './input/actions';
 import { InputManager } from './input/input';
+import { PhysicsWorld } from './physics/physics';
 import { GameWindow } from './renderer/GameWindow';
 import { MainScene } from './scenes/MainScene';
 import type { GameContext, GameInstance, GameMode, GameTime } from './schema';
@@ -26,8 +27,25 @@ export const initGame = async (
   const context: GameContext = {
     renderer: new GameWindow({ parent }),
     input: new InputManager<InputActions>(),
+    physics: new PhysicsWorld(),
   } as const;
   context.input.registerActions(InputActionsDef);
+
+  const scene = new MainScene(context);
+  await scene.load();
+
+  let rafHandle: number | null = null;
+  let lastFixedUpdateTime = performance.now();
+
+  context.renderer.onSizeChanged = (width, height) => {
+    if (!scene.camera) {
+      return;
+    }
+
+    const camera = scene.camera;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  };
 
   // Setup a basic timer.
   const getTime = ((startTime: number) => {
@@ -42,33 +60,27 @@ export const initGame = async (
         timestamp,
         timeSinceStart,
         deltaTime,
+        lastFixedUpdateTime,
         fixedDeltaTime:
           window.GameOptions.fixedTimeStepMs ?? initialGameOpts.fixedTimeStepMs,
       } as const;
     };
   })(performance.now());
 
-  const scene = new MainScene(context);
-  await scene.load();
-
-  let rafHandle: number | null = null;
-
-  context.renderer.onSizeChanged = (width, height) => {
-    if (!scene.camera) {
-      return;
-    }
-
-    const camera = scene.camera;
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-  };
-
   const gameLoop = (timestamp: number) => {
     rafHandle = requestAnimationFrame(gameLoop);
 
-    const time = getTime(timestamp);
     perfMonitor.frameStart();
+    const time = getTime(timestamp);
     scene.update(time);
+
+    const fixedDelta = time.timestamp - lastFixedUpdateTime;
+    if (fixedDelta >= time.fixedDeltaTime) {
+      lastFixedUpdateTime = time.timestamp;
+      scene.fixedUpdate(time);
+      context.physics.update(time.fixedDeltaTime);
+    }
+
     perfMonitor.frameEnd();
 
     perfMonitor.renderStart();

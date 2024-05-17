@@ -1,15 +1,7 @@
-import {
-  BoxGeometry,
-  MeshBasicMaterial,
-  DoubleSide,
-  Mesh,
-  PerspectiveCamera,
-  Scene,
-  Vector3,
-  Vector2,
-} from 'three';
+import { PerspectiveCamera, Scene, Vector3 } from 'three';
 
 import { Grid } from '../entities/grid/grid';
+import { Player } from '../entities/player/Player';
 import type { GameWindow } from '../renderer/GameWindow';
 import type { GameContext, GameTime } from '../schema';
 
@@ -22,7 +14,7 @@ export class MainScene implements SceneDef {
   public readonly scene = new Scene();
 
   #_context: GameContext;
-  #_player: Mesh;
+  #_player: Player;
   #_camera: PerspectiveCamera;
 
   public get camera(): PerspectiveCamera {
@@ -32,7 +24,8 @@ export class MainScene implements SceneDef {
   constructor(context: GameContext) {
     this.#_context = context;
     this.#_camera = this.#createCamera(context.renderer);
-    this.#_player = this.#createPlayer();
+    this.#_player = new Player(context);
+    this.scene.add(this.#_player);
     this.#createEnvironment();
   }
 
@@ -45,14 +38,11 @@ export class MainScene implements SceneDef {
     this.#_camera.position.x = -15 + Math.cos(time.timestamp / 500) * 0.05;
 
     // Temp test
-    const { input } = this.#_context;
-    const inputVec = new Vector2(
-      input.getAxis('right', 'left'),
-      input.getAxis('down', 'up'),
-    );
+    this.#_player.update(time);
+  }
 
-    this.#_player.position.x += (inputVec.x * 2) / time.deltaTime;
-    this.#_player.position.z += (inputVec.y * 2) / time.deltaTime;
+  public fixedUpdate(time: GameTime): void {
+    this.#_player.fixedUpdate(time);
   }
 
   #createCamera(renderer: GameWindow): PerspectiveCamera {
@@ -66,20 +56,6 @@ export class MainScene implements SceneDef {
     camera.lookAt(Vec3Zero);
 
     return camera;
-  }
-
-  #createPlayer() {
-    const geo = new BoxGeometry(0.25, 1, 0.25);
-    const mat = new MeshBasicMaterial({
-      color: 0x4d03f1,
-      side: DoubleSide,
-    });
-
-    const player = new Mesh(geo, mat);
-    player.position.set(0, 0.5, 0);
-    this.scene.add(player);
-
-    return player;
   }
 
   #createEnvironment() {

@@ -9,4 +9,5 @@ export interface SceneDef {
 
   load(): Promise<void>;
   update(time: GameTime): void;
+  fixedUpdate(time: GameTime): void;
 }
