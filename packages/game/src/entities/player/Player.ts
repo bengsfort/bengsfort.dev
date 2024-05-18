@@ -10,7 +10,6 @@ import {
 
 import { PhysicsBodyType, type PhysicsBody } from '../../physics/physics';
 import type { GameContext, GameTime } from '../../schema';
-import { moveTowards } from '../../utils/math';
 
 // @note: See if this makes sense, or if having a system control the player is better.
 export class Player extends Object3D {
@@ -18,9 +17,9 @@ export class Player extends Object3D {
   #_mesh: Mesh;
   #_context: GameContext;
 
-  #_accel = 0.01;
+  #_accel = 0.1;
   #_decel = 0.01;
-  #_maxSpeed = 2.5;
+  #_maxSpeed = 5;
   #_momentum = 0;
 
   constructor(context: GameContext) {
@@ -44,15 +43,23 @@ export class Player extends Object3D {
 
   public fixedUpdate(_time: GameTime): void {
     const inputVec = this.#getInputVec();
-    if (inputVec.length() === 0) {
-      this.#_momentum = Math.max(this.#_momentum - this.#_decel, 0);
-    } else {
-      this.#_momentum = Math.min(this.#_momentum + this.#_accel, 1);
-    }
+    this.#_momentum =
+      inputVec.length() === 0
+        ? Math.max(this.#_momentum - this.#_decel, 0)
+        : Math.min(this.#_momentum + this.#_accel, 1);
 
     const impulse = new Vector3(inputVec.x, 0, inputVec.y).multiplyScalar(
       this.#_momentum * this.#_maxSpeed,
     );
+
+    if (impulse.length() === 0 && this.#_momentum !== 0) {
+      const dir = this.#_body.velocity.clone().normalize().negate();
+      const decel = dir.multiplyScalar(this.#_decel);
+      console.log('decelling by', decel, impulse, this.#_body.velocity);
+      impulse.add(decel);
+      console.log('decelled by', impulse);
+    }
+
     this.#_body.velocity.set(impulse.x, 0, impulse.z);
   }
 
