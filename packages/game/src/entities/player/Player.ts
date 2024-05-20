@@ -18,7 +18,7 @@ export class Player extends Object3D {
   #_context: GameContext;
 
   #_accel = 0.1;
-  #_decel = 0.01;
+  #_decel = 0.5;
   #_maxSpeed = 5;
   #_momentum = 0;
 
@@ -52,12 +52,11 @@ export class Player extends Object3D {
       this.#_momentum * this.#_maxSpeed,
     );
 
+    // Apply deceleration when input is off and we are moving
     if (impulse.length() === 0 && this.#_momentum !== 0) {
       const dir = this.#_body.velocity.clone().normalize().negate();
       const decel = dir.multiplyScalar(this.#_decel);
-      console.log('decelling by', decel, impulse, this.#_body.velocity);
-      impulse.add(decel);
-      console.log('decelled by', impulse);
+      impulse.copy(this.#_body.velocity).add(decel);
     }
 
     this.#_body.velocity.set(impulse.x, 0, impulse.z);
