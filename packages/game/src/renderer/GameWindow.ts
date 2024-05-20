@@ -44,6 +44,7 @@ export class GameWindow {
     this.parent = opts.parent || null;
     this.context = context;
     this.canvas = context.domElement;
+    this.canvas.addEventListener('contextmenu', this.#onContextMenu);
     this.onSizeChanged = () => {};
     this.updateWindowSize();
 
@@ -75,6 +76,11 @@ export class GameWindow {
     this.context.clear();
     this.context.render(scene, camera);
   }
+
+  #onContextMenu = (event: MouseEvent) => {
+    event.preventDefault();
+    info('Context menu prevented on renderer');
+  };
 
   #onWindowSizeChanged = () => {
     if (this.#_resizeTimeout) {
