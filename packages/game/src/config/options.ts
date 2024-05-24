@@ -5,12 +5,15 @@ export type GameOptions = {
   showFps: boolean;
   /** Log all input to the console. */
   debugShowInputCodes: boolean;
+  /** Show physics body colliders. */
+  debugShowPhysicsBodies: boolean;
 };
 
 const defaultGameOptions: GameOptions = {
   fixedTimeStepMs: 1000 / 60,
   showFps: false,
   debugShowInputCodes: false,
+  debugShowPhysicsBodies: false,
 };
 
 export const initGameOptions = (opts: Partial<GameOptions>) => {

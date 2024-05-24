@@ -71,6 +71,7 @@ export const initGame = async (
     rafHandle = requestAnimationFrame(gameLoop);
 
     perfMonitor.frameStart();
+
     const time = getTime(timestamp);
     scene.update(time);
 
@@ -82,11 +83,14 @@ export const initGame = async (
     }
 
     perfMonitor.frameEnd();
-
     perfMonitor.renderStart();
-    context.renderer.draw(scene.scene, scene.camera);
-    perfMonitor.renderEnd();
 
+    context.renderer.draw(scene.scene, scene.camera);
+    if (window.GameOptions.debugShowPhysicsBodies) {
+      context.physics.debugDraw(context.renderer, scene.camera);
+    }
+
+    perfMonitor.renderEnd();
     perfMonitor.captureMemory();
   };
 

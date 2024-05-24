@@ -60,7 +60,7 @@ export class GameWindow {
     const height = !parentRect ? innerHeight : parentRect.height;
 
     if (width === this.outputWidth && height === this.outputHeight) {
-      // do norhing if nothing changed
+      // do nothing if nothing changed
       return;
     }
 
@@ -72,8 +72,8 @@ export class GameWindow {
     this.onSizeChanged?.(width, height);
   };
 
-  public draw(scene: Scene, camera: Camera) {
-    this.context.clear();
+  public draw(scene: Scene, camera: Camera, autoClear = true) {
+    autoClear && this.context.clear();
     this.context.render(scene, camera);
   }
 

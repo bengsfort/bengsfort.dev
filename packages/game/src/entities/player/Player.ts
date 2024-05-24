@@ -8,6 +8,7 @@ import {
   Vector3,
 } from 'three';
 
+import { BoxCollider } from '../../physics/helpers/BoxCollider';
 import { PhysicsBodyType, type PhysicsBody } from '../../physics/physics';
 import type { GameContext, GameTime } from '../../schema';
 
@@ -19,7 +20,7 @@ export class Player extends Object3D {
 
   #_accel = 0.1;
   #_decel = 0.45;
-  #_maxSpeed = 5;
+  #_maxSpeed = 3.5;
   #_momentum = 0;
 
   constructor(context: GameContext) {
@@ -31,6 +32,7 @@ export class Player extends Object3D {
       position: this.position.clone(),
       velocity: new Vector3(0, 0, 0),
       type: PhysicsBodyType.dynamic,
+      collider: new BoxCollider(0.5, 1, 0.5, new Vector3(0, 0.5, 0)),
     };
     context.physics.addBody(this.#_body);
   }
