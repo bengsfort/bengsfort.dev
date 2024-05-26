@@ -15,5 +15,6 @@ export class BoxCollider extends Collider {
     super(geo, mat);
 
     this.offset.copy(offset);
+    this.position.copy(offset);
   }
 }

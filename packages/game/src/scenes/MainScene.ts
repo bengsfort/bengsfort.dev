@@ -2,6 +2,8 @@ import { PerspectiveCamera, Scene, Vector3 } from 'three';
 
 import { Grid } from '../entities/grid/grid';
 import { Player } from '../entities/player/Player';
+import { PlaneCollider } from '../physics/colliders/PlaneCollider';
+import { PhysicsBodyType } from '../physics/physics';
 import type { GameWindow } from '../renderer/GameWindow';
 import type { GameContext, GameTime } from '../schema';
 
@@ -62,5 +64,15 @@ export class MainScene implements SceneDef {
     const floor = new Grid();
     floor.position.set(0, 0, 0);
     this.scene.add(floor);
+
+    const collider = new PlaneCollider(50, 50, 2, 2, new Vector3(0, 0, 0));
+    collider.rotateX(Math.PI / 2);
+    this.scene.add(collider);
+
+    this.#_context.physics.addBody({
+      position: new Vector3(0, 0, 0),
+      velocity: new Vector3(0, 0, 0),
+      type: PhysicsBodyType.static,
+    });
   }
 }

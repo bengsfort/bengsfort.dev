@@ -9,16 +9,16 @@ interface Descriptor {
 }
 
 export class Grid extends THREE.Mesh {
-  public constructor(descriptors?: Descriptor[], visibility = 100.0) {
+  public constructor(descriptors?: Descriptor[], visibility = 100) {
     descriptors = descriptors ?? [];
 
     if (descriptors.length === 0) {
-      descriptors = [{ color: 'white', spacing: 1.0 }];
+      descriptors = [{ color: 'white', spacing: 1 }];
     }
 
-    visibility = Math.max(visibility, 25.0);
+    visibility = Math.max(visibility, 25);
 
-    const geometry = new THREE.PlaneGeometry(2.0, 2.0, 1, 1);
+    const geometry = new THREE.PlaneGeometry(2, 2, 1, 1);
 
     const material = new THREE.ShaderMaterial({
       vertexShader: VERTEX_SHADER,

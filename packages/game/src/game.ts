@@ -2,6 +2,7 @@
 // This module should be the main place where the game is controlled.
 
 import { GameOptions, initGameOptions } from './config/options';
+import { ObjectLayers } from './constants';
 import { InputActions, InputActionsDef } from './input/actions';
 import { InputManager } from './input/input';
 import { PhysicsWorld } from './physics/physics';
@@ -22,7 +23,7 @@ export const initGame = async (
   }
 
   // Setup our main constants.
-  const initialGameOpts = initGameOptions(opts);
+  const gameOpts = initGameOptions(opts);
   const perfMonitor = new PerformanceMonitor();
   const context: GameContext = {
     renderer: new GameWindow({ parent }),
@@ -47,6 +48,20 @@ export const initGame = async (
     camera.updateProjectionMatrix();
   };
 
+  gameOpts.debugShowPhysicsBodies && scene?.camera.layers.enable(ObjectLayers.physics);
+  gameOpts.addListener('updated:debugShowPhysicsBodies', (enabled) => {
+    if (!scene.camera) {
+      return;
+    }
+
+    const camera = scene.camera;
+    if (enabled) {
+      camera.layers.enable(ObjectLayers.physics);
+    } else {
+      camera.layers.disable(ObjectLayers.physics);
+    }
+  });
+
   // Setup a basic timer.
   const getTime = ((startTime: number) => {
     let now = startTime;
@@ -61,8 +76,7 @@ export const initGame = async (
         timeSinceStart,
         deltaTime,
         lastFixedUpdateTime,
-        fixedDeltaTime:
-          window.GameOptions.fixedTimeStepMs ?? initialGameOpts.fixedTimeStepMs,
+        fixedDeltaTime: gameOpts.fixedTimeStepMs,
       } as const;
     };
   })(performance.now());
@@ -86,9 +100,9 @@ export const initGame = async (
     perfMonitor.renderStart();
 
     context.renderer.draw(scene.scene, scene.camera);
-    if (window.GameOptions.debugShowPhysicsBodies) {
-      context.physics.debugDraw(context.renderer, scene.camera);
-    }
+    // if (gameOpts.debugShowPhysicsBodies) {
+    //   context.renderer.draw(context.physics.scene, scene.camera, false);
+    // }
 
     perfMonitor.renderEnd();
     perfMonitor.captureMemory();
