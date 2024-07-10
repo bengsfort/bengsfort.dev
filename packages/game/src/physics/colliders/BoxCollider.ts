@@ -16,5 +16,6 @@ export class BoxCollider extends Collider {
 
     this.offset.copy(offset);
     this.position.copy(offset);
+    this.geometry.computeBoundingBox();
   }
 }

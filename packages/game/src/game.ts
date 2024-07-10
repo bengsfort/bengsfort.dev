@@ -100,9 +100,6 @@ export const initGame = async (
     perfMonitor.renderStart();
 
     context.renderer.draw(scene.scene, scene.camera);
-    // if (gameOpts.debugShowPhysicsBodies) {
-    //   context.renderer.draw(context.physics.scene, scene.camera, false);
-    // }
 
     perfMonitor.renderEnd();
     perfMonitor.captureMemory();

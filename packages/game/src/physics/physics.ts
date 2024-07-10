@@ -1,6 +1,4 @@
-import { Intersection, Raycaster, Scene, Vector3 } from 'three';
-
-import { ObjectLayers } from '../constants';
+import { Box3, Intersection, Vector3 } from 'three';
 
 export const PhysicsBodyType = {
   static: 0,
@@ -13,6 +11,7 @@ export type PhysicsBodyType = (typeof PhysicsBodyType)[keyof typeof PhysicsBodyT
 export interface PhysicsBody {
   velocity: Vector3;
   position: Vector3;
+  collider?: Box3;
   type: PhysicsBodyType;
 }
 
@@ -20,18 +19,7 @@ export class PhysicsWorld {
   #_bodies = new Set<PhysicsBody>();
   #_static = new Set<PhysicsBody>();
 
-  #_raycaster = new Raycaster();
-  // @todo: Let's do a perf check here to see if this is better than throwing all
-  // of the physics bodies into their own independent physics scene.
-  #_root = new Scene();
-
-  constructor() {
-    this.#_raycaster.layers.set(ObjectLayers.physics);
-  }
-
-  public setRoot(scene: Scene): void {
-    this.#_root = scene;
-  }
+  constructor() {}
 
   public addBody(body: PhysicsBody): void {
     if (body.type === PhysicsBodyType.static) {
@@ -61,13 +49,6 @@ export class PhysicsWorld {
     distance = 100,
     result: Intersection[] = [],
   ): boolean {
-    this.#_raycaster.set(origin, direction);
-    const intersections = this.#_raycaster.intersectObjects(
-      this.#_root.children,
-      true,
-      result,
-    );
-
-    return intersections.some((intersection) => intersection.distance < distance);
+    // implement
   }
 }

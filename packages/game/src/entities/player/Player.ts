@@ -20,7 +20,7 @@ export class Player extends Object3D {
 
   #_accel = 0.1;
   #_decel = 0.45;
-  #_maxSpeed = 3.5;
+  #_maxSpeed = 4;
   #_momentum = 0;
 
   constructor(context: GameContext) {
