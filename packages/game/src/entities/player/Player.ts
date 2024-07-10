@@ -15,7 +15,6 @@ import type { GameContext, GameTime } from '../../schema';
 // @note: See if this makes sense, or if having a system control the player is better.
 export class Player extends Object3D {
   #_body: PhysicsBody;
-  #_mesh: Mesh;
   #_context: GameContext;
 
   #_accel = 0.1;
@@ -27,7 +26,7 @@ export class Player extends Object3D {
     super();
 
     this.#_context = context;
-    this.#_mesh = this.#createMesh();
+    this.#createMesh();
 
     const collider = new BoxCollider(0.5, 1, 0.5, new Vector3(0, 0.5, 0));
     this.#_body = {
@@ -84,6 +83,7 @@ export class Player extends Object3D {
 
     const player = new Mesh(geo, mat);
     player.position.set(0, 0.5, 0);
+    player.name = 'PlayerMesh';
     this.add(player);
 
     return player;

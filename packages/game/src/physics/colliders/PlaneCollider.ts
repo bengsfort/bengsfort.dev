@@ -23,4 +23,20 @@ export class PlaneCollider extends Collider {
     this.offset.copy(offset);
     this.position.copy(offset);
   }
+
+  public update(): void {
+    throw new Error('Method not implemented.');
+  }
+
+  public containsPoint(): boolean {
+    throw new Error('Method not implemented.');
+  }
+
+  public intersectsSphere(): boolean {
+    throw new Error('Method not implemented.');
+  }
+
+  public intersectsBox(): boolean {
+    throw new Error('Method not implemented.');
+  }
 }

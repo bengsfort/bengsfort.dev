@@ -44,11 +44,12 @@ export class PhysicsWorld {
   }
 
   public raycast(
-    origin: Vector3,
-    direction: Vector3,
-    distance = 100,
-    result: Intersection[] = [],
+    _origin: Vector3,
+    _direction: Vector3,
+    _distance = 100,
+    _result: Intersection[] = [],
   ): boolean {
     // implement
+    return false;
   }
 }
