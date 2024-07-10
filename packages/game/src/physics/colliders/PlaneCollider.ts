@@ -1,4 +1,4 @@
-import { MeshBasicMaterial, PlaneGeometry, Vector3 } from 'three';
+import { Box3, MeshBasicMaterial, PlaneGeometry, Sphere, Vector3 } from 'three';
 
 import { Collider } from '../collision';
 
@@ -24,19 +24,27 @@ export class PlaneCollider extends Collider {
     this.position.copy(offset);
   }
 
-  public update(): void {
+  public updateBoundingBox(): void {
     throw new Error('Method not implemented.');
   }
 
-  public containsPoint(): boolean {
+  public containsPoint(_point: Vector3): boolean {
     throw new Error('Method not implemented.');
   }
 
-  public intersectsSphere(): boolean {
+  public intersectsSphere(_sphere: Sphere): boolean {
     throw new Error('Method not implemented.');
   }
 
-  public intersectsBox(): boolean {
+  public intersectsBox(_box: Box3): boolean {
+    throw new Error('Method not implemented.');
+  }
+
+  public containsSphere(_sphere: Sphere): boolean {
+    throw new Error('Method not implemented.');
+  }
+
+  public containsBox(_box: Box3): boolean {
     throw new Error('Method not implemented.');
   }
 }

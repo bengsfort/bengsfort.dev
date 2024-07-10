@@ -1,4 +1,4 @@
-import { Mesh, Vector3 } from 'three';
+import { Box3, Mesh, Sphere, Vector3 } from 'three';
 
 import { ObjectLayers } from '../constants';
 
@@ -19,8 +19,10 @@ export abstract class Collider extends Mesh {
     this.layers.set(ObjectLayers.physics);
   }
 
-  public abstract update(): void;
-  public abstract containsPoint(): boolean;
-  public abstract intersectsSphere(): boolean;
-  public abstract intersectsBox(): boolean;
+  public abstract updateBoundingBox(): void;
+  public abstract containsPoint(point: Vector3): boolean;
+  public abstract intersectsSphere(sphere: Sphere): boolean;
+  public abstract intersectsBox(box: Box3): boolean;
+  public abstract containsSphere(sphere: Sphere): boolean;
+  public abstract containsBox(box: Box3): boolean;
 }
