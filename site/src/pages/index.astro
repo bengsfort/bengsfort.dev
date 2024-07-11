@@ -1,18 +1,19 @@
 ---
-import Hello from '../components/Hello.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TextCarousel from '../components/TextCarousel/TextCarousel.astro';
+
+const carouselItems = [
+  'Software Engineer',
+  'Game Developer',
+  'Tooling Engineer',
+  'UI Developer',
+];
+const carouselSafeDescription = `I'm a Software Engineer, Game Developer, Tooling Engineer and UI Developer.`;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
-  </head>
-  <body>
-    <h1>Astro</h1>
-    <Hello name="Bobby" />
-    <Hello name="Scooby" />
-  </body>
-</html>
+<BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
+  <header class="content">
+    <h1>Hei, I'm Bengsfort (Matt).</h1>
+    <TextCarousel items={carouselItems} a11yDescription={carouselSafeDescription} />
+  </header>
+</BaseLayout>

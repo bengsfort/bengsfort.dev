@@ -1,0 +1,67 @@
+---
+interface Props {
+  items: string[];
+  a11yDescription: string;
+}
+
+const { items, a11yDescription } = Astro.props;
+const itemsLetterList = items.map((item) => [...item]);
+---
+
+<style>
+  .carousel {
+    --carousel-size: var(--text-h2);
+    --carousel-weight: var(--weight-semibold);
+    --carousel-text-color: var(--color-primary-light);
+
+    position: relative;
+    display: inline-block;
+    block-size: calc(var(--carousel-size) * 1.5);
+    inline-size: 100%;
+  }
+
+  .carousel-item {
+    position: absolute;
+    inline-size: 100%;
+    user-select: none;
+    text-align: center;
+    font-size: var(--carousel-size);
+    font-weight: var(--carousel-weight);
+    color: var(--carousel-text-color);
+    z-index: -1;
+
+    &.active {
+      user-select: auto;
+      z-index: 1;
+    }
+
+    span {
+      opacity: 0;
+    }
+
+    span.show {
+      opacity: 1;
+    }
+  }
+</style>
+
+<text-carousel class="carousel">
+  {
+    itemsLetterList.map((letters) => (
+      <div class="carousel-item" data-carousel-item>
+        {letters.map((letter) => (
+          <span>{letter}</span>
+        ))}
+      </div>
+    ))
+  }
+</text-carousel>
+<div class="visually-hidden">
+  {a11yDescription}
+</div>
+
+<script>
+  import { Carousel } from './Carousel';
+
+  customElements.define('text-carousel', Carousel);
+</script>
