@@ -8,7 +8,7 @@ const config = {
   endOfLine: 'lf',
   overrides: [],
   printWidth: 90,
-  singleAttributePerLine: true,
+  singleAttributePerLine: false,
   plugins: ['prettier-plugin-astro'],
   overrides: [
     {
