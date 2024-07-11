@@ -18,12 +18,12 @@ const itemsLetterList = items.map((item) => [...item]);
     display: inline-block;
     block-size: calc(var(--carousel-size) * 1.5);
     inline-size: 100%;
+    user-select: none;
   }
 
   .carousel-item {
     position: absolute;
     inline-size: 100%;
-    user-select: none;
     text-align: center;
     font-size: var(--carousel-size);
     font-weight: var(--carousel-weight);
