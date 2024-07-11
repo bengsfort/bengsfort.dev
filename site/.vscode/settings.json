@@ -6,14 +6,15 @@
   "[typescript]": {
     "editor.codeLens": true,
     "editor.suggest.showReferences": true,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "[javascript]": {
     "editor.maxTokenizationLineLength": 2500,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "[astro]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true,
   },
   "files.exclude": {
     "**/.git": true,
@@ -23,8 +24,9 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": true,
-    "**/node_modules": false,
-    "**/.yarn": false
+    "**/node_modules": true,
+    "**/.yarn": false,
+    "**/.astro": true,
   },
   "stylelint.validate": [
     "css",

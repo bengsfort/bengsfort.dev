@@ -1,11 +1,10 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "exclude": [
-    ".eslintrc.cjs",
-  ],
-  "compilerOptions": {
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  }
+  "extends": "astro/tsconfigs/strictest",
+  // "exclude": [
+  //   "eslint.config.js",
+  // ],
+  // "include": [
+  //   "src/**/*.ts",
+  //   "public/**/*.ts",
+  // ],
 }

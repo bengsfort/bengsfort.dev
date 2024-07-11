@@ -18,6 +18,10 @@
     "editor.maxTokenizationLineLength": 2500,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
+  "[astro]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true,
+  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

@@ -1,4 +1,12 @@
-# Astro Starter Kit: Minimal
+# @bengsfort/site
+## bengsfort.dev Astro site
+---
+
+## Notes for docs/etc.
+
+- Because of node_modules and lint rules, you can only get actual formatting/linting in editor if you open each project individually. There may be a specific trick we can do in the vscode config, but for now we just have to open each project individually.
+
+## Boilerplate below, @todo v
 
 ```sh
 npm create astro@latest -- --template minimal

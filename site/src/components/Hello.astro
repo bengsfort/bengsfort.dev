@@ -1,0 +1,11 @@
+---
+import { genEnding } from './random';
+
+interface Props {
+  name: string;
+}
+const { name } = Astro.props
+const ending = genEnding();
+---
+
+<h2>Hello {name}{ending}</h2>
