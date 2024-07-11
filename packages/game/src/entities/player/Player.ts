@@ -29,13 +29,16 @@ export class Player extends Object3D {
     this.#createMesh();
 
     const collider = new BoxCollider(0.5, 1, 0.5, new Vector3(0, 0.5, 0));
+    this.add(collider);
+
     this.#_body = {
       position: this.position.clone(),
       velocity: new Vector3(0, 0, 0),
       type: PhysicsBodyType.dynamic,
+      collider,
     };
-    this.add(collider);
     context.physics.addBody(this.#_body);
+    collider.updateBoundingBox();
   }
 
   public update(time: GameTime): void {

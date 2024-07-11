@@ -1,4 +1,6 @@
-import { Box3, Intersection, Vector3 } from 'three';
+import { Intersection, Vector3 } from 'three';
+
+import { Collider } from './collision';
 
 export const PhysicsBodyType = {
   static: 0,
@@ -11,7 +13,7 @@ export type PhysicsBodyType = (typeof PhysicsBodyType)[keyof typeof PhysicsBodyT
 export interface PhysicsBody {
   velocity: Vector3;
   position: Vector3;
-  collider?: Box3;
+  collider?: Collider;
   type: PhysicsBodyType;
 }
 
