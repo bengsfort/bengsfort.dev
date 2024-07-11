@@ -22,6 +22,10 @@ export class Player extends Object3D {
   #_maxSpeed = 4;
   #_momentum = 0;
 
+  public get collider(): BoxCollider {
+    return this.#_body.collider as BoxCollider;
+  }
+
   constructor(context: GameContext) {
     super();
 
@@ -45,6 +49,7 @@ export class Player extends Object3D {
     const deltaSinceFixed = (time.timestamp - time.lastFixedUpdateTime) / 1000;
     this.position.x = this.#_body.position.x + this.#_body.velocity.x * deltaSinceFixed;
     this.position.z = this.#_body.position.z + this.#_body.velocity.z * deltaSinceFixed;
+    this.collider.updateBoundingBox();
   }
 
   public fixedUpdate(_time: GameTime): void {

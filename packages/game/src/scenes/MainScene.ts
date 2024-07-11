@@ -1,5 +1,6 @@
 import { PerspectiveCamera, Scene, Vector3 } from 'three';
 
+import { CollisionTester } from '../entities/collision-tester/CollisionTester';
 import { Grid } from '../entities/grid/grid';
 import { Player } from '../entities/player/Player';
 import { PlaneCollider } from '../physics/colliders/PlaneCollider';
@@ -17,6 +18,7 @@ export class MainScene implements SceneDef {
 
   #_context: GameContext;
   #_player: Player;
+  #_collisionTest: CollisionTester;
   #_camera: PerspectiveCamera;
 
   public get camera(): PerspectiveCamera {
@@ -27,7 +29,9 @@ export class MainScene implements SceneDef {
     this.#_context = context;
     this.#_camera = this.#createCamera(context.renderer);
     this.#_player = new Player(context);
-    this.scene.add(this.#_player);
+    this.#_collisionTest = new CollisionTester(context, this.#_player.collider);
+    this.#_collisionTest.position.z = 10;
+    this.scene.add(this.#_player, this.#_collisionTest);
     this.#createEnvironment();
   }
 
@@ -41,6 +45,7 @@ export class MainScene implements SceneDef {
 
     // Temp test
     this.#_player.update(time);
+    this.#_collisionTest.update(time);
   }
 
   public fixedUpdate(time: GameTime): void {

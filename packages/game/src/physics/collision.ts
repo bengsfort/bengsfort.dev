@@ -9,6 +9,8 @@ import { ObjectLayers } from '../constants';
  * implement the necessary methods for collision detection. This way, we can have
  * different types of colliders that handle their own collision detection logic,
  * without having to touch other collider types/shapes.
+ *
+ * @todo This API is clunky, and requires us to expose the underlying API's. Fix.
  */
 export abstract class Collider extends Mesh {
   public offset: Vector3 = new Vector3();
