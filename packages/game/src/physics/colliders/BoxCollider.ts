@@ -10,6 +10,7 @@ const WireframeMaterial = new MeshBasicMaterial({
 
 export class BoxCollider extends Collider {
   public readonly boundingBox: Box3;
+  #_closestPointCheck: Vector3;
 
   constructor(width: number, height: number, depth: number, offset = new Vector3()) {
     const geo = new BoxGeometry(width, height, depth);
@@ -20,6 +21,8 @@ export class BoxCollider extends Collider {
     this.position.copy(offset);
     this.geometry.computeBoundingBox();
     this.boundingBox = new Box3().setFromObject(this);
+
+    this.#_closestPointCheck = new Vector3();
   }
 
   public updateBoundingBox(): void {
@@ -31,8 +34,12 @@ export class BoxCollider extends Collider {
     return this.boundingBox.containsPoint(point);
   }
 
-  public intersectsSphere(_sphere: Sphere): boolean {
-    throw new Error('Method not implemented.');
+  public intersectsSphere(sphere: Sphere): boolean {
+    this.#_closestPointCheck.copy(sphere.center);
+    this.#_closestPointCheck.clamp(this.boundingBox.min, this.boundingBox.max);
+    const distance = sphere.center.distanceToSquared(this.#_closestPointCheck);
+
+    return distance < sphere.radius * sphere.radius;
   }
 
   public intersectsBox(box: Box3): boolean {
