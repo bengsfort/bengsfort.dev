@@ -8,14 +8,11 @@
     "editor.suggest.showReferences": true,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
   "[javascript]": {
     "editor.maxTokenizationLineLength": 2500,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[astro]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "files.exclude": {
@@ -36,8 +33,7 @@
   "cssModules.camelCase": true,
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "eslint.workingDirectories": [
-    "./packages/*",
-    "./site"
+    "."
   ],
   "eslint.validate": [
     "javascript",
