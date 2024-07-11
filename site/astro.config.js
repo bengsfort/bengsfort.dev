@@ -4,5 +4,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://bengsfort.dev/',
   output: 'static',
-  outDir: './dist'
+  outDir: './dist',
 });
