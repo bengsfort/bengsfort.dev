@@ -14,12 +14,6 @@
     "lint": "yarn worskpace @bengsfort/site run lint",
     "lint:fix": "yarn worskpace @bengsfort/site run lint:fix"
   },
-  "devDependencies": {
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
-    "postcss-nested": "^6.0.1",
-    "vite": "^5.0.2"
-  },
   "engines": {
     "node": ">=20.4.0"
   }
