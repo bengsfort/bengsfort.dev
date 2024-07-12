@@ -1,6 +1,6 @@
 {
   "name": "bengsfort.dev",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.3.1",
   "private": true,
   "type": "module",
   "workspaces": [
