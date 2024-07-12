@@ -7,6 +7,7 @@ export const WorkSchema = z.object({
   startDate: dateStr,
   endDate: dateStr.optional(),
   position: z.string(),
+  url: z.string().optional(),
 });
 
 export const ProjectSchema = z.object({
@@ -15,4 +16,5 @@ export const ProjectSchema = z.object({
   work: reference('work'),
   platform: z.enum(['mobile', 'desktop', 'browser']),
   type: z.array(z.enum(['app', 'tool', 'site', 'game'])),
+  url: z.string().optional(),
 });

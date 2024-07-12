@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { work } = Astro.props;
-const { workName, position, startDate, endDate } = work.data;
+const { workName, position, startDate, endDate, url } = work.data;
 
 const projects = await getCollection(
   'projects',
@@ -22,7 +22,7 @@ const { Content } = await work.render();
 
 <article>
   <header>
-    <h3>{workName}</h3>
+    <h3><a href={url ?? '#'} target="_blank">{workName}</a></h3>
     <div>{position}</div>
     <div>{startDate.getFullYear()} - {endDate?.getFullYear() ?? 'now'}</div>
   </header>

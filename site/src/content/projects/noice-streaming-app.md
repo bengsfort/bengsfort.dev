@@ -5,6 +5,7 @@ platform: mobile
 type:
   - app
   - game
+url: https://noice.com
 ---
 
 The mobile app was... **interesting**

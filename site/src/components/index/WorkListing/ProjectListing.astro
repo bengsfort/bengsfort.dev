@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, platform, type, assets: _ } = project.data;
+const { title, platform, type, assets: _, url } = project.data;
 
 const { Content } = await project.render();
 ---
@@ -14,7 +14,7 @@ const { Content } = await project.render();
 <style></style>
 
 <li>
-  <div><strong>{title}</strong></div>
+  <div><strong><a href={url ?? '#'} target="_blank">{title}</a></strong></div>
   <div>{platform} - {type.join(', ')}</div>
   <Content />
 </li>
