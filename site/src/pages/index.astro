@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TextCarousel from '../components/TextCarousel/TextCarousel.astro';
+import RevealedText from '../components/RevealedText/RevealedText.astro';
 
 const carouselItems = [
   'Software Engineer',
@@ -9,11 +10,42 @@ const carouselItems = [
   'UI Developer',
 ];
 const carouselSafeDescription = `I'm a Software Engineer, Game Developer, Tooling Engineer and UI Developer.`;
+const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 ---
 
+<style>
+  .hero {
+    text-align: center;
+    padding-block: 7.5rem;
+  }
+
+  .lead-text {
+    margin-block-start: 2rem;
+    text-align: left;
+  }
+
+  .content-section {
+    padding-block: 2rem;
+    background-color: var(--color-grey);
+    justify-self: stretch;
+  }
+</style>
+
 <BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
-  <header class="content">
+  <header class="content-grid hero">
     <h1>Hei, I'm Bengsfort (Matt).</h1>
     <TextCarousel items={carouselItems} a11yDescription={carouselSafeDescription} />
+    <p class="lead-text">
+      I'm a software engineer with a wide range of specialties that loves solving problems
+      and delivering high quality experiences for end users. You can check out some of my
+      work below. <RevealedText previewText="Psssttt..."
+        ><a href={sourceLink} target="_blank"
+          >You can also view the source for this site on github</a
+        >.</RevealedText
+      >
+    </p>
   </header>
+  <main class="content-grid content-section">
+    <section></section>
+  </main>
 </BaseLayout>

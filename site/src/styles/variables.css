@@ -10,6 +10,8 @@
   --color-primary-light: #4a82ed;
   --color-accent-dark: #19253b;
   --color-accent-light: #262736;
+  --color-vibrant-light: #6223e1;
+  --color-vibrant-dark: #37147e;
 
   /** Main elements */
   --color-bg: var(--color-dark);
@@ -29,11 +31,23 @@
   --text-large: 32px;
   --text-small: 18px;
   --text-xsmall: 16px;
+  --text-xlarge: 48px;
 
   --text-h1: 42px;
   --text-h2: 36px;
   --text-h3: 32px;
   --text-h4: 28px;
+
+  /*
+   * We use a pixel value for our normal paragraph text due to some effects
+   * requiring delicate matching of it, and doing it other ways would add
+   * magic values throughout the codebase.
+   */
+  --line-height-body: calc(33px * 1.5);
+  --line-height-tight: 1.1;
+  --line-height-semi-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
 
   /** Special */
   --noice-dark: #0C0032;

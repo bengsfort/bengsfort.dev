@@ -1,0 +1,66 @@
+---
+/**
+ * Should this just turn into a reveal link?
+ *
+ * If we assume that the revealed text is a link, then we can still
+ * easily use the css background gradient trick to animate the link fully.
+ *
+ * This would require us to ensure that the entire text is a link however.
+ */
+
+interface Props {
+  previewText: string;
+}
+
+const { previewText } = Astro.props;
+---
+
+<style>
+  .wrapper {
+    display: inline;
+    position: relative;
+  }
+
+  .preview {
+    position: absolute;
+    font-size: var(--text-xsmall);
+    line-height: var(--line-height-body);
+    color: hsl(0 0% 100% / 0.1);
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-blend-mode: darken;
+    background-image: linear-gradient(
+      90deg,
+      var(--color-vibrant-light),
+      var(--color-vibrant-dark)
+    );
+  }
+
+  .hidden-message {
+    visibility: hidden;
+  }
+
+  .reveal-your-secrets {
+    .preview {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+    }
+
+    .hidden-message {
+      visibility: visible;
+    }
+  }
+</style>
+
+<hidden-message class="wrapper preview-only">
+  <strong class="preview" aria-hidden data-preview>{previewText}</strong>
+  <span class="hidden-message" data-hidden><slot /></span>
+</hidden-message>
+
+<script>
+  import { HiddenMessage } from './HiddenMessage';
+
+  customElements.define('hidden-message', HiddenMessage);
+</script>
