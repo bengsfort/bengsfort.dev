@@ -1,7 +1,21 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TextCarousel from '../components/TextCarousel/TextCarousel.astro';
 import RevealedText from '../components/RevealedText/RevealedText.astro';
+import WorkListing from '../components/index/WorkListing/WorkListing.astro';
+
+const work = await getCollection('work');
+// for (const job of workCollection) {
+//   job.b
+// }
+// .map(job => ({
+//   jobName: job.data.workName,
+//   position: job.data.position,
+//   startYear: job.data.startDate.getFullYear().toString(),
+//   endYear: job.data.endDate?.getFullYear() ?? 'Now',
+//   Content: await
+// }));
 
 const carouselItems = [
   'Software Engineer',
@@ -46,6 +60,8 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     </p>
   </header>
   <main class="content-grid content-section">
-    <section></section>
+    <section>
+      {work.map((job) => <WorkListing work={job} />)}
+    </section>
   </main>
 </BaseLayout>

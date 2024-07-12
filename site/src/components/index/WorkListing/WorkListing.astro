@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import ProjectListing from './ProjectListing.astro';
+
+interface Props {
+  work: CollectionEntry<'work'>;
+}
+
+const { work } = Astro.props;
+const { workName, position, startDate, endDate } = work.data;
+
+const projects = await getCollection(
+  'projects',
+  ({ data }) => data.work.slug === work.slug,
+);
+
+const { Content } = await work.render();
+---
+
+<style></style>
+
+<article>
+  <header>
+    <h3>{workName}</h3>
+    <div>{position}</div>
+    <div>{startDate.getFullYear()} - {endDate?.getFullYear() ?? 'now'}</div>
+  </header>
+
+  <main>
+    <Content />
+    <h4>Projects</h4>
+    <ul>
+      {projects.map((project) => <ProjectListing project={project} />)}
+    </ul>
+  </main>
+</article>
