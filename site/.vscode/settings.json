@@ -18,6 +18,9 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true,
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,

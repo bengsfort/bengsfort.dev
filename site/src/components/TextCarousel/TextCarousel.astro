@@ -18,6 +18,7 @@ const itemsLetterList = items.map((item) => [...item]);
     display: inline-block;
     block-size: calc(var(--carousel-size) * 1.5);
     inline-size: 100%;
+    margin-block-start: 1rem;
     user-select: none;
   }
 
@@ -27,6 +28,7 @@ const itemsLetterList = items.map((item) => [...item]);
     text-align: center;
     font-size: var(--carousel-size);
     font-weight: var(--carousel-weight);
+    line-height: var(--line-height-tight);
     color: var(--carousel-text-color);
     z-index: -1;
 

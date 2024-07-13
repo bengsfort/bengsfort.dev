@@ -1,7 +1,7 @@
 ---
 title: Noice Streaming Platform
 work: noice
-platform: web
+platform: browser
 type:
   - app
   - game

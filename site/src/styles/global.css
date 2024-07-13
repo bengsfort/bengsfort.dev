@@ -93,7 +93,7 @@
   .content-grid {
     display: grid;
     grid-template-columns:
-      1rem [breakout-start] 6.25rem [content-start] 1fr [content-end] 6.25rem [breakout-end] 1rem;
+      [breakout-start] minmax(1rem, auto) [content-start] minmax(320px, 900px) [content-end] minmax(1rem, auto) [breakout-end];
   }
 
   .content-grid > * {
