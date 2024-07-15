@@ -3,19 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TextCarousel from '../components/TextCarousel/TextCarousel.astro';
 import RevealedText from '../components/RevealedText/RevealedText.astro';
-import WorkListing from '../components/index/WorkListing/WorkListing.astro';
+import ProjectListing from '../components/index/WorkListing/ProjectListing.astro';
 
-const work = await getCollection('work');
-// for (const job of workCollection) {
-//   job.b
-// }
-// .map(job => ({
-//   jobName: job.data.workName,
-//   position: job.data.position,
-//   startYear: job.data.startDate.getFullYear().toString(),
-//   endYear: job.data.endDate?.getFullYear() ?? 'Now',
-//   Content: await
-// }));
+const projects = await getCollection('projects');
 
 const carouselItems = [
   'Software Engineer',
@@ -58,10 +48,18 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
         >.</RevealedText
       >
     </p>
+
+    <p class="lead-text">
+      Currently working at <a href="https://noice.com" target="_blank">Noice</a>,
+      previously <a href="https://epicgames.com/" target="_blank">Epic Games</a> and <a
+        href="https://unity3d.com/"
+        target="_blank">Unity Technologies</a
+      >.
+    </p>
   </header>
   <main class="content-grid content-section">
     <section>
-      {work.map((job) => <WorkListing work={job} />)}
+      {projects.map((project) => <ProjectListing project={project} />)}
     </section>
   </main>
 </BaseLayout>

@@ -16,5 +16,7 @@ export const ProjectSchema = z.object({
   work: reference('work'),
   platform: z.enum(['mobile', 'desktop', 'browser']),
   type: z.array(z.enum(['app', 'tool', 'site', 'game'])),
+  tech: z.array(z.string()),
+  role: z.string(),
   url: z.string().optional(),
 });
