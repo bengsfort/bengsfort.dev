@@ -6,13 +6,17 @@
  * easily use the css background gradient trick to animate the link fully.
  *
  * This would require us to ensure that the entire text is a link however.
+ *
+ * @todo: Convert to JS, separate with spans and incrementally drop in. css one looks bad.
  */
 
 interface Props {
   previewText: string;
+  url: string;
+  name: string;
 }
 
-const { previewText } = Astro.props;
+const { previewText, url, name } = Astro.props;
 ---
 
 <style>
@@ -25,6 +29,7 @@ const { previewText } = Astro.props;
     position: absolute;
     font-size: var(--text-xsmall);
     line-height: var(--line-height-body);
+    font-weight: var(--weight-bold);
     color: hsl(0 0% 100% / 0.1);
     background-clip: text;
     background-repeat: no-repeat;
@@ -37,8 +42,28 @@ const { previewText } = Astro.props;
     );
   }
 
+  /** @todo: Add compat check with @supports. */
   .hidden-message {
-    visibility: hidden;
+    display: inline;
+    color: hsl(0 0% 100% / 0);
+    background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    background-image: linear-gradient(90deg, var(--color-text), var(--color-text));
+    text-decoration: none;
+  }
+
+  .wrapper:hover {
+    .preview {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 200ms;
+    }
+
+    .hidden-message {
+      background-size: 100% 100%;
+      transition: background-size 875ms 325ms ease-in;
+    }
   }
 
   .reveal-your-secrets {
@@ -56,11 +81,14 @@ const { previewText } = Astro.props;
 
 <hidden-message class="wrapper preview-only">
   <strong class="preview" aria-hidden="true" data-preview>{previewText}</strong>
-  <span class="hidden-message" data-hidden><slot /></span>
+  <a href={url} target="_blank" aria-label={name} data-hidden class="hidden-message"
+    ><slot /></a
+  >
+  <!-- <span class="hidden-message"><slot /></span> -->
 </hidden-message>
 
 <script>
-  import { HiddenMessage } from './HiddenMessage';
+  // import { HiddenMessage } from './HiddenMessage';
 
-  customElements.define('hidden-message', HiddenMessage);
+  // customElements.define('hidden-message', HiddenMessage);
 </script>
