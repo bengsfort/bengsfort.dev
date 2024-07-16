@@ -55,7 +55,7 @@ const { previewText } = Astro.props;
 </style>
 
 <hidden-message class="wrapper preview-only">
-  <strong class="preview" aria-hidden data-preview>{previewText}</strong>
+  <strong class="preview" aria-hidden="true" data-preview>{previewText}</strong>
   <span class="hidden-message" data-hidden><slot /></span>
 </hidden-message>
 
