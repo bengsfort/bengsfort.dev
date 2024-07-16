@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, platform, type, assets: _, url, tech, role } = project.data;
+
+const { Content } = await project.render();
+---
+
+<style>
+  .preview {
+    --_chassis-color: #525252;
+    --_top-feature-color: #525252;
+    --_screen-color: var(--color-dark);
+
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .browser {
+    aspect-ratio: 16 / 9;
+
+    .chassis {
+      border-radius: 0.5rem;
+      border: 1px solid var(--_chassis-color);
+    }
+
+    .top-feature {
+      height: 1rem;
+      width: 100%;
+      background-color: var(--_top-feature-color);
+      border-start-end-radius: 0.5rem;
+      border-start-start-radius: 0.5rem;
+    }
+
+    .screen {
+      height: calc(100% - 1rem);
+      width: 100%;
+      background-color: var(--_screen-color);
+      border-end-end-radius: 0.5rem;
+      border-end-start-radius: 0.5rem;
+    }
+  }
+
+  .mobile {
+    aspect-ratio: 9 / 16;
+
+    .chassis {
+      width: auto;
+      height: 100%;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      background-color: 1px solid var(--_chassis-color);
+    }
+
+    .top-feature {
+      height: 1rem;
+      width: 100%;
+      background-color: var(--_top-feature-color);
+      border-start-end-radius: 0.5rem;
+      border-start-start-radius: 0.5rem;
+    }
+
+    .screen {
+      height: calc(100% - 1rem);
+      width: 100%;
+      background-color: var(--_screen-color);
+      border-end-end-radius: 0.5rem;
+      border-end-start-radius: 0.5rem;
+    }
+  }
+</style>
+
+<div class:list={['preview', platform]} aria-presentation>
+  <div class="chassis">
+    <div class="top-feature"></div>
+    <div class="screen">Hello!</div>
+  </div>
+</div>
+
+<div>
+  <strong><a href={url ?? '#'} target="_blank">{title}</a></strong>
+</div>
+<div>{platform} - {type.join(', ')}</div>
+<div>Role: {role}</div>
+<div>Tech: {tech.join(', ')}</div>
+<Content />

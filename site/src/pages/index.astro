@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TextCarousel from '../components/TextCarousel/TextCarousel.astro';
 import RevealedText from '../components/RevealedText/RevealedText.astro';
-import ProjectListing from '../components/index/WorkListing/ProjectListing.astro';
+import ProjectPreview from '../components/ProjectPreview/ProjectPreview.astro';
 
 const projects = await getCollection('projects');
 
@@ -37,7 +37,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 
 <BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
   <header class="content-grid hero">
-    <h1>Hei, I'm Matt.</h1>
+    <h1>Hey, I'm Matt.</h1>
     <TextCarousel items={carouselItems} a11yDescription={carouselSafeDescription} />
     <p class="lead-text">
       I'm a software engineer with a wide range of specialties that loves solving problems
@@ -59,7 +59,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
   </header>
   <main class="content-grid content-section">
     <section>
-      {projects.map((project) => <ProjectListing project={project} />)}
+      {projects.map((project) => <ProjectPreview project={project} />)}
     </section>
   </main>
 </BaseLayout>

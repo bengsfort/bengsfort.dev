@@ -12,6 +12,16 @@
   --color-accent-light: #262736;
   --color-vibrant-light: #6223e1;
   --color-vibrant-dark: #37147e;
+  --color-green: #3ceb18;
+  --color-green-dark: #186309;
+  --color-teal: #00eae8;
+  --color-teal-dark: #005251;
+  --color-yellow: #f7e200;
+  --color-yellow-dark: #5c5400;
+  --color-red: #8a0029;
+  --color-red-dark: #24000b;
+
+
 
   /** Main elements */
   --color-bg: var(--color-dark);
