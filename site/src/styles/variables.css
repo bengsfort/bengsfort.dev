@@ -38,10 +38,11 @@
   --weight-base: var(--weight-regular);
 
   --text-size: 22px;
+  --text-xlarge: 48px;
   --text-large: 32px;
   --text-small: 18px;
   --text-xsmall: 16px;
-  --text-xlarge: 48px;
+  --text-xxsmall: 14px;
 
   --text-h1: 42px;
   --text-h2: 36px;

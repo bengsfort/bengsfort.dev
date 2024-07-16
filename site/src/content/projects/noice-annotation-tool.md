@@ -1,5 +1,5 @@
 ---
-title: Noice Video Annotation Tool
+title: Noice Annotation Tool
 work: noice
 platform: browser
 type:
