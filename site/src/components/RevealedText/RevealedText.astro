@@ -14,15 +14,31 @@ interface Props {
   previewText: string;
   url: string;
   name: string;
+  content: string;
 }
 
-const { previewText, url, name } = Astro.props;
+const { previewText, url, name, content } = Astro.props;
+
+const SEGMENT_BASE_DELAY = 75;
+const SEGMENT_DELAY_OUT_MODIFIER = 0.2;
+
+const getMsgSegmentDelays = (index: number, total: number): Record<string, string> => {
+  return {
+    ['--_segment-transition-in']: `${index * SEGMENT_BASE_DELAY}ms`,
+    ['--_segment-transition-out']: `${(total - index) * SEGMENT_BASE_DELAY * SEGMENT_DELAY_OUT_MODIFIER}ms`,
+  };
+};
 ---
 
 <style>
   .wrapper {
+    --_segment-transition-duration: 150ms;
+    --_segment-transition-in: 0ms;
+    --_segment-transition-out: 0ms;
+
     display: inline;
     position: relative;
+    user-select: none;
   }
 
   .preview {
@@ -30,65 +46,67 @@ const { previewText, url, name } = Astro.props;
     font-size: var(--text-xsmall);
     line-height: var(--line-height-body);
     font-weight: var(--weight-bold);
-    color: hsl(0 0% 100% / 0.1);
-    background-clip: text;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-blend-mode: darken;
-    background-image: linear-gradient(
-      90deg,
-      var(--color-vibrant-light),
-      var(--color-vibrant-dark)
-    );
+    color: hsl(0 0% 100% / 0.35);
+    opacity: 1;
+    transform: translateY(0%);
+    transition:
+      opacity var(--_segment-transition-duration) var(--_segment-transition-duration),
+      transform var(--_segment-transition-duration) var(--_segment-transition-duration);
   }
 
   /** @todo: Add compat check with @supports. */
   .hidden-message {
     display: inline;
-    color: hsl(0 0% 100% / 0);
-    background-clip: text;
-    background-repeat: no-repeat;
-    background-size: 0% 100%;
-    background-image: linear-gradient(90deg, var(--color-text), var(--color-text));
-    text-decoration: none;
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+  }
+
+  /*
+    Note: we use inline-end instead of & + & inline-start
+    to prevent new-lines starting with  a strange fake space.
+  */
+  .msg-segment {
+    display: inline-block;
+    margin-inline-end: 0.25rem;
+    transform: translateY(-50%);
+    text-decoration: underline;
+    text-decoration-thickness: 20%;
+    text-decoration-color: var(--color-black);
+    opacity: 0;
+    transition:
+      transform var(--_segment-transition-duration) var(--_segment-transition-out),
+      opacity var(--_segment-transition-duration) var(--_segment-transition-out);
   }
 
   .wrapper:hover {
     .preview {
-      opacity: 0;
       pointer-events: none;
-      transition: opacity 200ms;
-    }
-
-    .hidden-message {
-      background-size: 100% 100%;
-      transition: background-size 875ms 325ms ease-in;
-    }
-  }
-
-  .reveal-your-secrets {
-    .preview {
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 200ms;
+      transform: translateY(50%);
+      transition:
+        opacity var(--_segment-transition-duration),
+        transform var(--_segment-transition-duration);
     }
 
-    .hidden-message {
-      visibility: visible;
+    .msg-segment {
+      transform: translateY(0%);
+      opacity: 1;
+      transition:
+        transform var(--_segment-transition-duration) var(--_segment-transition-in),
+        opacity var(--_segment-transition-duration) var(--_segment-transition-in);
     }
   }
 </style>
 
 <hidden-message class="wrapper preview-only">
   <strong class="preview" aria-hidden="true" data-preview>{previewText}</strong>
-  <a href={url} target="_blank" aria-label={name} data-hidden class="hidden-message"
-    ><slot /></a
-  >
-  <!-- <span class="hidden-message"><slot /></span> -->
+  <a href={url} target="_blank" aria-label={name} data-hidden class="hidden-message">
+    {
+      content.split(' ').map((item, i, arr) => (
+        <span class="msg-segment" style={getMsgSegmentDelays(i, arr.length - 1)}>
+          {item}
+        </span>
+      ))
+    }
+  </a>
 </hidden-message>
-
-<script>
-  // import { HiddenMessage } from './HiddenMessage';
-
-  // customElements.define('hidden-message', HiddenMessage);
-</script>

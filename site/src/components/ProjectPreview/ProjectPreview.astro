@@ -77,7 +77,7 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
   <div class:list={['preview', platform]}>
     <img
       class="project-img"
-      src="https://placedog.net/500?random"
+      src=`https://placedog.net/500?random&${Math.floor(Date.now() * Math.random())}`
       alt={projectDescription}
     />
   </div>
