@@ -46,20 +46,59 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
   }
 
   .jobs-link {
+    --_underline-color: var(--color-primary);
+
     position: relative;
     display: inline-block;
     color: var(--color-text);
-    font-weight: var(--weight-semibold);
-    text-decoration: underline;
-    text-decoration-thickness: 20%;
-    text-decoration-color: var(--color-black);
-  }
 
-  .jobs-link-icon {
-    display: block;
-    inline-size: 32px;
-    max-block-size: 64px;
-    position: absolute;
+    &-name {
+      display: inline-block;
+      font-weight: var(--weight-semibold);
+      text-decoration: underline;
+      text-decoration-thickness: 20%;
+      text-decoration-color: var(--_underline-color);
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 150ms,
+        transform 150ms;
+    }
+
+    &-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition:
+        opacity 150ms,
+        transform 150ms;
+    }
+
+    &-icon-svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &:hover {
+      .jobs-link-name {
+        opacity: 0;
+        transform: translateY(50%);
+      }
+
+      .jobs-link-icon {
+        opacity: 1;
+        transform: translateY(0);
+        border-bottom: 0.2rem solid
+          color-mix(in srgb, var(--_underline-color) 20%, transparent);
+      }
+    }
   }
 </style>
 
@@ -79,15 +118,25 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     </p>
 
     <p class="lead-text">
-      Currently working at <a class="jobs-link" href="https://noice.com" target="_blank"
-        >Noice<span class="jobs-link-icon" aria-hidden="true"><NoiceLogo /></span></a
-      >, previously <a class="jobs-link" href="https://epicgames.com/" target="_blank"
-        >Epic Games <span class="jobs-link-icon" aria-hidden="true"><EpicLogo /></span></a
-      > and <a class="jobs-link" href="https://unity3d.com/" target="_blank"
-        >Unity Technologies <span class="jobs-link-icon" aria-hidden="true"
-          ><UnityLogo /></span
-        ></a
-      >.
+      Currently working at
+      <a class="jobs-link" href="https://noice.com" target="_blank">
+        <span class="jobs-link-name">Noice</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <NoiceLogo class="jobs-link-icon-svg" />
+        </span>
+      </a>, previously
+      <a class="jobs-link" href="https://epicgames.com/" target="_blank">
+        <span class="jobs-link-name">Epic Games</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <EpicLogo class="jobs-link-icon-svg" />
+        </span>
+      </a> and
+      <a class="jobs-link" href="https://unity3d.com/" target="_blank">
+        <span class="jobs-link-name">Unity Technologies</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <UnityLogo class="jobs-link-icon-svg" />
+        </span>
+      </a>.
     </p>
   </header>
   <main class="content-grid content-section">
