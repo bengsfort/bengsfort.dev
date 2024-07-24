@@ -59,6 +59,7 @@ const getMsgSegmentDelays = (index: number, total: number): Record<string, strin
     display: inline;
     color: var(--color-text);
     font-weight: var(--weight-semibold);
+    pointer-events: none;
   }
 
   /*
@@ -89,6 +90,7 @@ const getMsgSegmentDelays = (index: number, total: number): Record<string, strin
     }
 
     .msg-segment {
+      pointer-events: all;
       transform: translateY(0%);
       opacity: 1;
       transition:
