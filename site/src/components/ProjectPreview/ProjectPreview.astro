@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -75,8 +76,10 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
 
 <div class="project-wrapper">
   <div class:list={['preview', platform]}>
-    <img
+    <Image
       class="project-img"
+      width={500}
+      height={500}
       src=`https://placedog.net/500?random&${Math.floor(Date.now() * Math.random())}`
       alt={projectDescription}
     />
