@@ -46,6 +46,9 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
   }
 
   .preview-indicators {
+    --_indicator-size: 2px;
+    --_indicator-color: var(--color-white);
+
     position: absolute;
     display: flex;
     aspect-ratio: 16 / 9;
@@ -67,17 +70,22 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
         transform 185ms;
     }
 
+    /*
+      This could be simplified into smaller chunks that spread across multiple
+      selectors to avoid repetition, but for the sake of clarity and readability
+      I've opted to keep them separated.
+    */
     &.left {
       &::after {
-        border-inline-start: 1px solid var(--color-white);
-        border-block-start: 1px solid var(--color-white);
+        border-inline-start: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-start: var(--_indicator-size) solid var(--_indicator-color);
         top: 0;
         left: 0;
       }
 
       &::before {
-        border-inline-start: 1px solid var(--color-white);
-        border-block-end: 1px solid var(--color-white);
+        border-inline-start: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-end: var(--_indicator-size) solid var(--_indicator-color);
         bottom: 0;
         left: 0;
       }
@@ -85,15 +93,15 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
 
     &.right {
       &::after {
-        border-inline-end: 1px solid var(--color-white);
-        border-block-start: 1px solid var(--color-white);
+        border-inline-end: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-start: var(--_indicator-size) solid var(--_indicator-color);
         top: 0;
         right: 0;
       }
 
       &::before {
-        border-inline-end: 1px solid var(--color-white);
-        border-block-end: 1px solid var(--color-white);
+        border-inline-end: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-end: var(--_indicator-size) solid var(--_indicator-color);
         bottom: 0;
         right: 0;
       }
