@@ -15,25 +15,89 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
 <style>
   .project-wrapper {
     cursor: pointer;
+    position: relative;
     background: transparent;
     transition: background 185ms;
 
     &:hover {
       background: rgba(255, 255, 255, 0.05);
+
       .project-img {
         scale: 1;
         filter: none;
+      }
+
+      .preview-indicators::after,
+      .preview-indicators::before {
+        opacity: 1;
+        transform: scale(1);
       }
     }
   }
 
   .preview {
+    position: relative;
     display: flex;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     justify-content: center;
     align-items: center;
     background-image: linear-gradient(120deg, var(--color-red), var(--color-primary));
+  }
+
+  .preview-indicators {
+    position: absolute;
+    display: flex;
+    aspect-ratio: 16 / 9;
+    top: 0;
+    left: 0;
+    inline-size: 100%;
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      inline-size: 1rem;
+      block-size: 1rem;
+      z-index: 1;
+      opacity: 0;
+      transform: scale(1.5);
+      transition:
+        opacity 185ms,
+        transform 185ms;
+    }
+
+    &.left {
+      &::after {
+        border-inline-start: 1px solid var(--color-white);
+        border-block-start: 1px solid var(--color-white);
+        top: 0;
+        left: 0;
+      }
+
+      &::before {
+        border-inline-start: 1px solid var(--color-white);
+        border-block-end: 1px solid var(--color-white);
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &.right {
+      &::after {
+        border-inline-end: 1px solid var(--color-white);
+        border-block-start: 1px solid var(--color-white);
+        top: 0;
+        right: 0;
+      }
+
+      &::before {
+        border-inline-end: 1px solid var(--color-white);
+        border-block-end: 1px solid var(--color-white);
+        bottom: 0;
+        right: 0;
+      }
+    }
   }
 
   .project-img {
@@ -75,6 +139,8 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
 </style>
 
 <div class="project-wrapper">
+  <div class="preview-indicators left"></div>
+  <div class="preview-indicators right"></div>
   <div class:list={['preview', platform]}>
     <Image
       class="project-img"
