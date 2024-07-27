@@ -10,6 +10,7 @@ const { project } = Astro.props;
 const { title, platform, type, assets: _, url } = project.data;
 
 const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
+const projectModalId = `${project.slug}-modal`;
 ---
 
 <style>
@@ -146,7 +147,7 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
   }
 </style>
 
-<div class="project-wrapper">
+<div class="project-wrapper" data-target={projectModalId}>
   <div class="preview-indicators left"></div>
   <div class="preview-indicators right"></div>
   <div class:list={['preview', platform]}>
@@ -165,3 +166,33 @@ const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
     {type.join(', ')}
   </div>
 </div>
+
+<dialog id={projectModalId} aria-modal="true">
+  <form method="dialog">
+    <h1>{title}</h1>
+    <button>hehe</button>
+  </form>
+</dialog>
+
+<script>
+  const makeHandler = (button: HTMLElement) => {
+    const target = button.dataset.target;
+    if (!target) {
+      throw new Error('Missing preview modal ID on `data-target`!');
+    }
+
+    const modal = document.getElementById(target) as HTMLDialogElement;
+    if (!modal) {
+      throw new Error(`Could not find dialog element with ID '${target}'`);
+    }
+
+    return (ev: MouseEvent): void => {
+      ev.preventDefault();
+      modal.showModal();
+    };
+  };
+
+  const previewBtns: NodeListOf<HTMLButtonElement> =
+    document.querySelectorAll('.project-wrapper');
+  previewBtns.forEach((btn) => btn.addEventListener('click', makeHandler(btn)));
+</script>
