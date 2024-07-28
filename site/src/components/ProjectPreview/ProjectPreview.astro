@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import ProjectDetailsDialog from './ProjectDetailsDialog.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -167,12 +168,7 @@ const projectModalId = `${project.slug}-modal`;
   </div>
 </div>
 
-<dialog id={projectModalId} aria-modal="true">
-  <form method="dialog">
-    <h1>{title}</h1>
-    <button>hehe</button>
-  </form>
-</dialog>
+<ProjectDetailsDialog project={project} id={projectModalId} />
 
 <script>
   const makeHandler = (button: HTMLElement) => {

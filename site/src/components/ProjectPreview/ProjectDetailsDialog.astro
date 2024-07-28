@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  id: string;
+  project: CollectionEntry<'projects'>;
+}
+
+const { project, id } = Astro.props;
+const { title, assets: _ } = project.data;
+
+// CSS-only stuff is kinda limiting here, since we want so many animations.
+// We may have to make this into a custom component that wraps a Dialog, and
+// then add an API on top of that that calls showModal & triggers animations.
+---
+
+<style>
+  .project-dialog {
+    h1 {
+      opacity: 0;
+    }
+
+    &[open] h1 {
+      opacity: 1;
+      animation: test-slide-in 200ms 200ms ease-out forwards;
+    }
+  }
+
+  .project-dialog::backdrop {
+    background: var(--color-bg);
+  }
+
+  .project-dialog[open]::backdrop {
+    animation: backdrop-fade-in 180ms ease-in forwards;
+  }
+
+  @keyframes test-slide-in {
+    0% {
+      opacity: 0;
+      transform: translateY(-5rem);
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
+  @keyframes backdrop-fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
+
+<dialog class="project-dialog" id={id} aria-modal="true">
+  <form method="dialog">
+    <h1>{title}</h1>
+    <button>hehe</button>
+  </form>
+</dialog>
