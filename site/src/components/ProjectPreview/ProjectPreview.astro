@@ -171,20 +171,22 @@ const projectModalId = `${project.slug}-modal`;
 <ProjectDetailsDialog project={project} id={projectModalId} />
 
 <script>
+  import type { ProjectDialogElement } from './ProjectDialogElement';
+
   const makeHandler = (button: HTMLElement) => {
     const target = button.dataset.target;
     if (!target) {
       throw new Error('Missing preview modal ID on `data-target`!');
     }
 
-    const modal = document.getElementById(target) as HTMLDialogElement;
+    const modal = document.getElementById(target) as ProjectDialogElement;
     if (!modal) {
       throw new Error(`Could not find dialog element with ID '${target}'`);
     }
 
     return (ev: MouseEvent): void => {
       ev.preventDefault();
-      modal.showModal();
+      modal.show();
     };
   };
 

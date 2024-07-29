@@ -15,14 +15,30 @@ const { title, assets: _ } = project.data;
 ---
 
 <style>
+  .dialog-wrapper {
+    position: absolute;
+    inline-size: 0;
+    block-size: 0;
+    inset: 0;
+  }
+
   .project-dialog {
-    h1 {
+    opacity: 0;
+    transition: opacity 200ms;
+
+    &::backdrop {
       opacity: 0;
+      background: var(--color-bg);
+      transition: opacity 200ms;
     }
 
-    &[open] h1 {
+    &.active {
       opacity: 1;
-      animation: test-slide-in 200ms 200ms ease-out forwards;
+      transition: opacity 200ms 200ms;
+
+      &::backdrop {
+        opacity: 1;
+      }
     }
   }
 
@@ -33,36 +49,15 @@ const { title, assets: _ } = project.data;
   .project-dialog[open]::backdrop {
     animation: backdrop-fade-in 180ms ease-in forwards;
   }
-
-  @keyframes test-slide-in {
-    0% {
-      opacity: 0;
-      transform: translateY(-5rem);
-    }
-
-    25% {
-      opacity: 1;
-    }
-
-    100% {
-      transform: translateY(0%);
-    }
-  }
-
-  @keyframes backdrop-fade-in {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
 </style>
 
-<dialog class="project-dialog" id={id} aria-modal="true">
-  <form method="dialog">
-    <h1>{title}</h1>
-    <button>hehe</button>
-  </form>
-</dialog>
+<project-dialog id={id} class="dialog-wrapper">
+  <dialog class="project-dialog" aria-modal="true">
+    <form method="dialog">
+      <h1>{title}</h1>
+      <button>hehe</button>
+    </form>
+  </dialog>
+</project-dialog>
+
+<script src="./ProjectDialogElement.ts"></script>
