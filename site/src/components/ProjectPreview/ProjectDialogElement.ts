@@ -78,8 +78,12 @@ export class ProjectDialogElement extends HTMLElement {
     // @todo - add close button.
   }
 
-  #handleHijackClose = (event: KeyboardEvent | MouseEvent): void => {
+  #handleHijackClose = (event: KeyboardEvent): void => {
     if (!this.isOpen) {
+      return;
+    }
+
+    if (event.key !== 'Escape') {
       return;
     }
 
