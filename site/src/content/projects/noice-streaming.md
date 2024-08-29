@@ -16,6 +16,8 @@ tech:
   - Golang
   - WebRTC
 role: Front-end Lead
+featureVideo: "GameConnect_Internal.mp4"
+previewImg: "./assets/placeholder4.jpeg"
 ---
 
 I build almost everything XD

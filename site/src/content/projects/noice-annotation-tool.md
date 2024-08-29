@@ -13,6 +13,9 @@ tech:
   - Google Cloud Platform
   - Styled Components
 role: Everything
+featureVideo: "GameConnect_Internal.mp4"
+previewImg: "./assets/placeholder1.jpeg"
 ---
+
 
 Full-stack tool for annotating videos with game events.

@@ -9,6 +9,7 @@ import ProjectPreview from '../components/ProjectPreview/ProjectPreview.astro';
 import NoiceLogo from '../icons/LogoNoice.astro';
 import EpicLogo from '../icons/LogoEpicGames.astro';
 import UnityLogo from '../icons/LogoUnity.astro';
+import TalkList from '../components/TalkList/TalkList.astro';
 
 const projects = await getCollection('projects');
 
@@ -23,6 +24,12 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 ---
 
 <style>
+  h2 {
+    color: var(--color-primary);
+    font-weight: var(--weight-bold);
+    font-size: 4rem;
+  }
+
   .hero {
     text-align: center;
     padding-block: 7.5rem;
@@ -140,8 +147,15 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     </p>
   </header>
   <main class="content-grid content-section">
-    <section class="project-grid breakout">
-      {projects.map((project) => <ProjectPreview project={project} />)}
+    <section class="breakout">
+      <h2>Recent projects</h2>
+      <div class="project-grid">
+        {projects.map((project) => <ProjectPreview project={project} />)}
+      </div>
+    </section>
+    <section>
+      <h2>Talks</h2>
+      <TalkList />
     </section>
   </main>
 </BaseLayout>

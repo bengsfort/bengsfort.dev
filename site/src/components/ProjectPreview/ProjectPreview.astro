@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, platform, type, assets: _, url } = project.data;
+const { title, platform, type, assets: _, url, previewImg, featureVideo } = project.data;
 
 const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
 const projectModalId = `${project.slug}-modal`;
@@ -156,7 +156,7 @@ const projectModalId = `${project.slug}-modal`;
       class="project-img"
       width={500}
       height={500}
-      src=`https://placedog.net/500?random&${Math.floor(Date.now() * Math.random())}`
+      src={previewImg}
       alt={projectDescription}
     />
   </div>

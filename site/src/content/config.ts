@@ -1,5 +1,5 @@
 import { defineCollection } from 'astro:content';
-import { ProjectSchema, WorkSchema } from '../schemas';
+import { ProjectSchema, TalkSchema, WorkSchema } from '../schemas';
 
 const work = defineCollection({
   type: 'content',
@@ -8,7 +8,12 @@ const work = defineCollection({
 
 const projects = defineCollection({
   type: 'content',
-  schema: ProjectSchema,
+  schema: ({ image }) => ProjectSchema(image),
 });
 
-export const collections = { work, projects };
+const talks = defineCollection({
+  type: 'data',
+  schema: TalkSchema,
+});
+
+export const collections = { work, projects, talks };

@@ -7,11 +7,26 @@ interface Props {
 }
 
 const { project, id } = Astro.props;
-const { title, assets: _ } = project.data;
+const {
+  title,
+  assets: _,
+  type,
+  platform,
+  tech,
+  role,
+  url: _url,
+  previewImg,
+  featureVideo,
+} = project.data;
 
-// CSS-only stuff is kinda limiting here, since we want so many animations.
-// We may have to make this into a custom component that wraps a Dialog, and
-// then add an API on top of that that calls showModal & triggers animations.
+let joinedProjectType = `${platform} ${type.join('/')}`.toLowerCase();
+
+// Desktop Site sounds weird and unnatural, so lets make it more natural
+if (joinedProjectType === 'desktop site') {
+  joinedProjectType = 'Website';
+}
+
+const { Content } = await project.render();
 ---
 
 <style>
@@ -23,7 +38,12 @@ const { title, assets: _ } = project.data;
   }
 
   .project-dialog {
+    box-sizing: border-box;
+    block-size: 100%;
+    inline-size: 100%;
     opacity: 0;
+    padding: 1rem 4rem;
+    background: transparent;
     transition: opacity 200ms;
 
     &::backdrop {
@@ -49,14 +69,81 @@ const { title, assets: _ } = project.data;
   .project-dialog[open]::backdrop {
     animation: backdrop-fade-in 180ms ease-in forwards;
   }
+
+  .dialog-controls {
+    position: absolute;
+    inset-inline-start: 1rem;
+    inset-block-start: 1rem;
+  }
+
+  .dialog-close-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .close-icon {
+    position: relative;
+    display: block;
+    block-size: 2rem;
+    inline-size: 2rem;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 0.2rem;
+      background-color: var(--color-text);
+      transition: transform 200ms;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover {
+      &::before {
+        transform: rotate(-45deg);
+      }
+
+      &::after {
+        transform: rotate(45deg);
+      }
+    }
+  }
 </style>
 
 <project-dialog id={id} class="dialog-wrapper">
   <dialog class="project-dialog" aria-modal="true">
-    <form method="dialog">
-      <h1>{title}</h1>
-      <button>hehe</button>
-    </form>
+    <nav class="dialog-controls">
+      <button class="dialog-close-btn" data-close-modal>
+        <span class="visually-hidden">Close dialog</span>
+        <i class="close-icon" aria-hidden="true"></i>
+      </button>
+    </nav>
+
+    <article>
+      <header>
+        <h1>{title}</h1>
+        <p>{joinedProjectType}</p>
+        <p>Role: {role}</p>
+        <p>Tech: {tech.join(', ')}</p>
+      </header>
+      <aside>
+        <video autoplay muted>
+          <source src={`/showcases/${featureVideo}`} />
+        </video>
+      </aside>
+      <main>
+        <Content />
+      </main>
+    </article>
   </dialog>
 </project-dialog>
 

@@ -62,28 +62,28 @@ export class ProjectDialogElement extends HTMLElement {
 
     this.#_dialog.showModal();
     this.#_dialog.classList.add(ACTIVE_CLASS);
+    document.body.style.overflow = 'hidden';
   }
 
-  public hide(): void {
+  public hide = (): void => {
     if (!this.isOpen || this.#_isTransitioningOut) {
       return;
     }
 
     this.#_isTransitioningOut = true;
     this.#_dialog.classList.remove(ACTIVE_CLASS);
-  }
+    document.body.style.overflow = 'inherit';
+  };
 
   #hijackDialogClose(): void {
     window.addEventListener('keydown', this.#handleHijackClose);
-    // @todo - add close button.
+    this.querySelectorAll('[data-close-modal]').forEach((btn) => {
+      btn.addEventListener('click', this.hide);
+    });
   }
 
   #handleHijackClose = (event: KeyboardEvent): void => {
-    if (!this.isOpen) {
-      return;
-    }
-
-    if (event.key !== 'Escape') {
+    if (!this.isOpen || event.key !== 'Escape') {
       return;
     }
 
@@ -98,7 +98,7 @@ export class ProjectDialogElement extends HTMLElement {
 
     const transition = normalizeTransitionEvent(event);
     if (import.meta.env.DEV) {
-      console.log(`Transition started: ${transition}`, event.target);
+      console.log(`Transition started: ${transition}`);
     }
 
     this.#_animatedEls.add(transition);
@@ -111,7 +111,7 @@ export class ProjectDialogElement extends HTMLElement {
 
     const transition = normalizeTransitionEvent(event);
     if (import.meta.env.DEV) {
-      console.log(`Transition ended: ${transition}`, event.target);
+      console.log(`Transition ended: ${transition}`);
     }
 
     this.#_animatedEls.delete(transition);

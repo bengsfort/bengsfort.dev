@@ -1,0 +1,27 @@
+---
+import { getEntry } from 'astro:content';
+
+const talkList = await getEntry('talks', 'all');
+const { talks } = talkList.data;
+---
+
+<style></style>
+
+<ul>
+  {
+    talks.map(({ title, event, location, url }) => (
+      <li class="talk-item">
+        <div class="talk-title">
+          {title}{' '}
+          {url && (
+            <a href={url} target="_blank" rel="nofollow">
+              &#128279;
+            </a>
+          )}
+        </div>
+        <div class="talk-event">{event}</div>
+        <div class="talk-location">{location}</div>
+      </li>
+    ))
+  }
+</ul>

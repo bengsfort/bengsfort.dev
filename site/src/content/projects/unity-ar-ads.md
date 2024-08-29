@@ -11,6 +11,8 @@ tech:
   - Three.JS
   - Objective-C
 role: Everything
+featureVideo: "GameConnect_Internal.mp4"
+previewImg: "./assets/placeholder6.jpeg"
 ---
 
 AR ads!
