@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import ProjectDetailsDialog from './ProjectDetailsDialog.astro';
+import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -171,7 +171,7 @@ const projectModalId = `${project.slug}-modal`;
 <ProjectDetailsDialog project={project} id={projectModalId} />
 
 <script>
-  import type { ProjectDialogElement } from './ProjectDialogElement';
+  import type { ProjectDialogElement } from './ProjectDetailsDialog/ProjectDialogElement';
 
   const makeHandler = (button: HTMLElement) => {
     const target = button.dataset.target;

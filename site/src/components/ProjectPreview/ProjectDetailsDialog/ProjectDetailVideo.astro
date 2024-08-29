@@ -1,0 +1,107 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  platform: CollectionEntry<'projects'>['data']['platform'];
+  featureVideo: string;
+}
+
+const { platform, featureVideo } = Astro.props;
+---
+
+<style>
+  .wrapper {
+    --_device-color: rgba(255, 255, 255, 0.15);
+    --_device-color-alt: rgba(255, 255, 255, 0.05);
+  }
+
+  .desktop {
+    .device {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      max-width: 100%;
+
+      &-bezel {
+        padding: 0.5rem;
+        background-color: var(--_device-color);
+        border-radius: 4px;
+        box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      &-stand {
+        block-size: 2rem;
+        inline-size: 2rem;
+        background-color: var(--_device-color-alt);
+      }
+
+      &-footer {
+        content: '';
+        block-size: 1rem;
+        inline-size: 55%;
+        border-start-start-radius: 8px;
+        border-start-end-radius: 8px;
+        background-color: var(--_device-color);
+      }
+    }
+
+    .video-player {
+      aspect-ratio: 16/9;
+    }
+  }
+
+  .browser {
+    --_device-color-alt: rgba(0, 0, 0, 0.25);
+    --_control-btn-size: .75rem;
+
+    .device {
+      border-radius: 8px;
+      border: 1px solid var(--_device-color-alt);
+      overflow: hidden;
+
+      &-bezel {
+        position: relative;
+        padding-block-start: 1.5rem;
+        background-color: var(--_device-color);
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset-block-start: 0;
+          inset-inline-end: 0;
+          block-size: var(--_control-btn-size);
+          inline-size: var(--_control-btn-size);
+          border-radius: 100%;
+          background-color: var(--_device-color-alt);
+          box-shadow:
+            -1rem 0px 0px var(--_device-color-alt),
+            -2rem 0px 0px var(--_device-color-alt);
+          transform: translate(
+            calc((-1.5rem + var(--_control-btn-size)) / 2),
+            calc((1.5rem - var(--_control-btn-size)) / 2)
+          );
+        }
+      }
+    }
+  }
+
+  .video-player {
+    width: 100%;
+    height: auto;
+  }
+</style>
+
+<div class:list={['wrapper', platform]}>
+  <div class="device">
+    <div class="device-bezel">
+      <video autoplay muted class="video-player">
+        <source src={`/showcases/${featureVideo}`} />
+      </video>
+    </div>
+    {platform === 'desktop' && 
+      <div class="device-stand" />
+      <div class="device-footer" />
+    }
+  </div>
+</div>

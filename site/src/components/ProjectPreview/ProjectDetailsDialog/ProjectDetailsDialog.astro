@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import ProjectDetailVideo from './ProjectDetailVideo.astro';
 
 interface Props {
   id: string;
@@ -41,6 +42,7 @@ const { Content } = await project.render();
     box-sizing: border-box;
     block-size: 100%;
     inline-size: 100%;
+    border: 0;
     opacity: 0;
     padding: 1rem 4rem;
     background: transparent;
@@ -117,6 +119,18 @@ const { Content } = await project.render();
       }
     }
   }
+
+  .dialog-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .content-column {
+    flex: 1;
+    overflow: hidden;
+  }
 </style>
 
 <project-dialog id={id} class="dialog-wrapper">
@@ -128,19 +142,18 @@ const { Content } = await project.render();
       </button>
     </nav>
 
-    <article>
-      <header>
-        <h1>{title}</h1>
-        <p>{joinedProjectType}</p>
-        <p>Role: {role}</p>
-        <p>Tech: {tech.join(', ')}</p>
-      </header>
-      <aside>
-        <video autoplay muted>
-          <source src={`/showcases/${featureVideo}`} />
-        </video>
+    <article class="dialog-content">
+      <aside class="content-column">
+        <ProjectDetailVideo featureVideo={featureVideo} platform={platform} />
       </aside>
-      <main>
+
+      <main class="content-column">
+        <header>
+          <h1>{title}</h1>
+          <p>{joinedProjectType}</p>
+          <p>Role: {role}</p>
+          <p>Tech: {tech.join(', ')}</p>
+        </header>
         <Content />
       </main>
     </article>
