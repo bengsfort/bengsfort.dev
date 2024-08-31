@@ -52,7 +52,7 @@
     color: var(--color-text);
     font-size: var(--text-size);
     font-family: var(--font-main);
-    font-weight: var(--weight-base);
+    font-weight: var(--weight-light);
     line-height: var(--line-height-body);
   }
 
