@@ -16,11 +16,11 @@ const {
   tech,
   role,
   url: _url,
-  previewImg,
   featureVideo,
 } = project.data;
 
-let joinedProjectType = `${platform} ${type.join('/')}`.toLowerCase();
+let joinedProjectType =
+  platform === 'library' ? platform : `${platform} ${type.join('/')}`.toLowerCase();
 
 // Desktop Site sounds weird and unnatural, so lets make it more natural
 if (joinedProjectType === 'desktop site') {
@@ -45,8 +45,13 @@ const { Content } = await project.render();
     border: 0;
     opacity: 0;
     padding: 1rem 4rem;
+    overflow-y: scroll;
     background: transparent;
     transition: opacity 200ms;
+
+    &:focus {
+      outline: none;
+    }
 
     &::backdrop {
       opacity: 0;
@@ -122,23 +127,59 @@ const { Content } = await project.render();
 
   .dialog-content {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: stretch;
-    height: 100%;
-    max-height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    block-size: 100%;
+    max-block-size: 100%;
   }
 
   .content-column {
-    flex: 1;
-    overflow: hidden;
+    margin-block-start: 1rem;
   }
 
   .preview-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    max-block-size: 80%;
+    inline-size: 100%;
+  }
+
+  .project-header {
+    margin-block-end: 1rem;
+
+    h1 {
+      margin-block-end: 0.5rem;
+    }
+
+    .project-meta,
+    .project-tech {
+      box-shadow: inset 0.125rem 0px var(--color-light);
+      padding-inline-start: 0.5rem;
+    }
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.25rem;
+    margin: 0;
+    font-size: var(--text-xsmall);
+    font-weight: var(--weight-base);
+    line-height: var(--line-height-semi-tight);
+    color: var(--color-light);
+    text-transform: capitalize;
+  }
+
+  .project-tech {
+    margin: 0;
+    font-size: var(--text-xsmall);
+    font-weight: var(--weight-base);
+    line-height: var(--line-height-semi-tight);
+    color: var(--color-light);
+    text-transform: capitalize;
   }
 </style>
 
@@ -152,16 +193,19 @@ const { Content } = await project.render();
     </nav>
 
     <article class="dialog-content">
-      <aside class="content-column preview-wrapper">
+      <aside class="preview-wrapper">
         <ProjectDetailVideo featureVideo={featureVideo} platform={platform} />
       </aside>
 
-      <main class="content-column">
-        <header>
+      <main class="content-column content-grid">
+        <header class="project-header">
           <h1>{title}</h1>
-          <p>{joinedProjectType}</p>
-          <p>Role: {role}</p>
-          <p>Tech: {tech.join(', ')}</p>
+          <p class="project-meta">
+            <span>{joinedProjectType}</span>
+            <span>&bull;</span>
+            <span>{role}</span>
+          </p>
+          <p class="project-tech">{tech.join(', ')}</p>
         </header>
         <Content />
       </main>

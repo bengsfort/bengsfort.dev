@@ -1,4 +1,4 @@
-import { type ImageFunction, reference, z } from 'astro:content';
+import { type ImageFunction, z } from 'astro:content';
 
 const dateStr = z.string().transform((str) => new Date(str));
 
@@ -17,7 +17,7 @@ export const ProjectSchema = (image: ImageFunction) =>
     assets: z.array(z.string()).optional(),
     previewImg: image(),
     featureVideo: z.string(),
-    platform: z.enum(['mobile', 'desktop', 'browser']),
+    platform: z.enum(['mobile', 'desktop', 'browser', 'library']),
     type: z.array(z.enum(['app', 'tool', 'site', 'game'])),
     tech: z.array(z.string()),
     role: z.string(),

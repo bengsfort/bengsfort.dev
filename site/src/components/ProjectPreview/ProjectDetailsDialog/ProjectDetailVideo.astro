@@ -17,6 +17,10 @@ const { platform, featureVideo } = Astro.props;
     --_aspect-ratio: 16 / 9;
     --_preview-width: 100%;
     --_preview-height: auto;
+
+    aspect-ratio: var(--_aspect-ratio);
+    max-block-size: 100%;
+    max-inline-size: 60%;
   }
 
   .device {
@@ -26,7 +30,7 @@ const { platform, featureVideo } = Astro.props;
   }
 
   .desktop {
-    --_aspect-ratio: 16 / 9;
+    --_aspect-ratio: 16 / 10;
     --_preview-width: 600px;
 
     --_desktop-bezel-padding: 0.5rem;
@@ -90,6 +94,8 @@ const { platform, featureVideo } = Astro.props;
       border-radius: var(--_browser-radius);
       border: 1px solid var(--_device-color-alt);
       overflow: hidden;
+      inline-size: auto;
+      block-size: 100%;
 
       &-bezel {
         position: relative;
@@ -184,7 +190,7 @@ const { platform, featureVideo } = Astro.props;
 
   .video-player {
     display: block;
-    inline-size: var(--_preview-width);
+    inline-size: 100%;
     block-size: auto;
   }
 </style>
