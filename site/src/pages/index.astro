@@ -24,22 +24,20 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 ---
 
 <style>
-  h2 {
-    color: var(--color-primary);
-    font-family: var(--font-mono);
-    font-weight: var(--weight-bold);
-    font-size: var(--text-xlarge);
-    margin-block-end: 2rem;
+  .subhead {
+    font-size: var(--text-small);
+    font-weight: var(--weight-light);
+    color: var(--color-light);
+  }
+
+  .lead-text {
+    text-align: left;
+    font-weight: var(--weight-light);
   }
 
   .hero {
     text-align: center;
     padding-block: 7.5rem;
-  }
-
-  .lead-text {
-    margin-block-start: 2rem;
-    text-align: left;
   }
 
   .content-section {
@@ -115,11 +113,16 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     padding-block: 2rem;
     background: var(--color-dark);
   }
+
+  .section-header {
+    margin-block-end: 2rem;
+  }
 </style>
 
 <BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
   <header class="content-grid hero">
     <h1>Hey, I'm Matt.</h1>
+    <p class="subhead">You can also call me Matti.</p>
     <TextCarousel items={carouselItems} a11yDescription={carouselSafeDescription} />
     <p class="lead-text">
       I'm a software engineer with a wide range of specialties that loves solving problems
@@ -164,7 +167,14 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     </section>
 
     <section class="content-grid" id="talk-section">
-      <h2>Talks</h2>
+      <div class="section-header">
+        <h2>Sometimes I also talk about stuff.</h2>
+        <p class="lead-text">
+          When possible, I love sharing my learnings and ideas with others. Below you can
+          see a list of some of the more recent times I have been lucky enough to chat
+          about things I am passionate about.
+        </p>
+      </div>
       <TalkList />
     </section>
   </main>

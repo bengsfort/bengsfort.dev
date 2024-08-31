@@ -1,6 +1,5 @@
 ---
 title: Noice Streaming Platform
-work: noice
 platform: browser
 type:
   - app

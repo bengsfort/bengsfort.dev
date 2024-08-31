@@ -14,7 +14,7 @@
   }
   
   h1, .h1 {
-    font-weight: var(--weight-light);
+    font-weight: var(--weight-bold);
     font-size: var(--text-h1);
     font-family: var(--font-main);
     line-height: var(--line-height-tight);

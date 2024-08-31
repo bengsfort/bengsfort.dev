@@ -1,6 +1,5 @@
 ---
 title: Noice Mobile App
-work: noice
 platform: mobile
 type:
   - app

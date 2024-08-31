@@ -1,6 +1,5 @@
 ---
 title: Twenty Numbers
-work: twenty-numbers
 platform: mobile
 type:
   - game

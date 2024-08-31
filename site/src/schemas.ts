@@ -17,7 +17,6 @@ export const ProjectSchema = (image: ImageFunction) =>
     assets: z.array(z.string()).optional(),
     previewImg: image(),
     featureVideo: z.string(),
-    work: reference('work'),
     platform: z.enum(['mobile', 'desktop', 'browser']),
     type: z.array(z.enum(['app', 'tool', 'site', 'game'])),
     tech: z.array(z.string()),
