@@ -39,6 +39,16 @@ const { Content } = await project.render();
   }
 
   .project-dialog {
+    --_transition-init-length: 200ms;
+    --_transition-stage-1-length: 350ms;
+    --_transition-stage-1-delay: 200ms;
+    --_transition-stage-2-length: 180ms;
+    --_transition-stage-2-delay: 150ms;
+    --_transition-stage-3-length: 180ms;
+    --_transition-stage-3-delay: 100ms;
+    --_transition-stage-4-length: 180ms;
+    --_transition-stage-4-delay: 100ms;
+
     box-sizing: border-box;
     block-size: 100%;
     inline-size: 100%;
@@ -47,7 +57,7 @@ const { Content } = await project.render();
     padding: 1rem 4rem;
     overflow-y: scroll;
     background: transparent;
-    transition: opacity 200ms;
+    transition: opacity var(--_transition-init-length);
 
     &:focus {
       outline: none;
@@ -56,12 +66,34 @@ const { Content } = await project.render();
     &::backdrop {
       opacity: 0;
       background: var(--color-bg);
-      transition: opacity 200ms;
+      transition: opacity var(--_transition-init-length);
     }
 
     &.active {
       opacity: 1;
-      transition: opacity 200ms 200ms;
+      transition: opacity var(--_transition-init-length) var(--_transition-init-length);
+
+      .preview-wrapper {
+        transform: translate(0);
+        opacity: 1;
+      }
+
+      .project-header {
+        h1 {
+          transform: translate(0);
+          opacity: 1;
+        }
+
+        .project-meta,
+        .project-tech {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .project-description {
+        opacity: 1;
+      }
 
       &::backdrop {
         opacity: 1;
@@ -144,6 +176,13 @@ const { Content } = await project.render();
     align-items: center;
     max-block-size: 80%;
     inline-size: 100%;
+    transform: translateY(-25%);
+    opacity: 0;
+    transition:
+      transform var(--_transition-stage-1-length)
+        calc(var(--_transition-init-length) + var(--_transition-stage-1-delay)) ease-out,
+      opacity var(--_transition-stage-1-length)
+        calc(var(--_transition-init-length) + var(--_transition-stage-1-delay));
   }
 
   .project-header {
@@ -151,12 +190,42 @@ const { Content } = await project.render();
 
     h1 {
       margin-block-end: 0.5rem;
+      transform: translateY(-25%);
+      opacity: 0;
+      transition:
+        transform var(--_transition-stage-2-length)
+          calc(
+            var(--_transition-init-length) + var(--_transition-stage-1-delay) +
+              var(--_transition-stage-1-length) + var(--_transition-stage-2-delay)
+          )
+          ease-out,
+        opacity var(--_transition-stage-2-length)
+          calc(
+            var(--_transition-init-length) + var(--_transition-stage-1-delay) +
+              var(--_transition-stage-1-length) + var(--_transition-stage-2-delay)
+          );
     }
 
     .project-meta,
     .project-tech {
-      box-shadow: inset 0.125rem 0px var(--color-light);
+      border-inline-start: 0.125rem solid var(--color-light);
       padding-inline-start: 0.5rem;
+      transform: translateY(-25%);
+      opacity: 0;
+      transition:
+        transform var(--_transition-stage-3-length)
+          calc(
+            var(--_transition-init-length) + var(--_transition-stage-1-delay) +
+              var(--_transition-stage-1-length) + var(--_transition-stage-2-delay) +
+              var(--_transition-stage-2-length) + var(--_transition-stage-3-delay)
+          )
+          ease-out,
+        opacity var(--_transition-stage-3-length)
+          calc(
+            var(--_transition-init-length) + var(--_transition-stage-1-delay) +
+              var(--_transition-stage-1-length) + var(--_transition-stage-2-delay) +
+              var(--_transition-stage-2-length) + var(--_transition-stage-3-delay)
+          );
     }
   }
 
@@ -180,6 +249,17 @@ const { Content } = await project.render();
     line-height: var(--line-height-semi-tight);
     color: var(--color-light);
     text-transform: capitalize;
+  }
+
+  .project-description {
+    opacity: 0;
+    transition: opacity var(--_transition-stage-4-length)
+      calc(
+        var(--_transition-init-length) + var(--_transition-stage-1-delay) +
+          var(--_transition-stage-1-length) + var(--_transition-stage-2-delay) +
+          var(--_transition-stage-2-length) + var(--_transition-stage-3-delay) +
+          var(--_transition-stage-3-length) + var(--_transition-stage-4-delay)
+      );
   }
 </style>
 
@@ -207,7 +287,9 @@ const { Content } = await project.render();
           </p>
           <p class="project-tech">{tech.join(', ')}</p>
         </header>
-        <Content />
+        <div class="project-description">
+          <Content />
+        </div>
       </main>
     </article>
   </dialog>
