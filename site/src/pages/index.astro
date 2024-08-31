@@ -33,6 +33,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
   .lead-text {
     text-align: left;
     font-weight: var(--weight-light);
+    padding-inline-start: 0.125rem;
   }
 
   .hero {
@@ -117,6 +118,18 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
   .section-header {
     margin-block-end: 2rem;
   }
+
+  #contact-section {
+    padding-block: 2rem;
+
+    a {
+      color: var(--color-text);
+      font-weight: var(--weight-bold);
+      text-decoration: underline;
+      text-decoration-thickness: 20%;
+      text-decoration-color: var(--color-primary);
+    }
+  }
 </style>
 
 <BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
@@ -176,6 +189,20 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
         </p>
       </div>
       <TalkList />
+    </section>
+
+    <section class="content-grid" id="contact-section">
+      <h2>Wanna chat?</h2>
+      <p>
+        Wanna work together? Wanna ask something? Wanna listen to me yap about something
+        tech related? <a href="mailto:bengston.matthew@gmail.com" target="_blank"
+          >Get in touch</a
+        >!
+      </p>
+      <p>
+        This portfolio is still a work in progress, and there is still plenty I would like
+        to do to it, time permitting. Please keep checking back to see it evolve!
+      </p>
     </section>
   </main>
 </BaseLayout>
