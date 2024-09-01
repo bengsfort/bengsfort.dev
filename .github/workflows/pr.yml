@@ -44,4 +44,4 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
       - name: Lint and Test 🩺
-        run: yarn lint
+        run: ls -al && yarn lint
