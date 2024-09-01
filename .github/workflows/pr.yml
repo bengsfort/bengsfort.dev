@@ -1,23 +1,15 @@
-name: Deploy to GH Pages
+name: PR Checks
 
 on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
 
-# Allow job to clone repo and create deployment
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
 concurrency:
-  group: "pages"
+  group: ci-${{ github.ref }}
   cancel-in-progress: true
-
+  
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 💾
@@ -53,20 +45,3 @@ jobs:
 
       - name: Lint and Test 🩺
         run: yarn lint
-
-      - name: Run Astro build 🚀
-        uses: withastro/action@v2
-        with:
-          path: ./site
-          node-version: 20
-  
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to gh pages 🥁
-        id: deployment
-        uses: actions/deploy-pages@v4

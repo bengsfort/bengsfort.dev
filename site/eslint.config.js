@@ -157,6 +157,11 @@ export default [
   },
   pluginPrettier,
   ...eslintPluginAstro.configs.recommended,
+  // Note: Due to the layering nature of the new eslint config, the generated astro typedefs
+  // cause lint errors. Ignoring them from anywhere else causes editor issues, so we are left
+  // with targeting them directly here and overriding problematic rules.
+  //
+  // Not ideal, but it is what it is.
   {
     files: ['.astro/**/*'],
     rules: {
