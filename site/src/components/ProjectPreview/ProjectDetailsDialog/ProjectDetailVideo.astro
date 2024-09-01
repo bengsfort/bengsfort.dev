@@ -198,7 +198,7 @@ const { platform, featureVideo } = Astro.props;
 <div class:list={['wrapper', platform]}>
   <div class="device">
     <div class="device-bezel">
-      <video autoplay muted loop class="video-player">
+      <video preload="metadata" muted loop class="video-player">
         <source src={`/showcases/${featureVideo}`} />
       </video>
     </div>

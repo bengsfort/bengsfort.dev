@@ -33,6 +33,7 @@ export class ProjectDialogElement extends HTMLElement {
    * If this becomes a problem, can switch to a Map<HTMLElement, Set<string>> for safety.
    */
   #_animatedEls: Set<string> = new Set();
+  #_videoPlayer: HTMLVideoElement;
 
   #_isTransitioningOut: boolean = false;
 
@@ -43,6 +44,7 @@ export class ProjectDialogElement extends HTMLElement {
   constructor() {
     super();
 
+    this.#_videoPlayer = this.querySelector('.video-player') as HTMLVideoElement;
     this.#_dialog = this.querySelector('dialog') as HTMLDialogElement;
     if (this.#_dialog.open) {
       this.#_dialog.classList.add(ACTIVE_CLASS);
@@ -63,6 +65,7 @@ export class ProjectDialogElement extends HTMLElement {
     this.#_dialog.showModal();
     this.#_dialog.classList.add(ACTIVE_CLASS);
     document.body.style.overflow = 'hidden';
+    this.#_videoPlayer.play();
   }
 
   public hide = (): void => {
@@ -70,6 +73,7 @@ export class ProjectDialogElement extends HTMLElement {
       return;
     }
 
+    this.#_videoPlayer.pause();
     this.#_isTransitioningOut = true;
     this.#_dialog.classList.remove(ACTIVE_CLASS);
     document.body.style.overflow = 'inherit';
