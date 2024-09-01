@@ -10,6 +10,7 @@ import NoiceLogo from '../icons/LogoNoice.astro';
 import EpicLogo from '../icons/LogoEpicGames.astro';
 import UnityLogo from '../icons/LogoUnity.astro';
 import TalkList from '../components/TalkList/TalkList.astro';
+import DismissableToast from '../components/DismissableToast/DismissableToast.astro';
 
 const projects = await getCollection('projects');
 
@@ -36,7 +37,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     padding-inline-start: 0.125rem;
   }
 
-  .hero {
+  #hero {
     text-align: center;
     padding-block: 7.5rem;
   }
@@ -51,6 +52,10 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
+
+    @media screen and (max-width: 599px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   .jobs-link {
@@ -130,10 +135,32 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
       text-decoration-color: var(--color-primary);
     }
   }
+
+  .mobile-warning {
+    display: none;
+    inline-size: 100%;
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    padding: 0.5rem;
+  }
+
+  @media screen and (max-width: 599px) {
+    .content-block {
+      padding-inline: 0.5rem;
+    }
+
+    .mobile-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: stretch;
+    }
+  }
 </style>
 
 <BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
-  <header class="content-grid hero">
+  <header class="content-grid content-block" id="hero">
     <h1>Hey, I'm Matt.</h1>
     <p class="subhead">You can also call me Matti.</p>
     <TextCarousel items={carouselItems} a11yDescription={carouselSafeDescription} />
@@ -179,7 +206,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
       </div>
     </section>
 
-    <section class="content-grid" id="talk-section">
+    <section class="content-grid content-block" id="talk-section">
       <div class="section-header">
         <h2>Sometimes I also talk about stuff.</h2>
         <p>
@@ -191,7 +218,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
       <TalkList />
     </section>
 
-    <section class="content-grid" id="contact-section">
+    <section class="content-grid content-block" id="contact-section">
       <h2>Wanna chat?</h2>
       <p>
         Wanna work together? Wanna ask something? Wanna listen to me yap about something
@@ -205,4 +232,11 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
       </p>
     </section>
   </main>
+
+  <div class="mobile-warning">
+    <DismissableToast closeButtonLabel="Sounds good!" title="Small screen warning">
+      This site is not currently optimised for mobile devices/small screens. Please go to
+      a computer for the full experience!
+    </DismissableToast>
+  </div>
 </BaseLayout>

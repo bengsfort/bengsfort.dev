@@ -20,6 +20,10 @@ const itemsLetterList = items.map((item) => [...item]);
     inline-size: 100%;
     margin-block-start: 1rem;
     user-select: none;
+
+    @media screen and (max-width: 599px) {
+      block-size: calc(var(--carousel-size) * 2);
+    }
   }
 
   .carousel-item {

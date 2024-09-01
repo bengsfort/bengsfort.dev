@@ -39,6 +39,14 @@ const getMsgSegmentDelays = (index: number, total: number): Record<string, strin
     display: inline;
     position: relative;
     user-select: none;
+
+    /**
+     * @todo: This entire interaction does not really work on mobile,
+     * need something different there!
+     */
+    @media screen and (max-width: 599px) {
+      display: none;
+    }
   }
 
   .preview {

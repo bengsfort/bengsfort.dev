@@ -90,21 +90,23 @@
   }
 
   /** Content Grid */
-  .content-grid {
-    display: grid;
-    grid-template-columns:
-      [fullwidth-start] minmax(1rem, auto) [breakout-start] minmax(1rem, auto) [content-start] minmax(320px, 900px) [content-end] minmax(1rem, auto) [breakout-end] minmax(1rem, auto) [fullwidth-end];
-  }
+  @media screen and (min-width: 600px) {
+    .content-grid {
+      display: grid;
+      grid-template-columns:
+        [fullwidth-start] minmax(1rem, auto) [breakout-start] minmax(1rem, auto) [content-start] minmax(320px, 900px) [content-end] minmax(1rem, auto) [breakout-end] minmax(1rem, auto) [fullwidth-end];
+    }
 
-  .content-grid > * {
-    grid-column: content;
-  }
+    .content-grid > * {
+      grid-column: content;
+    }
 
-  .content-grid > .breakout {
-    grid-column: breakout;
-  }
+    .content-grid > .breakout {
+      grid-column: breakout;
+    }
 
-  .content-grid > .fullwidth {
-    grid-column: fullwidth;
+    .content-grid > .fullwidth {
+      grid-column: fullwidth;
+    }
   }
 }
