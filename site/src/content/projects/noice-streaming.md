@@ -11,8 +11,8 @@ tech:
   - Three.js
   - Node
 role: Front-end Lead / Game Developer / Tooling developer
-featureVideo: "GameConnect_Internal.mp4"
-previewImg: "./assets/placeholder4.jpeg"
+featureVideo: "noice.mp4"
+previewImg: "./assets/noice.png"
 ---
 
 Noice is a next-gen streaming platform that transforms how viewers interact with livestreams. Instead of viewing streams, they **play** the stream. Being a founder of the company, and starting when there were only 7 people at the company and we were building prototypes, it is quite difficult to pinpoint every single project I have worked on at Noice. I have been involved in every aspect of the front-end of at Noice during every iteration, and am incredibly proud to say I built a front-end team filled with the most talented developers I have ever met, as well as built the most healthy and collaborative front-end team environment I have ever had the fortune of being part of.

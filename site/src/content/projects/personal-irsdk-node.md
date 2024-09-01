@@ -6,10 +6,11 @@ type:
 url: https://github.com/bengsfort/irsdk-node
 tech:
   - Node.JS
+  - Node.JS C++ Api
   - Electron
 role: Solo Project
-featureVideo: "GameConnect_Internal.mp4"
-previewImg: "./assets/placeholder2.jpeg"
+featureVideo: "irsdk-node.mp4"
+previewImg: "./assets/irsdk-node.png"
 ---
 
 `irsdk-node` is a Node.JS package for consuming the iRacing SDK via Node. This makes it possible to build overlays, data analysis tools, and other general tools for improving at iRacing. This was my first project that used the Node C++ API, and as I am an avid sim-racing enthusiast holds a special place in my heart.

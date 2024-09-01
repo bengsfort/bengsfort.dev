@@ -8,8 +8,8 @@ tech:
   - Electron
   - React
 role: Full-stack
-featureVideo: "GameConnect_Internal.mp4"
-previewImg: "./assets/placeholder2.jpeg"
+featureVideo: "game-connect.mp4"
+previewImg: "./assets/game-connect.png"
 ---
 
 Game Connect is an Electron app I built independently from the ground up to detect game events and forward them to Noice servers as performantly as possible.  While the app on the surface is quite intentionally featureless, it is filled with a lot of features built-in to the architecture to ensure that the app can be self-sustaining and trivial to maintain for years to come, with minimal impact on end-user-experience.

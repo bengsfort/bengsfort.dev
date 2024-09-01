@@ -9,8 +9,8 @@ tech:
   - React Native
   - GameKit
   - Google Play Services
-featureVideo: "GameConnect_Internal.mp4"
-previewImg: "./assets/placeholder5.jpeg"
+featureVideo: "twenty-numbers.mp4"
+previewImg: "./assets/twenty-numbers@2.png"
 ---
 
 Twenty Numbers is a mobile game that is impossible. I wanted a low-complexity project to experiment with, and after a friend showed me the twenty-numbers game I settled on this; a game revolving around trying to place 20 random numbers correctly within a list. My goal for the project was to improve my process of building and shipping React Native projects, as well as learning how to consume GameKit and Google Play Services to improve the user experience of a game with OS-level features.

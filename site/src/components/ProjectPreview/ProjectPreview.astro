@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, platform, type, assets: _, url, previewImg, featureVideo } = project.data;
+const { title, platform, type, assets: _, url, previewImg } = project.data;
 
 const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
 const projectModalId = `${project.slug}-modal`;
@@ -154,8 +154,8 @@ const projectModalId = `${project.slug}-modal`;
   <div class:list={['preview', platform]}>
     <Image
       class="project-img"
-      width={500}
-      height={500}
+      width={640}
+      height={480}
       src={previewImg}
       alt={projectDescription}
     />

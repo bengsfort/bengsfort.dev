@@ -11,7 +11,7 @@ tech:
   - Vision Framework
 role: Project Architect / Game Developer
 featureVideo: "ducktales.mp4"
-previewImg: "./assets/placeholder6.jpeg"
+previewImg: "./assets/ar-ads.png"
 ---
 
 While at Unity, I was tasked with creating the worlds first AR ads. The prompt, "you're going to need to be shooting burgers into peoples mouths in a month" lead myself and a small team to developing a web-based AR ad architecture that would abide by all of the existing playable ad criteria (1 file, 1MB in size), while extending the playable ad API's to allow consuming and using platform-specific AR API's to deliver high-quality AR ads. It was an extremely unique challenge that I am extremely proud of being able to have a large part of accomplishing.

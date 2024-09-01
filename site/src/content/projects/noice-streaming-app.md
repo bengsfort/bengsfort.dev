@@ -8,8 +8,8 @@ url: https://noice.com
 tech:
   - React Native
 role: Project Lead / Developer
-featureVideo: "GameConnect_Internal.mp4"
-previewImg: "./assets/placeholder3.jpeg"
+featureVideo: "noice-app.mp4"
+previewImg: "./assets/noice-app.png"
 ---
 
 
