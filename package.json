@@ -11,8 +11,8 @@
     "dev": "yarn workspace @bengsfort/site run dev",
     "build": "yarn workspace @bengsfort/site run build",
     "preview": "yarn workspace @bengsfort/site run preview",
-    "lint": "yarn worskpace @bengsfort/site run lint",
-    "lint:fix": "yarn worskpace @bengsfort/site run lint:fix"
+    "lint": "yarn workspace @bengsfort/site run lint",
+    "lint:fix": "yarn workspace @bengsfort/site run lint:fix"
   },
   "engines": {
     "node": ">=20.4.0"

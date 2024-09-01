@@ -36,7 +36,7 @@ export default [
       'src/**/*.ts',
       'src/**/*.astro',
     ],
-    ignores: ['*.config.cjs', '.astro'],
+    ignores: ['*.config.cjs', '.astro', '.astro/**/*'],
     rules: {
       // General
       // Code Cleanliness
@@ -157,4 +157,13 @@ export default [
   },
   pluginPrettier,
   ...eslintPluginAstro.configs.recommended,
+  {
+    files: ['.astro/**/*'],
+    rules: {
+      '@typescript-eslint/ban-types': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/triple-slash-reference': 'off',
+      '@typescript-eslint/unified-signatures': 'off',
+    },
+  },
 ];
