@@ -44,5 +44,5 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
       # Something is wrong with node_modules runs here.
-      # - name: Lint and Test 🩺
-      #   run: yarn lint
+      - name: Lint and Test 🩺
+        run: yarn lint
