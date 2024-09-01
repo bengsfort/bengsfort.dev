@@ -1,28 +1,19 @@
 {
   "name": "bengsfort.dev",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.4.1",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "packages/*",
+    "site"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "lint": "eslint ./lib",
-    "lint:fix": "yarn lint --fix"
+    "dev": "yarn workspace @bengsfort/site run dev",
+    "build": "yarn workspace @bengsfort/site run build",
+    "preview": "yarn workspace @bengsfort/site run preview",
+    "lint": "yarn workspace @bengsfort/site run lint",
+    "lint:fix": "yarn workspace @bengsfort/site run lint:fix"
   },
-  "devDependencies": {
-    "@bengsfort/eslint-config": "^1.1.1",
-    "@types/eslint": "^8.44.7",
-    "@typescript-eslint/parser": "^6.12.0",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.54.0",
-    "postcss": "^8.4.31",
-    "postcss-nested": "^6.0.1",
-    "prettier": "^3.1.0",
-    "typescript": "^5.3.2",
-    "vite": "^5.0.2"
-  },
-  "prettier": "@bengsfort/eslint-config/prettier.config.js",
   "engines": {
     "node": ">=20.4.0"
   }

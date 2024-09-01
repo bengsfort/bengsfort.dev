@@ -2,25 +2,24 @@
   "typescript.format.enable": true,
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
-  "cssvar.files": [],
+  "cssvar.files": [
+    "./src/styles/variables.css",
+  ],
   "[typescript]": {
     "editor.codeLens": true,
     "editor.suggest.showReferences": true,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "[javascript]": {
     "editor.maxTokenizationLineLength": 2500,
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   },
   "[astro]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true,
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
   },
   "files.exclude": {
     "**/.git": true,
@@ -30,8 +29,9 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/build": true,
-    "**/node_modules": false,
-    "**/.yarn": false
+    "**/node_modules": true,
+    "**/.yarn": false,
+    "**/.astro": false,
   },
   "stylelint.validate": [
     "css",
@@ -40,8 +40,7 @@
   "cssModules.camelCase": true,
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "eslint.workingDirectories": [
-    "./packages/*",
-    "./site"
+    "."
   ],
   "eslint.validate": [
     "javascript",

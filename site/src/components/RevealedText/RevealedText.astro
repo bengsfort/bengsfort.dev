@@ -1,0 +1,122 @@
+---
+/**
+ * Should this just turn into a reveal link?
+ *
+ * If we assume that the revealed text is a link, then we can still
+ * easily use the css background gradient trick to animate the link fully.
+ *
+ * This would require us to ensure that the entire text is a link however.
+ *
+ * @todo: Convert to JS, separate with spans and incrementally drop in. css one looks bad.
+ */
+
+interface Props {
+  previewText: string;
+  url: string;
+  name: string;
+  content: string;
+}
+
+const { previewText, url, name, content } = Astro.props;
+
+const SEGMENT_BASE_DELAY = 75;
+const SEGMENT_DELAY_OUT_MODIFIER = 0.2;
+
+const getMsgSegmentDelays = (index: number, total: number): Record<string, string> => {
+  return {
+    ['--_segment-transition-in']: `${index * SEGMENT_BASE_DELAY}ms`,
+    ['--_segment-transition-out']: `${(total - index) * SEGMENT_BASE_DELAY * SEGMENT_DELAY_OUT_MODIFIER}ms`,
+  };
+};
+---
+
+<style>
+  .wrapper {
+    --_segment-transition-duration: 150ms;
+    --_segment-transition-in: 0ms;
+    --_segment-transition-out: 0ms;
+
+    display: inline;
+    position: relative;
+    user-select: none;
+
+    /**
+     * @todo: This entire interaction does not really work on mobile,
+     * need something different there!
+     */
+    @media screen and (max-width: 599px) {
+      display: none;
+    }
+  }
+
+  .preview {
+    position: absolute;
+    font-size: var(--text-xsmall);
+    line-height: var(--line-height-body);
+    font-weight: var(--weight-bold);
+    color: hsl(0 0% 100% / 0.35);
+    opacity: 1;
+    transform: translateY(0%);
+    transition:
+      opacity var(--_segment-transition-duration) var(--_segment-transition-duration),
+      transform var(--_segment-transition-duration) var(--_segment-transition-duration);
+  }
+
+  /** @todo: Add compat check with @supports. */
+  .hidden-message {
+    display: inline;
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
+    pointer-events: none;
+  }
+
+  /*
+    Note: we use inline-end instead of & + & inline-start
+    to prevent new-lines starting with  a strange fake space.
+  */
+  .msg-segment {
+    display: inline-block;
+    margin-inline-end: 0.25rem;
+    transform: translateY(-50%);
+    text-decoration: underline;
+    text-decoration-thickness: 20%;
+    text-decoration-color: var(--color-primary);
+    opacity: 0;
+    transition:
+      transform var(--_segment-transition-duration) var(--_segment-transition-out),
+      opacity var(--_segment-transition-duration) var(--_segment-transition-out);
+  }
+
+  .wrapper:hover {
+    .preview {
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(50%);
+      transition:
+        opacity var(--_segment-transition-duration),
+        transform var(--_segment-transition-duration);
+    }
+
+    .msg-segment {
+      pointer-events: all;
+      transform: translateY(0%);
+      opacity: 1;
+      transition:
+        transform var(--_segment-transition-duration) var(--_segment-transition-in),
+        opacity var(--_segment-transition-duration) var(--_segment-transition-in);
+    }
+  }
+</style>
+
+<hidden-message class="wrapper preview-only">
+  <strong class="preview" aria-hidden="true" data-preview>{previewText}</strong>
+  <a href={url} target="_blank" aria-label={name} data-hidden class="hidden-message">
+    {
+      content.split(' ').map((item, i, arr) => (
+        <span class="msg-segment" style={getMsgSegmentDelays(i, arr.length - 1)}>
+          {item}
+        </span>
+      ))
+    }
+  </a>
+</hidden-message>

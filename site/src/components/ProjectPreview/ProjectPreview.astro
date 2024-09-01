@@ -1,0 +1,197 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import ProjectDetailsDialog from './ProjectDetailsDialog/ProjectDetailsDialog.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, platform, type, assets: _, url, previewImg } = project.data;
+
+const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
+const projectModalId = `${project.slug}-modal`;
+---
+
+<style>
+  .project-wrapper {
+    cursor: pointer;
+    position: relative;
+    background: transparent;
+    transition: background 185ms;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+
+      .project-img {
+        scale: 1;
+        filter: none;
+      }
+
+      .preview-indicators::after,
+      .preview-indicators::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+
+  .preview {
+    position: relative;
+    display: flex;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(120deg, var(--color-white), var(--color-primary));
+  }
+
+  .preview-indicators {
+    --_indicator-size: 2px;
+    --_indicator-color: var(--color-white);
+
+    position: absolute;
+    display: flex;
+    aspect-ratio: 16 / 9;
+    top: 0;
+    left: 0;
+    inline-size: 100%;
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      inline-size: 1rem;
+      block-size: 1rem;
+      z-index: 1;
+      opacity: 0;
+      transform: scale(1.5);
+      transition:
+        opacity 185ms,
+        transform 185ms;
+    }
+
+    /*
+      This could be simplified into smaller chunks that spread across multiple
+      selectors to avoid repetition, but for the sake of clarity and readability
+      I've opted to keep them separated.
+    */
+    &.left {
+      &::after {
+        border-inline-start: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-start: var(--_indicator-size) solid var(--_indicator-color);
+        top: 0;
+        left: 0;
+      }
+
+      &::before {
+        border-inline-start: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-end: var(--_indicator-size) solid var(--_indicator-color);
+        bottom: 0;
+        left: 0;
+      }
+    }
+
+    &.right {
+      &::after {
+        border-inline-end: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-start: var(--_indicator-size) solid var(--_indicator-color);
+        top: 0;
+        right: 0;
+      }
+
+      &::before {
+        border-inline-end: var(--_indicator-size) solid var(--_indicator-color);
+        border-block-end: var(--_indicator-size) solid var(--_indicator-color);
+        bottom: 0;
+        right: 0;
+      }
+    }
+  }
+
+  .project-img {
+    width: 100%;
+    height: auto;
+    scale: 1.125;
+    filter: grayscale(0.3) opacity(0.8);
+    transition:
+      scale 185ms ease-in-out,
+      filter 185ms;
+  }
+
+  .project-title {
+    display: block;
+    margin-block: 0.25rem;
+    text-decoration: none;
+    font-size: var(--text-size);
+    font-weight: var(--weight-bold);
+    line-height: var(--line-height-semi-tight);
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  .project-meta {
+    padding-block-end: 1rem;
+    font-size: var(--text-xsmall);
+    font-weight: var(--weight-regular);
+    line-height: var(--line-height-tight);
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--color-text);
+
+    .meta-sep {
+      color: var(--color-text);
+      font-size: var(--text-xxsmall);
+      font-weight: var(--weight-semibold);
+    }
+  }
+</style>
+
+<div class="project-wrapper" data-target={projectModalId}>
+  <div class="preview-indicators left"></div>
+  <div class="preview-indicators right"></div>
+  <div class:list={['preview', platform]}>
+    <Image
+      class="project-img"
+      width={640}
+      height={480}
+      src={previewImg}
+      alt={projectDescription}
+      loading="eager"
+    />
+  </div>
+  <div class="project-meta">
+    <a href={url ?? '#'} class="project-title">{title}</a>
+    {platform}
+    <span class="meta-sep">/</span>
+    {type.join(', ')}
+  </div>
+</div>
+
+<ProjectDetailsDialog project={project} id={projectModalId} />
+
+<script>
+  import type { ProjectDialogElement } from './ProjectDetailsDialog/ProjectDialogElement';
+
+  const makeHandler = (button: HTMLElement) => {
+    const target = button.dataset.target;
+    if (!target) {
+      throw new Error('Missing preview modal ID on `data-target`!');
+    }
+
+    const modal = document.getElementById(target) as ProjectDialogElement;
+    if (!modal) {
+      throw new Error(`Could not find dialog element with ID '${target}'`);
+    }
+
+    return (ev: MouseEvent): void => {
+      ev.preventDefault();
+      modal.show();
+    };
+  };
+
+  const previewBtns: NodeListOf<HTMLButtonElement> =
+    document.querySelectorAll('.project-wrapper');
+  previewBtns.forEach((btn) => btn.addEventListener('click', makeHandler(btn)));
+</script>

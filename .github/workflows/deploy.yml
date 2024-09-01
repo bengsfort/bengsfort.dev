@@ -1,14 +1,11 @@
 name: Deploy to GH Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
+# Allow job to clone repo and create deployment
 permissions:
   contents: read
   pages: write
@@ -20,14 +17,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout 💾
         uses: actions/checkout@v4
@@ -60,17 +51,23 @@ jobs:
           path: node_modules/
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
-      - name: Build ⚒️
-        run: yarn build
+      # Something is wrong with yarn CI + node_modules.
+      - name: Lint and Test 🩺
+        run: yarn lint
 
-      - name: Setup Pages 📃
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact 📨
-        uses: actions/upload-pages-artifact@v2
+      - name: Run Astro build 🚀
+        uses: withastro/action@v2
         with:
-          path: "./dist"
-
-      - name: Deploy to GitHub Pages 🚀
+          path: ./site
+          node-version: 20
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to gh pages 🥁
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4

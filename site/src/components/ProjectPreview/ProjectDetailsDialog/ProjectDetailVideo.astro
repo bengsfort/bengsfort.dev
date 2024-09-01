@@ -1,0 +1,214 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  platform: CollectionEntry<'projects'>['data']['platform'];
+  featureVideo: string;
+}
+
+const { platform, featureVideo } = Astro.props;
+---
+
+<style>
+  .wrapper {
+    --_device-color: rgba(255, 255, 255, 0.15);
+    --_device-color-alt: rgba(255, 255, 255, 0.05);
+    --_device-shadow: 0px 2px 16px rgba(0, 0, 0, 0.15);
+    --_aspect-ratio: 16 / 9;
+    --_preview-width: 100%;
+    --_preview-height: auto;
+
+    aspect-ratio: var(--_aspect-ratio);
+    max-block-size: 100%;
+    max-inline-size: 60%;
+  }
+
+  .device {
+    &-bezel {
+      box-shadow: var(--_device-shadow);
+    }
+  }
+
+  .desktop {
+    --_aspect-ratio: 16 / 10;
+    --_preview-width: 600px;
+
+    --_desktop-bezel-padding: 0.5rem;
+    --_desktop-bezel-radius: 4px;
+    --_desktop-stand-size: 2rem;
+    --_desktop-footer-height: 1rem;
+    --_desktop-footer-width: 55%;
+    --_desktop-footer-radius: 8px;
+
+    .device {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      max-width: 100%;
+
+      &-bezel {
+        padding: var(--_desktop-bezel-padding);
+        background-color: var(--_device-color);
+        border-radius: var(--_desktop-bezel-radius);
+      }
+
+      &-stand {
+        block-size: var(--_desktop-stand-size);
+        inline-size: var(--_desktop-stand-size);
+        background-color: var(--_device-color-alt);
+      }
+
+      &-footer {
+        content: '';
+        block-size: var(--_desktop-footer-height);
+        inline-size: var(--_desktop-footer-width);
+        border-start-start-radius: var(--_desktop-footer-radius);
+        border-start-end-radius: var(--_desktop-footer-radius);
+        background-color: var(--_device-color);
+      }
+    }
+
+    .video-player {
+      border-radius: calc(var(--_desktop-bezel-radius) * 0.5);
+    }
+  }
+
+  .browser {
+    --_aspect-ratio: 16 / 9;
+    --_preview-width: 600px;
+    --_device-color-alt: rgba(0, 0, 0, 0.25);
+
+    --_browser-radius: 8px;
+    --_browser-topbar-height: 1.5rem;
+    --_browser-btn-size: 0.75rem;
+    --_browser-btn-gap: 0.25rem;
+    --_browser-btn-calc-offset: calc(
+      (var(--_browser-btn-size) + var(--_browser-btn-gap)) * -1
+    );
+    --_browser-btn-calc-inset: calc(
+      (var(--_browser-topbar-height) - var(--_browser-btn-size)) * 0.5
+    );
+
+    .device {
+      border-radius: var(--_browser-radius);
+      border: 1px solid var(--_device-color-alt);
+      overflow: hidden;
+      inline-size: auto;
+      block-size: 100%;
+
+      &-bezel {
+        position: relative;
+        padding-block-start: var(--_browser-topbar-height);
+        background-color: var(--_device-color);
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset-block-start: 0;
+          inset-inline-end: 0;
+          block-size: var(--_browser-btn-size);
+          inline-size: var(--_browser-btn-size);
+          border-radius: 100%;
+          background-color: var(--_device-color-alt);
+          box-shadow:
+            var(--_browser-btn-calc-offset) 0px 0px var(--_device-color-alt),
+            calc(var(--_browser-btn-calc-offset) * 2) 0px 0px var(--_device-color-alt);
+          transform: translate(
+            calc(var(--_browser-btn-calc-inset) * -1),
+            var(--_browser-btn-calc-inset)
+          );
+        }
+      }
+    }
+  }
+
+  .mobile {
+    --_aspect-ratio: 9 / 16;
+    --_preview-width: 320px;
+    --_preview-height: auto;
+
+    --_mobile-bezel-padding: 0.5rem;
+    --_mobile-device-radius: 24px;
+    --_mobile-btn-radius: 4px;
+    --_mobile-power-btn-width: calc(var(--_mobile-bezel-padding) * 0.5);
+    --_mobile-power-btn-height: calc(var(--_mobile-bezel-padding) * 4);
+    --_mobile-power-btn-y-offset: 20%;
+    --_mobile-volume-btn-width: calc(var(--_mobile-bezel-padding) * 0.25);
+    --_mobile-volume-btn-height: calc(var(--_mobile-bezel-padding) * 3);
+    --_mobile-volume-btn-gap: 0.125rem;
+    --_mobile-volume-btn-y-offset: 15%;
+
+    .device {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &-bezel {
+        position: relative;
+        background-color: var(--_device-color);
+        padding: var(--_mobile-bezel-padding);
+        border-radius: var(--_mobile-device-radius);
+
+        /** Power button */
+        &::before {
+          content: '';
+          position: absolute;
+          inline-size: var(--_mobile-power-btn-width);
+          block-size: var(--_mobile-power-btn-height);
+          border-start-end-radius: var(--_mobile-btn-radius);
+          border-end-end-radius: var(--_mobile-btn-radius);
+          background: var(--_device-color-alt);
+          inset-inline-start: 100%;
+          inset-block-start: var(--_mobile-power-btn-y-offset);
+        }
+
+        /** Volume buttons */
+        &::after {
+          content: '';
+          position: absolute;
+          inline-size: var(--_mobile-volume-btn-width);
+          block-size: var(--_mobile-volume-btn-height);
+          border-start-start-radius: var(--_mobile-btn-radius);
+          border-end-start-radius: var(--_mobile-btn-radius);
+          background: var(--_device-color-alt);
+          inset-inline-end: 100%;
+          inset-block-start: var(--_mobile-volume-btn-y-offset);
+          box-shadow: 0px
+            calc(var(--_mobile-volume-btn-height) + var(--_mobile-volume-btn-gap)) 0px
+            var(--_device-color-alt);
+        }
+      }
+    }
+
+    .video-player {
+      border-radius: calc(
+        (var(--_mobile-bezel-padding) * 0.5) + (var(--_mobile-device-radius) * 0.5)
+      );
+    }
+  }
+
+  .video-player {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+</style>
+
+<div class:list={['wrapper', platform]}>
+  <div class="device">
+    <div class="device-bezel">
+      <video preload="metadata" muted loop class="video-player">
+        <source src={`/showcases/${featureVideo}`} />
+      </video>
+    </div>
+    {
+      platform === 'desktop' && (
+        <>
+          <div class="device-stand" />
+          <div class="device-footer" />
+        </>
+      )
+    }
+  </div>
+</div>

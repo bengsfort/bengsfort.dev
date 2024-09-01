@@ -1,0 +1,242 @@
+---
+import { getCollection } from 'astro:content';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TextCarousel from '../components/TextCarousel/TextCarousel.astro';
+import RevealedText from '../components/RevealedText/RevealedText.astro';
+import ProjectPreview from '../components/ProjectPreview/ProjectPreview.astro';
+
+import NoiceLogo from '../icons/LogoNoice.astro';
+import EpicLogo from '../icons/LogoEpicGames.astro';
+import UnityLogo from '../icons/LogoUnity.astro';
+import TalkList from '../components/TalkList/TalkList.astro';
+import DismissableToast from '../components/DismissableToast/DismissableToast.astro';
+
+const projects = await getCollection('projects');
+
+const carouselItems = [
+  'Software Engineer',
+  'Game Developer',
+  'Tooling Engineer',
+  'UI Developer',
+];
+const carouselSafeDescription = `I'm a Software Engineer, Game Developer, Tooling Engineer and UI Developer.`;
+const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
+---
+
+<style>
+  .subhead {
+    font-size: var(--text-small);
+    font-weight: var(--weight-light);
+    color: var(--color-light);
+    text-align: center;
+  }
+
+  p {
+    text-align: left;
+    padding-inline-start: 0.125rem;
+  }
+
+  #hero {
+    text-align: center;
+    padding-block: 7.5rem;
+  }
+
+  .content-section {
+    padding-block: 2rem;
+    background-color: var(--color-grey);
+    justify-self: stretch;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+
+    @media screen and (max-width: 599px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .jobs-link {
+    --_underline-color: var(--color-primary);
+
+    position: relative;
+    display: inline-block;
+    color: var(--color-text);
+
+    &-name {
+      display: inline-block;
+      font-weight: var(--weight-semibold);
+      text-decoration: underline;
+      text-decoration-thickness: 20%;
+      text-decoration-color: var(--_underline-color);
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity 150ms,
+        transform 150ms;
+    }
+
+    &-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition:
+        opacity 150ms,
+        transform 150ms;
+    }
+
+    &-icon-svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    &:hover {
+      .jobs-link-name {
+        opacity: 0;
+        transform: translateY(50%);
+      }
+
+      .jobs-link-icon {
+        opacity: 1;
+        transform: translateY(0);
+        border-bottom: 0.2rem solid
+          color-mix(in srgb, var(--_underline-color) 20%, transparent);
+      }
+    }
+  }
+
+  #talk-section {
+    margin-block-start: 2rem;
+    padding-block: 2rem;
+    background: var(--color-dark);
+  }
+
+  .section-header {
+    margin-block-end: 2rem;
+  }
+
+  #contact-section {
+    padding-block: 2rem;
+
+    a {
+      color: var(--color-text);
+      font-weight: var(--weight-bold);
+      text-decoration: underline;
+      text-decoration-thickness: 20%;
+      text-decoration-color: var(--color-primary);
+    }
+  }
+
+  .mobile-warning {
+    display: none;
+    inline-size: 100%;
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    padding: 0.5rem;
+  }
+
+  @media screen and (max-width: 599px) {
+    .content-block {
+      padding-inline: 0.5rem;
+    }
+
+    .mobile-warning {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: stretch;
+    }
+  }
+</style>
+
+<BaseLayout pageTitle="bengsfort.dev - Matt Bengston">
+  <header class="content-grid content-block" id="hero">
+    <h1>Hey, I'm Matt.</h1>
+    <p class="subhead">You can also call me Matti.</p>
+    <TextCarousel items={carouselItems} a11yDescription={carouselSafeDescription} />
+    <p>
+      I'm a software engineer with a wide range of specialties that loves solving problems
+      and delivering high quality experiences for end users. You can check out some of my
+      work below. <RevealedText
+        previewText="Psssttt..."
+        url={sourceLink}
+        name="Source code link"
+        content="You can also view the source for this site on github."
+      />
+    </p>
+
+    <p>
+      Currently working at
+      <a class="jobs-link" href="https://noice.com" target="_blank">
+        <span class="jobs-link-name">Noice</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <NoiceLogo class="jobs-link-icon-svg" />
+        </span>
+      </a>, previously
+      <a class="jobs-link" href="https://epicgames.com/" target="_blank">
+        <span class="jobs-link-name">Epic Games</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <EpicLogo class="jobs-link-icon-svg" />
+        </span>
+      </a> and
+      <a class="jobs-link" href="https://unity3d.com/" target="_blank">
+        <span class="jobs-link-name">Unity Technologies</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <UnityLogo class="jobs-link-icon-svg" />
+        </span>
+      </a>.
+    </p>
+  </header>
+
+  <main class="content-section">
+    <section class="content-grid" id="project-section">
+      <h2 class="visually-hidden">Recent projects</h2>
+      <div class="project-grid breakout">
+        {projects.map((project) => <ProjectPreview project={project} />)}
+      </div>
+    </section>
+
+    <section class="content-grid content-block" id="talk-section">
+      <div class="section-header">
+        <h2>Sometimes I also talk about stuff.</h2>
+        <p>
+          When possible, I love sharing my learnings and ideas with others. Below you can
+          see a list of some of the more recent times I have been lucky enough to chat
+          about things I am passionate about.
+        </p>
+      </div>
+      <TalkList />
+    </section>
+
+    <section class="content-grid content-block" id="contact-section">
+      <h2>Wanna chat?</h2>
+      <p>
+        Wanna work together? Wanna ask something? Wanna listen to me yap about something
+        tech related? <a href="mailto:bengston.matthew@gmail.com" target="_blank"
+          >Get in touch</a
+        >!
+      </p>
+      <p>
+        This portfolio is still a work in progress, and there is still plenty I would like
+        to do to it, time permitting. Please keep checking back to see it evolve!
+      </p>
+    </section>
+  </main>
+
+  <div class="mobile-warning">
+    <DismissableToast closeButtonLabel="Sounds good!" title="Small screen warning">
+      This site is not currently optimised for mobile devices/small screens. Please go to
+      a computer for the full experience!
+    </DismissableToast>
+  </div>
+</BaseLayout>
