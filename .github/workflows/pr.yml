@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies ⏳
         run: |
           corepack enable
-          yarn install
+          yarn install --frozen-lockfile
 
       - name: Cache yarn 🧳
         uses: actions/cache/save@v3
@@ -44,4 +44,4 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
       - name: Lint and Test 🩺
-        run: yarn && yarn lint
+        run: yarn run lint
