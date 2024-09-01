@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  closeButtonLabel: string;
+}
+
+const { title, closeButtonLabel } = Astro.props;
+---
+
+<style>
+  .toast {
+    inline-size: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: var(--color-accent-light);
+    font-size: var(--text-small);
+    font-weight: var(--weight-regular);
+    color: var(--color-text);
+    box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .toast-title {
+    text-align: center;
+    color: var(--color-white);
+    font-weight: var(--weight-semibold);
+    margin-block-end: 0.5rem;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block-start: 1rem;
+  }
+
+  .close-btn {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    font-size: var(--text-size);
+    color: var(--color-text);
+  }
+</style>
+
+<div class="toast dismissable" aria-role="presentation">
+  <div class="toast-title">{title}</div>
+  <slot />
+  <div class="footer">
+    <button class="close-btn">{closeButtonLabel}</button>
+  </div>
+</div>
+
+<script>
+  const toasts = document.querySelectorAll('.dismissable');
+
+  toasts.forEach((toast) => {
+    const closeBtn = toast.querySelector('.close-btn') as HTMLButtonElement;
+    closeBtn.addEventListener('click', () => toast.remove());
+  });
+</script>

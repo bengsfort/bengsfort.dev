@@ -1,0 +1,36 @@
+talks:
+  - title: "Host of Games Now! Game Jam"
+    event: "Games Now! Game Jam 2019"
+    location: "Helsinki, Finland"
+
+  - title: "Host of GGJ @ Unity Technologies"
+    event: "Global Game Jam 2018"
+    location: "Helsinki, Finland"
+
+  - title: "AR Design/UX Best Practices"
+    event: "Guest lecturer, Georgia State University"
+    location: "Atlanta, Georgia, USA"
+
+  - title: "Mikä on kännykkäpelien tulevaisuus?"
+    event: "Helsingin Sanomat interview"
+    url: "https://www.hs.fi/teknologia/art-2000005780470.html?share=539699b71b5ec5dd7066992df0184973"
+    location: "Helsinki, Finland"
+
+  - title: "Post mortem: Making an AR Ad with web technologies"
+    event: "Assembly 2018, ARTtech"
+    url: "https://www.youtube.com/watch?v=WhJolZ-O1-c&list=PLJO4AtxKJiFMrrp5zSS8MTHlgjV_OghpH"
+    location: "Helsinki, Finland"
+
+  - title: "Technical Best Practices for AR"
+    event: "Helsinki Unity User Group May 2018"
+    location: "Helsinki, Finland"
+
+  - title: "Creating AR Experiences with Javascript (Intro to webAR)"
+    event: "HelsinkiJS May 2018"
+    url: "https://youtu.be/chDA58AZFcM?t=1h5m56s"
+    location: "Helsinki, Finland"
+
+  - title: "Using AWS Lambdas with Adobe Experience Manager (AEM)"
+    event: "Circuit Conf 2016"
+    url: "http://www.circuitdevcon.com/en/session-videos/iot-connected-world.html"
+    location: "Chicago, Illinois, USA"

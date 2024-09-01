@@ -36,6 +36,7 @@ export default [
       'src/**/*.ts',
       'src/**/*.astro',
     ],
+    ignores: ['*.config.cjs', '.astro'],
     rules: {
       // General
       // Code Cleanliness

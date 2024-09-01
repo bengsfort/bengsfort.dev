@@ -1,6 +1,6 @@
 {
   "name": "bengsfort.dev",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.3.1",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -13,12 +13,6 @@
     "preview": "yarn workspace @bengsfort/site run preview",
     "lint": "yarn worskpace @bengsfort/site run lint",
     "lint:fix": "yarn worskpace @bengsfort/site run lint:fix"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
-    "postcss-nested": "^6.0.1",
-    "vite": "^5.0.2"
   },
   "engines": {
     "node": ">=20.4.0"

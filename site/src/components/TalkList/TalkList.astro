@@ -1,0 +1,99 @@
+---
+import { getEntry } from 'astro:content';
+import IconLinkExternal from '../../icons/IconLinkExternal.astro';
+
+const talkList = await getEntry('talks', 'all');
+const { talks } = talkList.data;
+
+// @todo - I'm not really happy with the hover state of the
+// talk titles that are also links; would like something a bit
+// nicer but this will do for now. Maybe something with movement?
+---
+
+<style>
+  .talk-item {
+    margin-block-end: 1rem;
+  }
+
+  .has-link {
+    /*
+    @todo: Do something nice on hover with this
+    @todo: maybe also move other hover interactions to .has-link:hover instead
+    */
+  }
+
+  .talk-title {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-semibold);
+    color: var(--color-white);
+  }
+
+  .talk-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 15%;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 120ms ease-in-out;
+
+    &:hover {
+      text-decoration-color: var(--color-primary);
+
+      .link-icon {
+        animation: Wiggle 750ms infinite;
+      }
+    }
+  }
+
+  .link-icon {
+    display: inline-block;
+    block-size: 1rem;
+    inline-size: 1rem;
+    margin-inline-start: 0.225rem;
+    fill: var(--color-primary);
+  }
+
+  .talk-event {
+    margin-inline-start: 0.5rem;
+  }
+
+  .talk-location {
+    font-size: var(--text-small);
+    margin-inline-start: 0.5rem;
+    color: #ebebeb;
+  }
+
+  @keyframes Wiggle {
+    0%,
+    75% {
+      transform: rotate(0deg);
+    }
+
+    25% {
+      transform: rotate(-15deg);
+    }
+
+    50% {
+      transform: rotate(15deg);
+    }
+  }
+</style>
+
+<ul>
+  {
+    talks.map(({ title, event, location, url }) => (
+      <li class:list={['talk-item', !!url && 'has-link']}>
+        <h4 class="talk-title">
+          {url ? (
+            <a href={url} target="_blank" rel="nofollow" class="talk-link">
+              {title} <IconLinkExternal class="link-icon" />
+            </a>
+          ) : (
+            title
+          )}
+        </h4>
+        <div class="talk-event">{event}</div>
+        <em class="talk-location">{location}</em>
+      </li>
+    ))
+  }
+</ul>

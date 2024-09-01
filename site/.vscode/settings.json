@@ -2,7 +2,9 @@
   "typescript.format.enable": true,
   "eslint.format.enable": true,
   "editor.formatOnSave": true,
-  "cssvar.files": [],
+  "cssvar.files": [
+    "./src/styles/variables.css",
+  ],
   "[typescript]": {
     "editor.codeLens": true,
     "editor.suggest.showReferences": true,
@@ -16,6 +18,9 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.formatOnSave": true,
   },
+  "[markdown]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -26,7 +31,7 @@
     "**/build": true,
     "**/node_modules": true,
     "**/.yarn": false,
-    "**/.astro": true,
+    "**/.astro": false,
   },
   "stylelint.validate": [
     "css",

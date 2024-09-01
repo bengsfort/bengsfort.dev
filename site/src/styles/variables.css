@@ -1,0 +1,74 @@
+:root {
+  /** Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-light: #e6e6e6;
+  --color-dark: #202020;
+  --color-grey: #2c2c2c;
+  --color-primary: #2365e1;
+  --color-primary-dark: #1a479c;
+  --color-primary-light: #4a82ed;
+  --color-accent-dark: #19253b;
+  --color-accent-light: #262736;
+  --color-vibrant-light: #6223e1;
+  --color-vibrant-dark: #37147e;
+  --color-green: #3ceb18;
+  --color-green-dark: #186309;
+  --color-teal: #00eae8;
+  --color-teal-dark: #005251;
+  --color-yellow: #f7e200;
+  --color-yellow-dark: #5c5400;
+  --color-red: #8a0029;
+  --color-red-dark: #24000b;
+
+
+
+  /** Main elements */
+  --color-bg: var(--color-dark);
+  --color-text: var(--color-light);
+
+  /** Typography */
+  --font-main: 'Poppins', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  --font-mono: 'Ubuntu Mono', monospace;
+
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-regular: 400;
+  --weight-light: 200;
+  --weight-base: var(--weight-regular);
+
+  --text-size: 22px;
+  --text-xlarge: 48px;
+  --text-large: 32px;
+  --text-small: 18px;
+  --text-xsmall: 16px;
+  --text-xxsmall: 14px;
+
+  --text-h1: 42px;
+  --text-h2: 36px;
+  --text-h3: 32px;
+  --text-h4: 28px;
+
+  /*
+   * We use a pixel value for our normal paragraph text due to some effects
+   * requiring delicate matching of it, and doing it other ways would add
+   * magic values throughout the codebase.
+   */
+  --line-height-body: calc(var(--text-size) * 1.5);
+  --line-height-tight: 1;
+  --line-height-semi-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+
+  /** Special */
+  --noice-dark: #0C0032;
+  --noice-purple: #6c2cfc;
+  --noice-magenta: #bb12fc;
+  --noice-gradient: linear-gradient(
+    90deg,
+    #6c2cfc 0%,
+    #bb12fc 100%
+  );
+
+  --twenty-grey: #222626;
+}
