@@ -26,7 +26,7 @@ jobs:
           lfs: true
 
       - name: Restore Yarn Cache 📦
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: node_modules/
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Set up Node 💣
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "yarn"
@@ -46,7 +46,7 @@ jobs:
           yarn install
 
       - name: Cache yarn 🧳
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         with:
           path: node_modules/
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
