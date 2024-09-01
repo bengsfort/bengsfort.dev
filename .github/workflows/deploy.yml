@@ -60,6 +60,7 @@ jobs:
         with:
           path: ./site
           node-version: 20
+          package-manager: yarn
   
   deploy:
     needs: build
