@@ -101,10 +101,6 @@ export class ProjectDialogElement extends HTMLElement {
     }
 
     const transition = normalizeTransitionEvent(event);
-    if (import.meta.env.DEV) {
-      console.log(`Transition started: ${transition}`);
-    }
-
     this.#_animatedEls.add(transition);
   };
 
@@ -114,20 +110,14 @@ export class ProjectDialogElement extends HTMLElement {
     }
 
     const transition = normalizeTransitionEvent(event);
-    if (import.meta.env.DEV) {
-      console.log(`Transition ended: ${transition}`);
-    }
-
     this.#_animatedEls.delete(transition);
+
     if (this.#_animatedEls.size > 0) {
       return;
     }
 
     this.#_dialog.close();
     this.#_isTransitioningOut = false;
-    if (import.meta.env.DEV) {
-      console.log('Dialog transition ended.');
-    }
   };
 }
 
