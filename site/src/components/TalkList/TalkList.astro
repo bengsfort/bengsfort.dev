@@ -3,7 +3,7 @@ import { getEntry } from 'astro:content';
 import IconLinkExternal from '../../icons/IconLinkExternal.astro';
 
 const talkList = await getEntry('talks', 'all');
-const { talks } = talkList.data;
+const { talks } = talkList?.data ?? { talks: [] };
 
 // @todo - I'm not really happy with the hover state of the
 // talk titles that are also links; would like something a bit
