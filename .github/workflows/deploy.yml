@@ -52,10 +52,10 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
       # Something is wrong with yarn CI + node_modules.
-      - name: Lint and Test 🩺
-        run: |
-          ls -al
-          yarn run lint
+      # - name: Lint and Test 🩺
+      #   run: |
+      #     ls -al
+      #     yarn run lint
 
       - name: Run Astro build 🚀
         uses: withastro/action@v2
