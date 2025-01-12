@@ -53,7 +53,9 @@ jobs:
 
       # Something is wrong with yarn CI + node_modules.
       - name: Lint and Test 🩺
-        run: yarn lint
+        run: |
+          ls -al
+          yarn run lint
 
       - name: Run Astro build 🚀
         uses: withastro/action@v2
