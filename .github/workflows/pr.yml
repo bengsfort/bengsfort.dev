@@ -45,4 +45,7 @@ jobs:
 
       # Something is wrong with node_modules runs here.
       - name: Lint and Test 🩺
-        run: yarn lint
+        run: |
+          corepack enable
+          yarn
+          yarn lint

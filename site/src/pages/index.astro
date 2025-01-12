@@ -8,6 +8,7 @@ import ProjectPreview from '../components/ProjectPreview/ProjectPreview.astro';
 
 import NoiceLogo from '../icons/LogoNoice.astro';
 import EpicLogo from '../icons/LogoEpicGames.astro';
+import OpLogo from '../icons/LogoOp.astro';
 import UnityLogo from '../icons/LogoUnity.astro';
 import TalkList from '../components/TalkList/TalkList.astro';
 import DismissableToast from '../components/DismissableToast/DismissableToast.astro';
@@ -177,18 +178,24 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 
     <p>
       Currently working at
+      <a class="jobs-link" href="https://op.fi" target="_blank">
+        <span class="jobs-link-name">OP</span>
+        <span class="jobs-link-icon" aria-hidden="true">
+          <OpLogo class="jobs-link-icon-svg" />
+        </span>
+      </a>, previously
       <a class="jobs-link" href="https://noice.com" target="_blank">
         <span class="jobs-link-name">Noice</span>
         <span class="jobs-link-icon" aria-hidden="true">
           <NoiceLogo class="jobs-link-icon-svg" />
         </span>
-      </a>, previously
+      </a>,
       <a class="jobs-link" href="https://epicgames.com/" target="_blank">
         <span class="jobs-link-name">Epic Games</span>
         <span class="jobs-link-icon" aria-hidden="true">
           <EpicLogo class="jobs-link-icon-svg" />
         </span>
-      </a> and
+      </a>, and
       <a class="jobs-link" href="https://unity3d.com/" target="_blank">
         <span class="jobs-link-name">Unity Technologies</span>
         <span class="jobs-link-icon" aria-hidden="true">
