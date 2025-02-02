@@ -1,4 +1,3 @@
-import eslintPluginAstro from 'eslint-plugin-astro';
 import tsEslint from 'typescript-eslint';
 
 import pluginPromise from 'eslint-plugin-promise';
@@ -29,14 +28,6 @@ export default [
   ...tsEslint.configs.strict,
   pluginPromise.configs['flat/recommended'],
   {
-    files: [
-      'public/**/*.js',
-      'public/**/*.ts',
-      'src/**/*.js',
-      'src/**/*.ts',
-      'src/**/*.astro',
-    ],
-    ignores: ['*.config.cjs', '.astro', '.astro/**/*'],
     rules: {
       // General
       // Code Cleanliness
@@ -156,19 +147,4 @@ export default [
     },
   },
   pluginPrettier,
-  ...eslintPluginAstro.configs.recommended,
-  // Note: Due to the layering nature of the new eslint config, the generated astro typedefs
-  // cause lint errors. Ignoring them from anywhere else causes editor issues, so we are left
-  // with targeting them directly here and overriding problematic rules.
-  //
-  // Not ideal, but it is what it is.
-  {
-    files: ['.astro/**/*'],
-    rules: {
-      '@typescript-eslint/ban-types': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/triple-slash-reference': 'off',
-      '@typescript-eslint/unified-signatures': 'off',
-    },
-  },
 ];
