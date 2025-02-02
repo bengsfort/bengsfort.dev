@@ -1,0 +1,5 @@
+{
+  "name": "@bengsfort.dev/eslint-config-flat",
+  "packageManager": "yarn@4.6.0",
+  "private": true
+}
