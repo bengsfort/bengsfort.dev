@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "workspaces": [
-    "tools/*",
-    "packages/*",
-    "site"
+    "./tools/*",
+    "./packages/*",
+    "./site"
   ],
   "scripts": {
     "dev": "yarn workspace @bengsfort/site run dev",
