@@ -9,6 +9,8 @@ import {
   WebGLRenderer,
 } from "three";
 import { DEG2RAD } from "three/src/math/MathUtils.js";
+import { InputManager } from "./input/input";
+import { InputActions } from "./input/actions";
 
 export function main(root: HTMLElement): void {
   const { width, height } = root.getBoundingClientRect();
@@ -17,6 +19,10 @@ export function main(root: HTMLElement): void {
   const renderer = new WebGLRenderer();
   renderer.setSize(width, height);
   root.appendChild(renderer.domElement);
+
+  // Input
+  const input = new InputManager<typeof InputActions>();
+  input.registerActions(InputActions);
 
   // Scene
   const scene = new Scene();
