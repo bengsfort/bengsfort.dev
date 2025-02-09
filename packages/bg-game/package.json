@@ -1,15 +1,28 @@
 {
-  "name": "bg-game",
+  "name": "@bengsfort/bg-game",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.4.0"
+  },
+  "main": "src/main.ts",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build"
   },
   "devDependencies": {
+    "@bengsfort/eslint-config-flat": "workspace:*",
+    "@types/eslint": "^8.44.7",
+    "@types/node": "^22.13.1",
+    "@types/three": "^0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint": "^9.6.0",
+    "prettier": "^3.3.2",
     "typescript": "~5.6.2",
     "vite": "^6.0.5"
+  },
+  "dependencies": {
+    "three": "^0.173.0"
   }
 }

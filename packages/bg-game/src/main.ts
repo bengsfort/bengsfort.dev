@@ -1,24 +1,43 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import {
+  BoxGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  PerspectiveCamera,
+  Scene,
+  Vector3,
+  WebGLRenderer,
+} from "three";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+function makeCube(): Mesh {
+  const geo = new BoxGeometry(1, 1, 1);
+  const mat = new MeshBasicMaterial({ color: 0xffff00 });
+  return new Mesh(geo, mat);
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+export function main(root: HTMLElement): void {
+  const { width, height } = root.getBoundingClientRect();
+
+  // Setup renderer
+  const renderer = new WebGLRenderer();
+  renderer.setSize(width, height);
+
+  // Setup placeholder scene
+  const scene = new Scene();
+  const camera = new PerspectiveCamera(75, width / height, 0.1, 1000);
+  const cube = makeCube();
+  scene.add(cube);
+
+  camera.position.z = 5;
+  camera.lookAt(new Vector3(0, 0, 0));
+
+  function tick(): void {
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+
+  renderer.setAnimationLoop(tick);
+
+  // Add to DOM
+  root.appendChild(renderer.domElement);
+}

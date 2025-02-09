@@ -27,8 +27,7 @@ export default [
   ...eslintPluginAstro.configs.recommended,
   {
     ignores: [
-      '.astro',
-      '*.config.{js,cjs}',
+      '*.config.{js,cjs,ts}',
     ],
   }
 ];

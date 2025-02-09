@@ -1,0 +1,12 @@
+html, body {
+  inline-size: 100%;
+  block-size: 100%;
+  background-color: teal;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  inline-size: 100%;
+  block-size: 100%;
+}
