@@ -1,4 +1,40 @@
-type ActionMap = Record<string, readonly string[]>;
+interface InputActionBoolean {
+  type: "boolean";
+  bindings: readonly string[];
+}
+
+interface InputActionRange {
+  type: "range";
+  minMax: [min: number, max: number];
+  bindingsNeg: readonly string[];
+  bindingsPos: readonly string[];
+}
+
+interface InputActionVectorRange {
+  type: "vector_range";
+  minMax: {
+    x: [min: number, max: number];
+    y: [min: number, max: number];
+  };
+  bindingsNeg: {
+    x: readonly string[];
+    y: readonly string[];
+  };
+  bindingsPos: {
+    x: readonly string[];
+    y: readonly string[];
+  };
+}
+
+export type InputActionDefinition =
+  | InputActionBoolean
+  | InputActionRange
+  | InputActionVectorRange;
+
+// @todo: update to work with new definitions.
+// @todo: should store each core type seperately.
+// @todo: expose mouse position/button down too (maybe need renderer for clamp coords to viewport?)
+type ActionMap = Record<string, InputActionDefinition>;
 type InputAction<Map extends ActionMap> = keyof Map;
 type InputCode<
   Map extends ActionMap,
