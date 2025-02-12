@@ -1,3 +1,5 @@
+import { Vector2 } from "three";
+
 interface InputActionBoolean {
   type: "boolean";
   bindings: readonly string[];
@@ -41,20 +43,74 @@ type InputCode<
   Action extends InputAction<Map>,
 > = Map[Action][number];
 
+const isBoolAction = (act: InputActionDefinition): act is InputActionBoolean =>
+  act.type === "boolean";
+const isRangeAction = (act: InputActionDefinition): act is InputActionRange =>
+  act.type === "range";
+const isVecRangeAction = (
+  act: InputActionDefinition,
+): act is InputActionVectorRange => act.type === "vector_range";
+
 export class InputManager<Actions extends ActionMap> {
-  #map = new Map<InputAction<Actions>, boolean>();
+  #_actions?: Actions;
+  #_bindingsMap = new Map<string, InputAction<Actions>>();
+  #_codeMap = new Map<string, boolean>();
+  #_boolActions = new Map<InputAction<Actions>, boolean>();
+  #_rangeActions = new Map<InputAction<Actions>, number>();
+  #_vecRangeActions = new Map<InputAction<Actions>, Vector2>();
+
+  #_map = new Map<InputAction<Actions>, boolean>();
   #codeMap = new Map<
     InputCode<Actions, InputAction<Actions>>,
     InputAction<Actions>
   >();
 
+  public clearActions(): void {
+    this.#_actions = undefined;
+    this.#_codeMap.clear();
+    this.#_bindingsMap.clear();
+    this.#_boolActions.clear();
+    this.#_rangeActions.clear();
+    this.#_vecRangeActions.clear();
+  }
+
   public registerActions(actions: Actions): void {
+    this.clearActions();
+
+    this.#_actions = actions;
+
     // Init code lookup maps
-    for (const [action, codes] of Object.entries(actions)) {
-      this.#map.set(action as InputAction<Actions>, false);
-      codes.forEach((code) =>
-        this.#codeMap.set(code, action as InputAction<Actions>),
-      );
+    for (const [action, definition] of Object.entries(actions)) {
+      const bindings: string[] = [];
+
+      // Determine bindings for this definition and create the initial value.
+      switch (definition.type) {
+        case "boolean":
+          bindings.push(...definition.bindings);
+          this.#_boolActions.set(action, false);
+          break;
+        case "range":
+          bindings.push(...definition.bindingsNeg, ...definition.bindingsPos);
+          this.#_rangeActions.set(action, 0);
+          break;
+        case "vector_range":
+          bindings.push(
+            ...definition.bindingsPos.x,
+            ...definition.bindingsPos.y,
+            ...definition.bindingsNeg.x,
+            ...definition.bindingsNeg.y,
+          );
+          this.#_vecRangeActions.set(action, new Vector2());
+          break;
+        default:
+          throw new Error("Invalid Input Action Definition provided");
+      }
+
+      // Cache the bindings for this action.
+      for (const bind of bindings) {
+        this.#_bindingsMap.set(bind, action);
+        this.#_codeMap.set(bind, false);
+      }
     }
 
     document.addEventListener("keydown", this.#handleKeyDown);
@@ -62,12 +118,12 @@ export class InputManager<Actions extends ActionMap> {
 
     const actionKeys = Object.keys(actions);
     actionKeys.forEach((act) =>
-      this.#map.set(act as InputAction<Actions>, false),
+      this.#_map.set(act as InputAction<Actions>, false),
     );
   }
 
   public getActionActive(action: InputAction<Actions>): boolean {
-    return this.#map.get(action) ?? false;
+    return this.#_map.get(action) ?? false;
   }
 
   #handleKeyDown = (ev: KeyboardEvent): void => {
@@ -78,7 +134,7 @@ export class InputManager<Actions extends ActionMap> {
       return;
     }
 
-    this.#map.set(code, true);
+    this.#_map.set(code, true);
   };
 
   #handleKeyUp = (ev: KeyboardEvent): void => {
@@ -89,6 +145,6 @@ export class InputManager<Actions extends ActionMap> {
       return;
     }
 
-    this.#map.set(code, false);
+    this.#_map.set(code, false);
   };
 }
