@@ -32,16 +32,13 @@ export type InputActionDefinition =
   | InputActionBoolean
   | InputActionRange
   | InputActionVectorRange;
+export type InputActionType = InputActionDefinition["type"];
 
 // @todo: update to work with new definitions.
 // @todo: should store each core type seperately.
 // @todo: expose mouse position/button down too (maybe need renderer for clamp coords to viewport?)
 type ActionMap = Record<string, InputActionDefinition>;
 type InputAction<Map extends ActionMap> = keyof Map;
-type InputCode<
-  Map extends ActionMap,
-  Action extends InputAction<Map>,
-> = Map[Action][number];
 
 const isBoolAction = (act: InputActionDefinition): act is InputActionBoolean =>
   act.type === "boolean";
@@ -51,6 +48,26 @@ const isVecRangeAction = (
   act: InputActionDefinition,
 ): act is InputActionVectorRange => act.type === "vector_range";
 
+class BadInputActionError extends Error {
+  constructor(action: string) {
+    super(`Invalid input action provided (${action})`);
+    this.name = "BadInputActionError";
+  }
+}
+
+class ActionTypeMismatchError extends Error {
+  constructor(
+    action: InputAction<ActionMap>,
+    given: InputActionType,
+    expected?: InputActionType,
+  ) {
+    super(
+      `Tried retrieving wrong action type for action "${action}" (tried type ${given}, expected ${expected ?? "unknown"})`,
+    );
+    this.name = "ActionTypeMismatchError";
+  }
+}
+
 export class InputManager<Actions extends ActionMap> {
   #_actions?: Actions;
   #_bindingsMap = new Map<string, InputAction<Actions>>();
@@ -58,12 +75,6 @@ export class InputManager<Actions extends ActionMap> {
   #_boolActions = new Map<InputAction<Actions>, boolean>();
   #_rangeActions = new Map<InputAction<Actions>, number>();
   #_vecRangeActions = new Map<InputAction<Actions>, Vector2>();
-
-  #_map = new Map<InputAction<Actions>, boolean>();
-  #codeMap = new Map<
-    InputCode<Actions, InputAction<Actions>>,
-    InputAction<Actions>
-  >();
 
   public clearActions(): void {
     this.#_actions = undefined;
@@ -115,18 +126,50 @@ export class InputManager<Actions extends ActionMap> {
 
     document.addEventListener("keydown", this.#handleKeyDown);
     document.addEventListener("keyup", this.#handleKeyUp);
-
-    const actionKeys = Object.keys(actions);
-    actionKeys.forEach((act) =>
-      this.#_map.set(act as InputAction<Actions>, false),
-    );
   }
 
-  public getActionActive(action: InputAction<Actions>): boolean {
-    return this.#_map.get(action) ?? false;
+  public getBoolAction(action: InputAction<Actions>): boolean {
+    const state = this.#_boolActions.get(action);
+    if (typeof state === "undefined") {
+      throw new ActionTypeMismatchError(
+        action as string,
+        "boolean",
+        this.#_actions?.[action]?.type,
+      );
+    }
+    return state;
+  }
+
+  public getRangeAction(action: InputAction<Actions>): number {
+    const state = this.#_rangeActions.get(action);
+    if (typeof state === "undefined") {
+      throw new ActionTypeMismatchError(
+        action as string,
+        "range",
+        this.#_actions?.[action]?.type,
+      );
+    }
+    return state;
+  }
+
+  public getVectorRangeAction(action: InputAction<Actions>): Vector2 {
+    const state = this.#_vecRangeActions.get(action);
+    if (typeof state === "undefined") {
+      throw new ActionTypeMismatchError(
+        action as string,
+        "vector_range",
+        this.#_actions?.[action]?.type,
+      );
+    }
+    return state;
   }
 
   #handleKeyDown = (ev: KeyboardEvent): void => {
+    const code = this.#_codeMap.get(ev.code);
+    if (!code) {
+      return;
+    }
+
     const code = this.#codeMap.get(
       ev.code as InputCode<Actions, InputAction<Actions>>,
     );
