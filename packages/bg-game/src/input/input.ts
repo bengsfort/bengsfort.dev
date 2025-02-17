@@ -14,9 +14,9 @@ interface InputActionRange {
 
 interface InputActionVectorRange {
   type: "vector_range";
-  minMax: {
-    x: [min: number, max: number];
-    y: [min: number, max: number];
+  range: {
+    min: { x: number; y: number };
+    max: { x: number; y: number };
   };
   bindingsNeg: {
     x: readonly string[];
@@ -39,14 +39,6 @@ export type InputActionType = InputActionDefinition["type"];
 // @todo: expose mouse position/button down too (maybe need renderer for clamp coords to viewport?)
 type ActionMap = Record<string, InputActionDefinition>;
 type InputAction<Map extends ActionMap> = keyof Map;
-
-const isBoolAction = (act: InputActionDefinition): act is InputActionBoolean =>
-  act.type === "boolean";
-const isRangeAction = (act: InputActionDefinition): act is InputActionRange =>
-  act.type === "range";
-const isVecRangeAction = (
-  act: InputActionDefinition,
-): act is InputActionVectorRange => act.type === "vector_range";
 
 class BadInputActionError extends Error {
   constructor(action: string) {
@@ -100,10 +92,12 @@ export class InputManager<Actions extends ActionMap> {
           bindings.push(...definition.bindings);
           this.#_boolActions.set(action, false);
           break;
+
         case "range":
           bindings.push(...definition.bindingsNeg, ...definition.bindingsPos);
           this.#_rangeActions.set(action, 0);
           break;
+
         case "vector_range":
           bindings.push(
             ...definition.bindingsPos.x,
@@ -113,8 +107,9 @@ export class InputManager<Actions extends ActionMap> {
           );
           this.#_vecRangeActions.set(action, new Vector2());
           break;
+
         default:
-          throw new Error("Invalid Input Action Definition provided");
+          throw new BadInputActionError(action);
       }
 
       // Cache the bindings for this action.
@@ -165,19 +160,51 @@ export class InputManager<Actions extends ActionMap> {
   }
 
   #handleKeyDown = (ev: KeyboardEvent): void => {
-    const code = this.#_codeMap.get(ev.code);
-    if (!code) {
+    const keyCode = ev.code;
+
+    // Make sure we care about this particular key being pressed.
+    // 1. Grab action name from bindings map
+    // 2. Grab action from action map.
+    // If either fail, ignore the key press.
+    const actionName = this.#_bindingsMap.get(keyCode);
+    if (!actionName) {
       return;
     }
 
-    const code = this.#codeMap.get(
-      ev.code as InputCode<Actions, InputAction<Actions>>,
-    );
-    if (!code) {
+    const action = this.#_actions?.[actionName];
+    if (!action) {
       return;
     }
 
-    this.#_map.set(code, true);
+    // Before type-specific handling, cache that the key is down.
+    this.#_codeMap.set(keyCode, true);
+
+    switch (action.type) {
+      case "boolean":
+        this.#_boolActions.set(actionName, true);
+        break;
+
+      case "range":
+        const current = this.#_rangeActions.get(actionName) ?? 0;
+        const modifier = action.bindingsPos.includes(keyCode) ? 1 : -1;
+        this.#_rangeActions.set(actionName, current + modifier);
+        break;
+
+      case "vector_range":
+        const vector = this.#_vecRangeActions.get(actionName) ?? new Vector2();
+        const xModifier = action.bindingsPos.x.includes(keyCode) ? 1 : -1;
+        const yModifier = action.bindingsPos.y.includes(keyCode) ? 1 : -1;
+        vector.x += xModifier;
+        vector.y += yModifier;
+        this.#_vecRangeActions.set(
+          actionName,
+          vector.clamp(action.range.min, action.range.max).normalize(),
+        );
+        break;
+
+      default:
+        return;
+    }
   };
 
   #handleKeyUp = (ev: KeyboardEvent): void => {
