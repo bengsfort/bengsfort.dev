@@ -37,7 +37,7 @@ export type InputActionType = InputActionDefinition["type"];
 // @todo: update to work with new definitions.
 // @todo: should store each core type seperately.
 // @todo: expose mouse position/button down too (maybe need renderer for clamp coords to viewport?)
-type ActionMap = Record<string, InputActionDefinition>;
+export type ActionMap = Record<string, InputActionDefinition>;
 type InputAction<Map extends ActionMap> = keyof Map;
 
 class BadInputActionError extends Error {
@@ -208,13 +208,45 @@ export class InputManager<Actions extends ActionMap> {
   };
 
   #handleKeyUp = (ev: KeyboardEvent): void => {
-    const code = this.#codeMap.get(
-      ev.code as InputCode<Actions, InputAction<Actions>>,
-    );
-    if (!code) {
+    const keyCode = ev.code;
+
+    const actionName = this.#_bindingsMap.get(keyCode);
+    if (!actionName) {
       return;
     }
 
-    this.#_map.set(code, false);
+    const action = this.#_actions?.[actionName];
+    if (!action) {
+      return;
+    }
+
+    this.#_codeMap.set(keyCode, false);
+
+    switch (action.type) {
+      case "boolean":
+        this.#_boolActions.set(actionName, false);
+        break;
+
+      case "range":
+        const current = this.#_rangeActions.get(actionName) ?? 0;
+        const modifier = action.bindingsPos.includes(keyCode) ? -1 : 1;
+        this.#_rangeActions.set(actionName, current + modifier);
+        break;
+
+      case "vector_range":
+        const vector = this.#_vecRangeActions.get(actionName) ?? new Vector2();
+        const xModifier = action.bindingsPos.x.includes(keyCode) ? -1 : 1;
+        const yModifier = action.bindingsPos.y.includes(keyCode) ? -1 : 1;
+        vector.x += xModifier;
+        vector.y += yModifier;
+        this.#_vecRangeActions.set(
+          actionName,
+          vector.clamp(action.range.min, action.range.max).normalize(),
+        );
+        break;
+
+      default:
+        return;
+    }
   };
 }
