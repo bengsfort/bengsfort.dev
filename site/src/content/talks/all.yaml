@@ -1,4 +1,9 @@
 talks:
+  - title: "Making IPC less painful"
+    event: "HelsinkiJS November 2025"
+    url: "https://ipc.bengsfort.dev/"
+    location: "Helsinki, Finland"
+
   - title: "Host of Games Now! Game Jam"
     event: "Games Now! Game Jam 2019"
     location: "Helsinki, Finland"
