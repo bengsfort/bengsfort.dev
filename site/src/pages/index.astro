@@ -137,6 +137,31 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     }
   }
 
+  #footer {
+    padding-block: 2rem;
+    text-align: center;
+
+    p {
+      text-align: center;
+      font-size: var(--text-xsmall);
+    }
+
+    .stats-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      font-size: var(--text-xxsmall);
+      text-decoration: none;
+      color: var(--color-text);
+    }
+
+    .stats-img {
+      block-size: 0.725rem;
+      inline-size: 0.725rem;
+    }
+  }
+
   .mobile-warning {
     display: none;
     inline-size: 100%;
@@ -238,6 +263,18 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
         to do to it, time permitting. Please keep checking back to see it evolve!
       </p>
     </section>
+
+    <footer class="content-grid" id="footer">
+      <p>Copyright 2026 &copy; Bengsfort Development Oy</p>
+      <a href="https://librecounter.org/referer/show" class="stats-link">
+        <img
+          src="https://librecounter.org/counter.svg"
+          referrerpolicy="unsafe-url"
+          alt="Logo for librecounter"
+          class="stats-img"
+        /> Site stats via LibreCounter
+      </a>
+    </footer>
   </main>
 
   <div class="mobile-warning">
