@@ -10,6 +10,8 @@ import NoiceLogo from '../icons/LogoNoice.astro';
 import EpicLogo from '../icons/LogoEpicGames.astro';
 import OpLogo from '../icons/LogoOp.astro';
 import UnityLogo from '../icons/LogoUnity.astro';
+import LogoSupercell from '../icons/LogoSupercell.astro';
+
 import TalkList from '../components/TalkList/TalkList.astro';
 import DismissableToast from '../components/DismissableToast/DismissableToast.astro';
 
@@ -144,6 +146,8 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
     p {
       text-align: center;
       font-size: var(--text-xsmall);
+      line-height: 1.2;
+      margin: 0;
     }
 
     .stats-link {
@@ -203,10 +207,10 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 
     <p>
       Currently working at
-      <a class="jobs-link" href="https://op.fi" target="_blank">
-        <span class="jobs-link-name">OP</span>
+      <a class="jobs-link" href="https://supercell.com" target="_blank">
+        <span class="jobs-link-name">Supercell</span>
         <span class="jobs-link-icon" aria-hidden="true">
-          <OpLogo class="jobs-link-icon-svg" />
+          <LogoSupercell class="jobs-link-icon-svg" />
         </span>
       </a>, previously
       <a class="jobs-link" href="https://noice.com" target="_blank">
@@ -266,6 +270,7 @@ const sourceLink = `https://github.com/bengsfort/bengsfort.dev`;
 
     <footer class="content-grid" id="footer">
       <p>Copyright 2026 &copy; Bengsfort Development Oy</p>
+      <p>Workplace logos are copyright of their respective owners.</p>
       <a href="https://librecounter.org/referer/show" class="stats-link">
         <img
           src="https://librecounter.org/counter.svg"
