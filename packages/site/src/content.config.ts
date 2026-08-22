@@ -1,13 +1,20 @@
 import { defineCollection } from 'astro:content';
-import { ProjectSchema, TalkSchema, WorkSchema } from '../schemas';
+import { ProjectSchema, TalkSchema, WorkSchema } from './schemas';
+import { glob } from 'astro/loaders';
 
 const work = defineCollection({
-  type: 'content',
+  loader: glob({
+    pattern: '**/[^_-]*.{md,mdx}',
+    base: './src/content/work',
+  }),
   schema: WorkSchema,
 });
 
 const projects = defineCollection({
-  type: 'content',
+  loader: glob({
+    pattern: '**/[^_-]*.{md,mdx}',
+    base: './src/content/projects',
+  }),
   schema: ({ image }) => ProjectSchema(image),
 });
 

@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { type CollectionEntry, render } from 'astro:content';
 import ProjectDetailVideo from './ProjectDetailVideo.astro';
 
 interface Props {
@@ -27,7 +27,7 @@ if (joinedProjectType === 'desktop site') {
   joinedProjectType = 'Website';
 }
 
-const { Content } = await project.render();
+const { Content } = await render(project);
 ---
 
 <style>
