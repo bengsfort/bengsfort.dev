@@ -31,3 +31,9 @@ export const TalkSchema = z.object({
   location: z.string(),
   url: z.string().optional(),
 });
+
+export const ArchivedPostSchema = z.object({
+  title: z.string(),
+  date: z.coerce.date(),
+  desciption: z.string().optional(),
+});

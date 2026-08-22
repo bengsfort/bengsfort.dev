@@ -1,5 +1,5 @@
 import { defineCollection } from 'astro:content';
-import { ProjectSchema, TalkSchema, WorkSchema } from './schemas';
+import { ArchivedPostSchema, ProjectSchema, TalkSchema, WorkSchema } from './schemas';
 import { file, glob } from 'astro/loaders';
 
 const work = defineCollection({
@@ -23,4 +23,12 @@ const talks = defineCollection({
   schema: TalkSchema,
 });
 
-export const collections = { work, projects, talks };
+const archives = defineCollection({
+  loader: glob({
+    pattern: '**/[^_-]*.{md,mdx}',
+    base: './src/content/archives',
+  }),
+  schema: ArchivedPostSchema,
+});
+
+export const collections = { work, projects, talks, archives };
