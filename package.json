@@ -8,6 +8,7 @@
     "build": "pnpm run --filter=\"@bengsfort/site\"  build",
     "preview": "pnpm run --filter=\"@bengsfort/site\" preview",
     "lint": "pnpm run --filter=\"@bengsfort/site\" lint",
+    "check": "pnpm run --filter=\"@bengsfort/site\" check",
     "lint:fix": "pnpm run --filter=\"@bengsfort/site\" lint:fix"
   },
   "engines": {

@@ -30,6 +30,9 @@ jobs:
       - name: Run linting
         run: pnpm lint
 
+      - name: Run astro check
+        run: pnpm check
+
   build:
     name: Build check
     runs-on: ubuntu-latest
