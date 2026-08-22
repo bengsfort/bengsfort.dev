@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm run --filter=\"@bengsfort/site\" dev",
-    "build": "yarn run --filter=\"@bengsfort/site\"  build",
-    "preview": "yarn run --filter=\"@bengsfort/site\" preview",
-    "lint": "yarn run --filter=\"@bengsfort/site\" lint",
-    "lint:fix": "yarn --filter=\"@bengsfort/site\" lint:fix"
+    "build": "pnpm run --filter=\"@bengsfort/site\"  build",
+    "preview": "pnpm run --filter=\"@bengsfort/site\" preview",
+    "lint": "pnpm run --filter=\"@bengsfort/site\" lint",
+    "lint:fix": "pnpm run --filter=\"@bengsfort/site\" lint:fix"
   },
   "engines": {
     "node": ">=24.18.0"
