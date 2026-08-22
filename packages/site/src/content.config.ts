@@ -1,6 +1,6 @@
 import { defineCollection } from 'astro:content';
 import { ProjectSchema, TalkSchema, WorkSchema } from './schemas';
-import { glob } from 'astro/loaders';
+import { file, glob } from 'astro/loaders';
 
 const work = defineCollection({
   loader: glob({
@@ -19,7 +19,7 @@ const projects = defineCollection({
 });
 
 const talks = defineCollection({
-  type: 'data',
+  loader: file('./src/content/talks.json'),
   schema: TalkSchema,
 });
 

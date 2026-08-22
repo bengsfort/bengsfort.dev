@@ -26,12 +26,8 @@ export const ProjectSchema = (image: ImageFunction) =>
   });
 
 export const TalkSchema = z.object({
-  talks: z.array(
-    z.object({
-      title: z.string(),
-      event: z.string(),
-      location: z.string(),
-      url: z.string().optional(),
-    }),
-  ),
+  title: z.string(),
+  event: z.string(),
+  location: z.string(),
+  url: z.string().optional(),
 });
