@@ -3,23 +3,24 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": ">=20.4.0"
+    "node": ">=24.18.0"
   },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "check": "astro check",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm run lint --fix",
     "format": "prettier \"./*/config.js\" src \"public/**/*.{js,ts,css,html,astro}\" \"public\"",
-    "format:check": "yarn format --check",
-    "format:write": "yarn format --write"
+    "format:check": "pnpm run format --check",
+    "format:write": "pnpm run format --write"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.4",
-    "astro": "5.1.5",
+    "@astrojs/check": "0.9.10",
+    "astro": "7.2.4",
     "typescript": "^5.5.3"
   },
   "devDependencies": {
@@ -34,6 +35,7 @@
     "postcss-nested": "^6.0.1",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.14.0",
+    "sharp": "^0.35.3",
     "typescript-eslint": "^7.16.0"
   }
 }

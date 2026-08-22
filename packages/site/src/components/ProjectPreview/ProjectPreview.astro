@@ -11,7 +11,7 @@ const { project } = Astro.props;
 const { title, platform, type, assets: _, url, previewImg } = project.data;
 
 const projectDescription = `${platform} ${type.join('/')} project - ${title}`;
-const projectModalId = `${project.slug}-modal`;
+const projectModalId = `${project.id}-modal`;
 ---
 
 <style>

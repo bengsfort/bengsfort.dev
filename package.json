@@ -1,20 +1,17 @@
 {
   "name": "bengsfort.dev",
-  "packageManager": "yarn@4.6.0",
+  "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "packages/*",
-    "site"
-  ],
   "scripts": {
-    "dev": "yarn workspace @bengsfort/site run dev",
-    "build": "yarn workspace @bengsfort/site run build",
-    "preview": "yarn workspace @bengsfort/site run preview",
-    "lint": "yarn workspace @bengsfort/site run lint",
-    "lint:fix": "yarn workspace @bengsfort/site run lint:fix"
+    "dev": "pnpm run --filter=\"@bengsfort/site\" dev",
+    "build": "pnpm run --filter=\"@bengsfort/site\"  build",
+    "preview": "pnpm run --filter=\"@bengsfort/site\" preview",
+    "lint": "pnpm run --filter=\"@bengsfort/site\" lint",
+    "check": "pnpm run --filter=\"@bengsfort/site\" check",
+    "lint:fix": "pnpm run --filter=\"@bengsfort/site\" lint:fix"
   },
   "engines": {
-    "node": ">=20.4.0"
+    "node": ">=24.18.0"
   }
 }

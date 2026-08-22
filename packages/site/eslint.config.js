@@ -23,8 +23,6 @@ import pluginPrettier from 'eslint-plugin-prettier/recommended';
  * - @typescript-eslint/naming-convention (noooooo)
  * - @typescript-eslint/consistent-type-exports
  */
-
-/** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   ...tsEslint.configs.strict,
   pluginPromise.configs['flat/recommended'],

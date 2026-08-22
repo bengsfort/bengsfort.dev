@@ -1,4 +1,5 @@
-import { type ImageFunction, z } from 'astro:content';
+import { type ImageFunction } from 'astro:content';
+import { z } from 'astro/zod';
 
 const dateStr = z.string().transform((str) => new Date(str));
 
@@ -25,12 +26,8 @@ export const ProjectSchema = (image: ImageFunction) =>
   });
 
 export const TalkSchema = z.object({
-  talks: z.array(
-    z.object({
-      title: z.string(),
-      event: z.string(),
-      location: z.string(),
-      url: z.string().optional(),
-    }),
-  ),
+  title: z.string(),
+  event: z.string(),
+  location: z.string(),
+  url: z.string().optional(),
 });
