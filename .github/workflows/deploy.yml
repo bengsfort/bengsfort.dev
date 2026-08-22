@@ -16,54 +16,31 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  NODE_VERSION: 24
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 💾
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
           lfs: true
 
-      - name: Restore Yarn Cache 📦
-        uses: actions/cache/restore@v4
+      - name: Setup pnpm/node ${{ env.NODE_VERSION }}
+        uses: pnpm/setup@v2
         with:
-          path: node_modules/
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          runtime: node@${{ env.NODE_VERSION }}
+          cache: true
 
-      - name: Set up Node 💣
-        uses: actions/setup-node@v4
+      - name: Build Astro site
+        uses: withastro/action@v6
         with:
-          node-version: 20
-          cache: "yarn"
-          cache-dependency-path: yarn.lock
+          path: ./packages/site
+          node-version: ${{ env.NODE_VERSION }}
+          package-manager: pnpm
 
-      - name: Install dependencies ⏳
-        run: |
-          corepack enable
-          yarn install
-
-      - name: Cache yarn 🧳
-        uses: actions/cache/save@v4
-        with:
-          path: node_modules/
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-
-      # Something is wrong with yarn CI + node_modules.
-      # - name: Lint and Test 🩺
-      #   run: |
-      #     ls -al
-      #     yarn run lint
-
-      - name: Run Astro build 🚀
-        uses: withastro/action@v2
-        with:
-          path: ./site
-          node-version: 20
-          package-manager: yarn
-  
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -73,4 +50,4 @@ jobs:
     steps:
       - name: Deploy to gh pages 🥁
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
