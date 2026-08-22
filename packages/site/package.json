@@ -12,14 +12,14 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm run lint --fix",
     "format": "prettier \"./*/config.js\" src \"public/**/*.{js,ts,css,html,astro}\" \"public\"",
-    "format:check": "yarn format --check",
-    "format:write": "yarn format --write"
+    "format:check": "pnpm run format --check",
+    "format:write": "pnpm run format --write"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.4",
-    "astro": "5.1.5",
+    "@astrojs/check": "0.9.10",
+    "astro": "7.2.4",
     "typescript": "^5.5.3"
   },
   "devDependencies": {
