@@ -1,4 +1,5 @@
-import { type ImageFunction, z } from 'astro:content';
+import { type ImageFunction } from 'astro:content';
+import { z } from 'astro/zod';
 
 const dateStr = z.string().transform((str) => new Date(str));
 
