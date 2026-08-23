@@ -1,7 +1,8 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArchivesLayout from '../../layouts/ArchivesLayout.astro';
+import { formatterArticleDate } from '../../utils/formatting.ts';
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection('archives');
@@ -15,7 +16,26 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout pageTitle={post.data.title}>
-  <h1>{post.data.title}</h1>
-  <Content />
-</BaseLayout>
+<style>
+  .archives-post {
+    --font-main: var(--font-mono);
+    --text-size: var(--text-small);
+    --line-height-body: var(--line-height-normal);
+
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+  }
+</style>
+
+<ArchivesLayout pageTitle={post.data.title}>
+  <article class="archives-post">
+    <header>
+      <h1>{post.data.title}</h1>
+      <div>
+        Originally posted on {formatterArticleDate.format(post.data.date)}
+      </div>
+    </header>
+    <Content />
+  </article>
+</ArchivesLayout>

@@ -97,7 +97,7 @@
     line-height: 1.5;
   }
 
-  :where(p + p) {
+  :where(p + p, p + ol, p + ul, ol + p, ul + p) {
     /* stylelint-disable-next-line unit-allowed-list */
     margin-block-start: 0.5em;
   }

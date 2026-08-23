@@ -36,7 +36,7 @@ Hi aesinv! You've successfully authenticated, but GitHub does not provide shell 
 
 It was like finding a radio linked directly to the forrest rangers after being lost in the forrest for 2 weeks, it was absolutely beautiful. I went ahead and followed the second step listed on the article, which was to update my ssh config to route github connections through the HTTPS port.
 
-```conf
+```apache
 # ~/.ssh/config
 Host github.com
     Hostname ssh.github.com

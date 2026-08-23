@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  pageTitle?: string;
+}
+
+const { pageTitle } = Astro.props;
+---
+
+<style>
+  .navbar {
+    background-color: white;
+  }
+</style>
+
+<BaseLayout pageTitle={pageTitle}>
+  <header class="navbar">
+    <a href="/" rel="author me">bengsfort.dev</a> / archives_
+  </header>
+
+  <slot />
+</BaseLayout>
